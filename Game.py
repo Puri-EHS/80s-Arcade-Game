@@ -1,51 +1,75 @@
 import pygame
+import sys
+
+# Initialize Pygame
 pygame.init()
 
+# Constants
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+BLACK = (0, 0, 0)
+BLUE = (0, 0, 255)
 
-screen_width = 800
-screen_height = 600
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Pygame UI with Background")
+# Initialize the screen
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Street Fighter with a Twist ")
 
-##colors
-white = (255, 255, 255)
-black = (0, 0, 0)
-font = pygame.font.Font(None, 36)
-
-background_image1 = pygame.image.load("testimage.jpg")
-background_image1 = pygame.transform.scale(background_image1, (screen_width, screen_height))
-background_image2 = pygame.image.load("characterscreen.jpg")
-background_image2 = pygame.transform.scale(background_image2, (screen_width, screen_height))
-
-def draw_button(x, y, width, height, color, text, text_color):
-    pygame.draw.rect(screen, color, (x, y, width, height))
-    button_text = font.render(text, True, text_color)
-    button_text_rect = button_text.get_rect(center=(x + width / 2, y + height / 2))
-    screen.blit(button_text, button_text_rect)
-    return pygame.Rect(x, y, width, height)
-
-def main():
-    current_background = background_image1
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                mouse_pos = pygame.mouse.get_pos()
-                button1_rect = draw_button(300, 500, 200, 50, black, "Start", white)
-                button2_rect = draw_button(575, 500, 200, 50, black, "Button 2", white)
-                if button1_rect.collidepoint(mouse_pos):
-                    current_background = background_image2
-                elif button2_rect.collidepoint(mouse_pos):
-                    current_background = background_image2
+# Screen flags
+current_screen = 1
+button_index = 0
 
 
-        screen.blit(current_background, (0, 0))
-        draw_button(300, 500, 200, 50, black, "Start", white)
-        draw_button(575, 500, 200, 50, black, "Button 2", white)
-        pygame.display.update()
-    pygame.quit()
+# Button data for Screen 2
+buttons_screen2 = ["Green", "Yellow", "Blue"]
 
-if __name__ == "__main__":
-    main()
+def draw_screen1():
+    screen.fill(BLACK)
+    font = pygame.font.Font(None, 48)
+    text_surface = font.render("Press Enter to go to Screen 2", True, (255, 255, 255))
+    text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+    screen.blit(text_surface, text_rect)
+
+def draw_screen2():
+    screen.fill(BLUE)
+    button_height = 200
+    y = 150
+    for i, text in enumerate(buttons_screen2):
+        rect = pygame.Rect(100, y, SCREEN_WIDTH - 200, button_height)
+        if i == button_index:
+            pygame.draw.rect(screen, (255, 255, 255), rect)
+        pygame.draw.rect(screen, (0, 255, 0), rect, 3)
+        font = pygame.font.Font(None, 36)
+        text_surface = font.render(text, True, (0, 255, 0))
+        text_rect = text_surface.get_rect(center=rect.center)
+        screen.blit(text_surface, text_rect)
+        y += button_height + 10
+
+# Main loop
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN:
+            if current_screen == 1 and event.key == pygame.K_RETURN:
+                current_screen = 2
+                button_index = 0
+            elif current_screen == 2:
+                if event.key == pygame.K_DOWN:
+                    button_index = (button_index + 1) % len(buttons_screen2)
+                elif event.key == pygame.K_UP:
+                    button_index = (button_index - 1) % len(buttons_screen2)
+                elif event.key == pygame.K_RETURN:
+                    # Add code to perform actions when a button is selected
+                    print(f"Button '{buttons_screen2[button_index]}' selected.")
+
+    if current_screen == 1:
+        draw_screen1()
+    elif current_screen == 2:
+        draw_screen2()
+
+    pygame.display.flip()
+
+# Quit Pygame
+pygame.quit()
+sys.exit()
