@@ -45,10 +45,7 @@ while running:
                     button_selected_text = font.render((f"Button '{buttons_screen2[game_screen.button_pos[0] + game_screen.button_pos[1]*4]}' selected."), True, (0,0,255))
                     game_screen.blit(button_selected_text, (0, 0))
 
-    if game_screen.current_screen == 0:
-        game_screen.start_screen()
-    elif game_screen.current_screen == 1:
-        game_screen.champ_select_screen(events, players)
+    game_screen.update_screen(events, players)
 
     pygame.display.flip()
 
