@@ -38,13 +38,18 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                if game_screen.current_screen == 0:
+                if game_screen.current_screen != 3 or game_screen.current_screen != 1:
                     game_screen.current_screen += 1
             elif game_screen.current_screen == 1:
                 if event.key == pygame.K_RETURN:
                     # Add code to perform actions when a button is selected
-                    print(f"Button '{buttons_screen2[game_screen.button_pos[0] + game_screen.button_pos[1]*4]}' selected.")
-    game_screen.update_screen(events, players)
+                    button_selected_text = font.render((f"Button '{buttons_screen2[game_screen.button_pos[0] + game_screen.button_pos[1]*4]}' selected."), True, (0,0,255))
+                    game_screen.blit(button_selected_text, (0, 0))
+
+    if game_screen.current_screen == 0:
+        game_screen.start_screen()
+    elif game_screen.current_screen == 1:
+        game_screen.champ_select_screen(events, players)
 
     pygame.display.flip()
 
