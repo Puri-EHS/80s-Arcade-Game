@@ -30,6 +30,8 @@ class screenState():
             self.champ_select_screen(events, players)
         elif self.current_screen == 2:
             self.map_select_screen(events)
+        elif self.current_screen == 3:
+            self.fight_screen()
 
     def start_screen(self):
         start_text = self.font.render("PRESS SPACE TO START", 1, (0, 0, 0))
@@ -59,7 +61,7 @@ class screenState():
         self.draw_select_boxes(False)
 
     def fight_screen(self):
-
+        self.game_screen.fill(BLUE)
 
     def draw_select_boxes(self, char: bool):
         self.game_screen.fill(BLACK)

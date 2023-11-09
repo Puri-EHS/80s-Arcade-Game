@@ -43,7 +43,7 @@ while running:
                 if event.key == pygame.K_RETURN:
                     # Add code to perform actions when a button is selected
                     button_selected_text = font.render((f"Button '{buttons_screen2[game_screen.button_pos[0] + game_screen.button_pos[1]*4]}' selected."), True, (0,0,255))
-                    game_screen.blit(button_selected_text, (0, 0))
+                    screen.blit(button_selected_text, (0, 0))
 
     game_screen.update_screen(events, players)
 
