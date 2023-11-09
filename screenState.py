@@ -1,5 +1,6 @@
 import pygame
 import os
+from playerState import playerState
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -20,7 +21,6 @@ class screenState():
         self.char_selected = 0
         self.char_buttons = ["Green", "Yellow", "Blue", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-        self.map_buttons = []
         self.map_selected = None
 
     def update_screen(self, events, players):
@@ -56,7 +56,10 @@ class screenState():
                 if self.select_controls(event.key):
                     self.map_selected = self.map_buttons[self.button_pos[0] + self.button_pos[1]*4]
                     self.current_screen += 1
-        self.draw_select_boxes(True)
+        self.draw_select_boxes(False)
+
+    def fight_screen(self):
+
 
     def draw_select_boxes(self, char: bool):
         self.game_screen.fill(BLACK)
