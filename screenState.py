@@ -44,6 +44,7 @@ class screenState():
             if event.type == pygame.KEYDOWN:
                 if self.select_controls(event.key):
                     players[f"{self.char_selected}"] = self.char_buttons[self.button_pos[0] + self.button_pos[1]*4]
+                    self.char_selected += 1
                     if self.char_selected == 2:
                         self.current_screen += 1
         self.draw_select_boxes(True)
