@@ -14,12 +14,22 @@ class screenState():
         self.background_image1 = pygame.image.load(os.path.join('Backgrounds', "testimage.jpg"))
         self.background_image1 = pygame.transform.scale(self.background_image1, (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.current_screen = 0
+        self.map_selected = None
         self.screens = []
         self.button_pos = [0, 0]
         self.char_selected = 0
         self.char_buttons = ["Green", "Yellow", "Blue", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+        self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.map_buttons = []
         self.map_selected = None
+
+    def update_screen(self, events, players):
+        if self.current_screen == 0:
+            self.start_screen()
+        elif self.current_screen == 1:
+            self.champ_select_screen(events, players)
+        elif self.current_screen == 2:
+            self.map_select_screen(events)
 
     def start_screen(self):
         start_text = self.font.render("PRESS SPACE TO START", 1, (0, 0, 0))
@@ -34,6 +44,8 @@ class screenState():
             if event.type == pygame.KEYDOWN:
                 if self.select_controls(event.key):
                     players[f"{self.char_selected}"] = self.char_buttons[self.button_pos[0] + self.button_pos[1]*4]
+                    if self.char_selected == 2:
+                        self.current_screen += 1
         self.draw_select_boxes(True)
         return players
 
@@ -41,9 +53,9 @@ class screenState():
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if self.select_controls(event.key):
-                    map_selected = self.map_buttons[self.button_pos[0] + self.button_pos[1]*4]
+                    self.map_selected = self.map_buttons[self.button_pos[0] + self.button_pos[1]*4]
+                    self.current_screen += 1
         self.draw_select_boxes(True)
-        return map_selected
 
     def draw_select_boxes(self, char: bool):
         self.game_screen.fill(BLACK)
@@ -57,9 +69,12 @@ class screenState():
                 pygame.draw.rect(self.game_screen, (0, 255, 0), rect, 3)
                 if char:
                     text_surface = self.font.render(self.char_buttons[(i*4) + j], True, (0, 255, 0))
-                    text_rect = text_surface.get_rect(center=rect.center)
                     self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', 'IMG_878' + str(i + 1) + '.gif')), rect)
-                    self.game_screen.blit(text_surface, text_rect)
+                else:
+                    text_surface = self.font.render(self.map_buttons[(i*4) + j], True, (0, 255, 0))
+                    self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', 'IMG_878' + str(i + 1) + '.gif')), rect)
+                text_rect = text_surface.get_rect(center=rect.center)
+                self.game_screen.blit(text_surface, text_rect)
                 x += 150
             x = 100
             y += 150
