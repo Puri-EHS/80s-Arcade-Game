@@ -22,8 +22,6 @@ game_screen = screenState(screen)
 
 # Screen flags
 
-background_image1 = pygame.image.load("testimage.jpg")
-background_image1 = pygame.transform.scale(background_image1, (SCREEN_WIDTH, SCREEN_HEIGHT))
 font = pygame.font.Font(None, 36)
 
 

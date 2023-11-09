@@ -1,4 +1,5 @@
 import pygame
+import os
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -10,7 +11,7 @@ class screenState():
     def __init__(self, game_screen) -> None:
         self.game_screen = game_screen
         self.font = pygame.font.Font(None, 36)
-        self.background_image1 = pygame.image.load("testimage.jpg")
+        self.background_image1 = pygame.image.load(os.path.join('Backgrounds', "testimage.jpg"))
         self.background_image1 = pygame.transform.scale(self.background_image1, (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.current_screen = 0
         self.screens = []
@@ -57,11 +58,12 @@ class screenState():
                 if char:
                     text_surface = self.font.render(self.char_buttons[(i*4) + j], True, (0, 255, 0))
                     text_rect = text_surface.get_rect(center=rect.center)
-                    self.game_screen.blit(pygame.image.load(f"IMG_878{i + 1}.gif"), rect)
+                    self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', 'IMG_878' + str(i + 1) + '.gif')), rect)
                     self.game_screen.blit(text_surface, text_rect)
                 x += 150
             x = 100
             y += 150
+
 
     def select_controls(self, key):
         if key == pygame.K_DOWN:
