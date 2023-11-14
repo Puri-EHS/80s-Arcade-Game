@@ -73,7 +73,7 @@ class screenState():
             for j in range(4):
                 rect = pygame.Rect(x, y, 120, 100)
                 if i == self.button_pos[1] and j == self.button_pos[0]:
-                    pygame.draw.rect(self.game_screen, (255, 255, 255), rect)
+                    pygame.draw.rect(self.game_screen, (0, 0, 255), rect)
                 pygame.draw.rect(self.game_screen, (0, 255, 0), rect, 3)
                 if char:
                     text_surface = self.font.render(self.char_buttons[(i*4) + j], True, (0, 255, 0))
