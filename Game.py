@@ -37,7 +37,7 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                if game_screen.current_screen != 3 or game_screen.current_screen != 1:
+                if game_screen.current_screen != 3 and game_screen.current_screen != 1:
                     game_screen.current_screen += 1
             elif game_screen.current_screen == 1:
                 if event.key == pygame.K_RETURN:
