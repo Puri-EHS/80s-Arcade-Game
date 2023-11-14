@@ -21,9 +21,10 @@ class screenState():
         self.rect = pygame.Rect(100, 150, 120, 100)
         self.screens = []
         self.button_pos = [0, 0]
-        self.char_selected = []
-        self.num_char_selected = 0
+        self.char_selected = 0
         self.char_buttons = ["Balrog", "Blanka", "Chun Li", "Chalsim", "E Honda", "Guile", "Ken", "M Bison", "Ryu", "Sagat", "Vega", "Vega"]
+        self.num_char_selected = 0
+        self.map_testing = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.map_selected = BLUE
 
@@ -33,7 +34,8 @@ class screenState():
         elif self.current_screen == 1:
             self.champ_select_screen(events, players)
         elif self.current_screen == 2:
-            self.map_select_screen(events)
+            # self.map_select_screen(events)
+            self.map_carousel_select_screen(events)
         elif self.current_screen == 3:
             self.fight_screen()
 
@@ -65,6 +67,18 @@ class screenState():
                     self.current_screen += 1
         self.draw_select_boxes(False)
 
+    def map_carousel_select_screen(self, events):
+        for event in events: 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.current_map += 1
+                if event.key == pygame.K_LEFT:
+                    self.current_map -= 1
+        self.draw_map_boxes(self.current_map)
+                    
+
+    
+
     def fight_screen(self):
         self.game_screen.blit(self.map_selected)
 
@@ -90,7 +104,6 @@ class screenState():
                 x += 150
             x = 125
             y += 150
-        
     def draw_selected_char(self):
         player1_text = self.font.render("Player 1:", 1, (0, 0, 0))
         text_rect = self.rect
@@ -104,6 +117,15 @@ class screenState():
         for x in self.char_selected:
             self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', f'{x}''.gif')), text_rect)
             text_rect.x -= 375
+    
+    def draw_map_boxes(self, cur_map):
+        self.game_screen.fill(BLACK)
+        rect_left = pygame.Rect(50, 250, 120, 80)
+        rect_middle = pygame.Rect(250, 200, 300, 200)
+        rect_right = pygame.Rect(630, 250, 120, 80)
+        pygame.draw.rect(self.game_screen, self.map_testing[cur_map - 1], rect_left)
+        pygame.draw.rect(self.game_screen, self.map_testing[cur_map], rect_middle)
+        pygame.draw.rect(self.game_screen, self.map_testing[cur_map + 1], rect_right)
 
 
     def select_controls(self, key):
