@@ -6,3 +6,4 @@ to multiple updated versions to be released.
 
 Sources: 
 https://capcom.fandom.com/wiki/Street_Fighter 
+https://ehmatthes.github.io/pcc_2e/beyond_pcc/pygame_sprite_sheets/#a-simple-sprite-sheet
