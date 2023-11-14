@@ -18,6 +18,7 @@ class screenState():
         self.select_screen_background = pygame.transform.scale(self.select_screen_background, (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.current_screen = 0
         self.map_selected = None
+        self.rect = pygame.Rect(100, 150, 120, 100)
         self.screens = []
         self.button_pos = [0, 0]
         self.char_selected = 0
@@ -71,19 +72,18 @@ class screenState():
         y = 150
         for i in range(3):
             for j in range(4):
-                rect = pygame.Rect(x, y, 120, 100)
+                self.rect.x = x
+                self.rect.y = y
                 if i == self.button_pos[1] and j == self.button_pos[0]:
-                    pygame.draw.rect(self.game_screen, (255, 255, 255), rect)
-                pygame.draw.rect(self.game_screen, (0, 255, 0), rect, 3)
+                    pygame.draw.rect(self.game_screen, (255, 255, 255), self.rect)
+                pygame.draw.rect(self.game_screen, (0, 255, 0), self.rect, 3)
                 if char:
                     text_surface = self.font.render(self.char_buttons[(i*4) + j], True, (0, 255, 0))
-                    self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', 'IMG_878' + str(i + 1) + '.gif')), rect)
-                    self.game_screen.blit(self.font.render("SELECT YOUR CHARACTER", True, (0, 255, 0)), text_surface.get_rect(center=rect.center, y = 50))
+                    self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', 'IMG_878' + str(i + 1) + '.gif')), self.rect)
                 else:
                     text_surface = self.font.render(self.map_buttons[(i*4) + j], True, (0, 255, 0))
-                    self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', 'IMG_878' + str(i + 1) + '.gif')), rect)
-                    self.game_screen.blit(self.font.render("SELECT A MAP", True, (0, 255, 0)), text_surface.get_rect(center=rect.center, y = 50))
-                text_rect = text_surface.get_rect(center=rect.center)
+                    self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', 'IMG_878' + str(i + 1) + '.gif')), self.rect)
+                text_rect = text_surface.get_rect(center=self.rect.center)
                 self.game_screen.blit(text_surface, text_rect)
                 x += 150
             x = 100
