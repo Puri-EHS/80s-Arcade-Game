@@ -12,14 +12,16 @@ class screenState():
     def __init__(self, game_screen) -> None:
         self.game_screen = game_screen
         self.font = pygame.font.Font(None, 36)
-        self.background_image1 = pygame.image.load(os.path.join('Backgrounds', "testimage.jpg"))
-        self.background_image1 = pygame.transform.scale(self.background_image1, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.start_screen_background = pygame.image.load(os.path.join('Backgrounds', "testimage.jpg"))
+        self.start_screen_background = pygame.transform.scale(self.start_screen_background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.select_screen_background = pygame.image.load(os.path.join('Backgrounds', "Character Select Background.jpg"))
+        self.select_screen_background = pygame.transform.scale(self.select_screen_background, (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.current_screen = 0
         self.map_selected = None
         self.screens = []
         self.button_pos = [0, 0]
         self.char_selected = 0
-        self.char_buttons = ["Green", "Yellow", "Blue", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+        self.char_buttons = ["Balrog", "Blanka", "Chun Li", "Chalsim", "E Honda", "Guile", "Ken", "M Bison", "Ryu", "Sagat", "Vega", "Vega"]
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.map_selected = None
 
@@ -36,9 +38,9 @@ class screenState():
     def start_screen(self):
         start_text = self.font.render("PRESS SPACE TO START", 1, (0, 0, 0))
         start_text_pos = start_text.get_rect()
-        start_text_pos.center = self.background_image1.get_rect().center
+        start_text_pos.center = self.start_screen_background.get_rect().center
         start_text_pos.y += 200
-        self.game_screen.blit(self.background_image1, self.background_image1.get_rect())
+        self.game_screen.blit(self.start_screen_background, self.start_screen_background.get_rect())
         self.game_screen.blit(start_text, start_text_pos)
 
     def champ_select_screen(self, events, players):
@@ -64,7 +66,7 @@ class screenState():
         self.game_screen.fill(BLUE)
 
     def draw_select_boxes(self, char: bool):
-        self.game_screen.fill(BLACK)
+        self.game_screen.blit(self.select_screen_background, self.select_screen_background.get_rect())
         x = 100
         y = 150
         for i in range(3):
@@ -76,9 +78,11 @@ class screenState():
                 if char:
                     text_surface = self.font.render(self.char_buttons[(i*4) + j], True, (0, 255, 0))
                     self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', 'IMG_878' + str(i + 1) + '.gif')), rect)
+                    self.game_screen.blit(self.font.render("SELECT YOUR CHARACTER", True, (0, 255, 0)), text_surface.get_rect(center=rect.center, y = 50))
                 else:
                     text_surface = self.font.render(self.map_buttons[(i*4) + j], True, (0, 255, 0))
                     self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', 'IMG_878' + str(i + 1) + '.gif')), rect)
+                    self.game_screen.blit(self.font.render("SELECT A MAP", True, (0, 255, 0)), text_surface.get_rect(center=rect.center, y = 50))
                 text_rect = text_surface.get_rect(center=rect.center)
                 self.game_screen.blit(text_surface, text_rect)
                 x += 150
