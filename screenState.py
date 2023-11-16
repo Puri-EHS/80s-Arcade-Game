@@ -25,6 +25,7 @@ class screenState():
         self.char_buttons = ["Balrog", "Blanka", "Chun Li", "Chalsim", "E Honda", "Guile", "Ken", "M Bison", "Ryu", "Sagat", "Vega", "Vega"]
         self.num_char_selected = 0
         self.map_testing = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
+        self.map_backgrounds = ["Blanka Stage.png", "E Honda Stage (1).png", "Guile Stage.png", "Ken Stage.png", "Ryu Stage (1).png", "Zangief Stage (1).png"]
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.map_selected = BLUE
 
@@ -121,8 +122,13 @@ class screenState():
         rect_middle = pygame.Rect(250, 200, 300, 200)
         rect_right = pygame.Rect(630, 250, 120, 80)
         pygame.draw.rect(self.game_screen, self.map_testing[cur_map - 1], rect_left)
+        self.game_screen.blit(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map -1])))
         pygame.draw.rect(self.game_screen, self.map_testing[cur_map], rect_middle)
+
+        self.game_screen.blit(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map])))
         pygame.draw.rect(self.game_screen, self.map_testing[cur_map + 1], rect_right)
+
+        self.game_screen.blit(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map + 1])))
 
 
     def select_controls(self, key):
