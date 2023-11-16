@@ -28,13 +28,14 @@ class screenState():
         self.map_backgrounds = ["Blanka Stage.png", "E Honda Stage (1).png", "Guile Stage.png", "Ken Stage.png", "Ryu Stage (1).png", "Zangief Stage (1).png"]
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.map_selected = BLUE
+        self.current_map = 2
 
     def update_screen(self, events, players):
         if self.current_screen == 0:
             self.start_screen()
+        # elif self.current_screen == 1:
+        #     self.champ_select_screen(events, players)
         elif self.current_screen == 1:
-            self.champ_select_screen(events, players)
-        elif self.current_screen == 2:
             # self.map_select_screen(events)
             self.map_carousel_select_screen(events)
         elif self.current_screen == 3:
@@ -121,14 +122,21 @@ class screenState():
         rect_left = pygame.Rect(50, 250, 120, 80)
         rect_middle = pygame.Rect(250, 200, 300, 200)
         rect_right = pygame.Rect(630, 250, 120, 80)
+
+        SMALL_RECT_SIZE = (120, 80)
+        LARGE_RECT_SIZE = (300, 200)
+
+        image_left = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map - 1])), SMALL_RECT_SIZE)
         pygame.draw.rect(self.game_screen, self.map_testing[cur_map - 1], rect_left)
-        self.game_screen.blit(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map -1])))
+        self.game_screen.blit(image_left, rect_left)
+
+        image_middle = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map])), LARGE_RECT_SIZE)
         pygame.draw.rect(self.game_screen, self.map_testing[cur_map], rect_middle)
+        self.game_screen.blit(image_middle, rect_middle)
 
-        self.game_screen.blit(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map])))
+        image_right = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map + 1])), SMALL_RECT_SIZE)
         pygame.draw.rect(self.game_screen, self.map_testing[cur_map + 1], rect_right)
-
-        self.game_screen.blit(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map + 1])))
+        self.game_screen.blit(image_right, rect_right)
 
 
     def select_controls(self, key):
