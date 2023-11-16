@@ -75,9 +75,6 @@ class screenState():
                 if event.key == pygame.K_LEFT:
                     self.current_map -= 1
         self.draw_map_boxes(self.current_map)
-                    
-
-    
 
     def fight_screen(self):
         self.game_screen.blit(self.map_selected)
