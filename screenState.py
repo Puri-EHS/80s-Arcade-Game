@@ -127,6 +127,15 @@ class screenState():
         rect_middle = pygame.Rect(250, 200, 300, 200)
         rect_right = pygame.Rect(630, 250, 120, 80)
 
+        rect_left_arrow = pygame.Rect(200, 350, 30, 30)
+        rect_right_arrow = pygame.Rect(480, 350, 30, 30)
+
+        ARROW_RECT_SIZE = (30, 30)
+
+        image_left_arrow = pygame.transform.scale(pygame.image.load(os.path.join('Character_Images', 'left_arrow.png')), ARROW_RECT_SIZE)
+        pygame.draw.rect(self.game_screen, (0, 0, 0), rect_left_arrow)
+        self.game_screen.blit(image_left_arrow, rect_left_arrow)
+
         SMALL_RECT_SIZE = (120, 80)
         LARGE_RECT_SIZE = (300, 200)
         # LARGE_SIZE_TEST = (250, 200, 300, 200)
