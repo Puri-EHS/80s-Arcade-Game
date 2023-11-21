@@ -6,6 +6,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
+SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 
 class screenState():
     
@@ -27,8 +28,8 @@ class screenState():
         self.map_testing = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
         self.map_backgrounds = ["Blanka Stage.png", "E Honda Stage (1).png", "Guile Stage.png", "Ken Stage.png", "Ryu Stage (1).png", "Zangief Stage (1).png"]
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-        self.map_selected = BLUE
-        self.current_map = 2
+        self.current_map = 3
+        self.is_map_selected = False
 
     def update_screen(self, events, players):
         if self.current_screen == 0:
@@ -38,7 +39,7 @@ class screenState():
         elif self.current_screen == 1:
             # self.map_select_screen(events)
             self.map_carousel_select_screen(events)
-        elif self.current_screen == 3:
+        elif self.current_screen == 2:
             self.fight_screen()
 
     def start_screen(self):
@@ -61,6 +62,7 @@ class screenState():
         self.draw_select_boxes(True)
         return players
 
+    # old map selection screen
     def map_select_screen(self, events):
         for event in events:
             if event.type == pygame.KEYDOWN:
@@ -70,20 +72,31 @@ class screenState():
         self.draw_select_boxes(False)
 
     def map_carousel_select_screen(self, events):
+        
         for event in events: 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    self.current_map += 1
-                if event.key == pygame.K_LEFT:
-                    self.current_map -= 1
-        if self.current_map == len(self.map_backgrounds):
-            self.current_map = 0
-        if self.current_map < 0:
-            self.current_map = len(self.map_backgrounds) - 1
+                if event.key == pygame.K_SPACE and self.is_map_selected:
+                    self.current_screen += 1
+                else: 
+                    if event.key == pygame.K_RIGHT:
+                        self.current_map += 1
+                    if event.key == pygame.K_LEFT:
+                        self.current_map -= 1
+                    if self.current_map == len(self.map_backgrounds):
+                        self.current_map = 0
+                    if self.current_map < 0:
+                        self.current_map = len(self.map_backgrounds) - 1
+                    if event.key == pygame.K_RETURN:
+                        self.is_map_selected = True
+                        self.map_selected = self.current_map
+
+                
+        
         self.draw_map_boxes(self.current_map)
 
     def fight_screen(self):
-        self.game_screen.blit(self.map_selected)
+        map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
+        self.game_screen.blit(map_image, self.select_screen_background.get_rect())
 
     def draw_select_boxes(self, char: bool):
         self.game_screen.blit(self.select_screen_background, self.select_screen_background.get_rect())
@@ -123,6 +136,10 @@ class screenState():
     
     def draw_map_boxes(self, cur_map):
         self.game_screen.fill(BLACK)
+
+        if(self.is_map_selected):
+            self.game_screen.fill((255, 255, 255))
+
         rect_left = pygame.Rect(50, 250, 120, 80)
         rect_middle = pygame.Rect(250, 200, 300, 200)
         rect_right = pygame.Rect(630, 250, 120, 80)
@@ -135,6 +152,10 @@ class screenState():
         image_left_arrow = pygame.transform.scale(pygame.image.load(os.path.join('Character_Images', 'left_arrow.png')), ARROW_RECT_SIZE)
         pygame.draw.rect(self.game_screen, (0, 0, 0), rect_left_arrow)
         self.game_screen.blit(image_left_arrow, rect_left_arrow)
+
+        image_right_arrow = pygame.transform.scale(pygame.image.load(os.path.join('Character_Images', 'right_arrow.png')), ARROW_RECT_SIZE)
+        pygame.draw.rect(self.game_screen, (0, 0, 0), rect_right_arrow)
+        self.game_screen.blit(image_right_arrow, rect_right_arrow)
 
         SMALL_RECT_SIZE = (120, 80)
         LARGE_RECT_SIZE = (300, 200)
@@ -163,6 +184,8 @@ class screenState():
         image_right = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[map_right])), SMALL_RECT_SIZE)
         pygame.draw.rect(self.game_screen, self.map_testing[map_right], rect_right)
         self.game_screen.blit(image_right, rect_right)
+
+        
 
 
     def select_controls(self, key):
