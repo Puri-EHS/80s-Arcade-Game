@@ -3,6 +3,7 @@ class spritesheet:
     def __init__(self, filename):
         self.sheet = pygame.image.load(filename)
         #rectangle parameter is (x,y,width,height) 
+        #set the (x,y,width,height) into a singular variable 
     def get_image(self, rectangle, color):
         rect = pygame.Rect(rectangle)
         image = pygame.Surface(rect.size).convert()
