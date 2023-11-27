@@ -98,6 +98,27 @@ class screenState():
         map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
         self.game_screen.blit(map_image, self.select_screen_background.get_rect())
 
+        # health bar
+        pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 200, 50), 5)
+        self.update_player_health(20, 1)
+
+        pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 20, 200, 50), 5)
+        self.update_player_health(80, 2)
+
+    def update_player_health(self, health, player_number):
+        health_color = None
+        if health > 70:
+            health_color = (0, 255, 0)
+        elif health > 30:
+            health_color = (255, 255, 0)
+        else:
+            health_color = (255, 0, 0)
+
+        if player_number == 1:
+            pygame.draw.rect(self.game_screen, health_color , (35, 25, health * 2, 40))
+        else: 
+            pygame.draw.rect(self.game_screen, health_color , (SCREEN_WIDTH - health * 2 - 35, 25, health * 2, 40))
+
     def draw_select_boxes(self, char: bool):
         self.game_screen.blit(self.select_screen_background, self.select_screen_background.get_rect())
         x = 125
