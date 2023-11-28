@@ -30,4 +30,13 @@ class playerState():
         Args:
             attack (_type_): _description_
         """
+<<<<<<< HEAD:player-state.py
+ 
+ 
+ 
+    def getHp(self):
+        """"gets the remaining hp after an attack"""
+    
+=======
         
+>>>>>>> 327dcb555ad680dd64f53590dcf257c127a60a9f:playerState.py
