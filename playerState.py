@@ -1,4 +1,5 @@
 #the first parameter is the powerup. the second parameter is the damage it does 
+import pygame 
 character_powerups = {
             "Ryu": ["Fireball", 70], 
             "Balrog": ["Superpunch", 80], 
@@ -43,28 +44,11 @@ class playerState():
         Args:
             attack (_type_): _description_
         """
-<<<<<<< HEAD
     def setPowerup(self):
         if self.powerup_usable:
             self.character_powerup_name = character_powerups[self.champion][0]  
     def usePowerup(self):
         character_powerup_damage = character_powerups[self.champion][1]
         self.updateHp(None, character_powerup_damage)
-
-            
-
-
-
-
-=======
-<<<<<<< HEAD:player-state.py
- 
- 
- 
     def getHp(self):
         """"gets the remaining hp after an attack"""
-    
-=======
->>>>>>> be7b93c53bffa7b11a092b76c598cf6b42ee97fb
-        
->>>>>>> 327dcb555ad680dd64f53590dcf257c127a60a9f:playerState.py
