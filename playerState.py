@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 #the first parameter is the powerup. the second parameter is the damage it does 
+import pygame 
 character_powerups = {
             "Ryu": ["Fireball", 70], 
             "Balrog": ["Superpunch", 80], 
@@ -14,28 +14,16 @@ character_powerups = {
             "M Bison": ["Super Strength", 110], 
             "Ken": ["Super Speed", 50]
         }
-=======
-import pygame
-import os
-
->>>>>>> be7b93c53bffa7b11a092b76c598cf6b42ee97fb
 class playerState():
     def __init__(self, champion: str, hp : int, isBlocking: bool, inAninmation: False):
         self.champion = champion
         self.hp = hp
         self.isBlocking = isBlocking
         self.inAnimation = inAninmation
-<<<<<<< HEAD
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
         self.champAnimations = {}
         self.character_powerup_name = None
-=======
-        self.cur_powerups = None
-        self.champAnimations = {}
-        self.start_frame = 0
-        
->>>>>>> be7b93c53bffa7b11a092b76c598cf6b42ee97fb
     
     def load_animations(self, champion):
         
@@ -47,11 +35,6 @@ class playerState():
         """ Will update after any action is taken
         
         """
-<<<<<<< HEAD
-        
-=======
->>>>>>> be7b93c53bffa7b11a092b76c598cf6b42ee97fb
-
     def updateHp(self, attack, power_up:None):
         """Will update the amount of helath remaining based on
             the attack the user was hit with  
@@ -59,28 +42,11 @@ class playerState():
         Args:
             attack (_type_): _description_
         """
-<<<<<<< HEAD
     def setPowerup(self):
         if self.powerup_usable:
             self.character_powerup_name = character_powerups[self.champion][0]  
     def usePowerup(self):
         character_powerup_damage = character_powerups[self.champion][1]
         self.updateHp(None, character_powerup_damage)
-
-            
-
-
-
-
-=======
-<<<<<<< HEAD:player-state.py
- 
- 
- 
     def getHp(self):
         """"gets the remaining hp after an attack"""
-    
-=======
->>>>>>> be7b93c53bffa7b11a092b76c598cf6b42ee97fb
-        
->>>>>>> 327dcb555ad680dd64f53590dcf257c127a60a9f:playerState.py
