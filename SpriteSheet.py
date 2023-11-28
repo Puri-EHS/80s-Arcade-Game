@@ -1,4 +1,5 @@
 import pygame
+import os
 #https://ehmatthes.github.io/pcc_2e/beyond_pcc/pygame_sprite_sheets/#a-simple-sprite-sheet
 class spritesheet:
     def __init__(self, filename):
@@ -14,10 +15,19 @@ class spritesheet:
         return image
     def get_multiple_images(self, rects, colorkey = None):
         return [self.image_at(rect, colorkey) for rect in rects]
-
+    
+    def images_at(self, rects, colorkey = None):
+        return [self.image_at(rect, colorkey) for rect in rects]
+    
     def load_strip(self, rect, image_count, colorkey = None):
         tups = [(rect[0]+rect[2]*x, rect[1], rect[2], rect[3])
                 for x in range(image_count)]
         return self.images_at(tups, colorkey) 
+
+
+test = spritesheet(os.path.join('Character_Images', "Dhalsim.png"))
+check = test.load_strip((255.50,58,513,117),9,None)
+
+    
 
         
