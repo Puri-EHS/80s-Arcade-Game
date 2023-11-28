@@ -4,6 +4,8 @@ import os
 class spritesheet:
     def __init__(self, filename):
         self.sheet = pygame.image.load(filename)
+        #rectangle parameter is (x,y,width,height) 
+        #set the (x,y,width,height) into a singular variable 
     def get_image(self, rectangle, color):
         rect = pygame.Rect(rectangle)
         image = pygame.Surface(rect.size).convert()
@@ -22,7 +24,7 @@ class spritesheet:
     def load_strip(self, rect, image_count, colorkey = None):
         tups = [(rect[0]+rect[2]*x, rect[1], rect[2], rect[3])
                 for x in range(image_count)]
-        return self.images_at(tups, colorkey) 
+        return self.get_multiple_images(tups, colorkey) 
 
 
 test = spritesheet(os.path.join('Character_Images', "Dhalsim.png"))
