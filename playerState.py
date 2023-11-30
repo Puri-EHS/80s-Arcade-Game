@@ -28,7 +28,6 @@ class playerState():
         self.velocity = 0
         self.start_frame = 0
         self.character_powerup_name = None
-        self.pos = {}
         
     
     def load_animations(self, champion):
