@@ -166,7 +166,9 @@ class screenState():
             text_rect.x -= 375
     
     def draw_map_boxes(self, cur_map):
-        self.game_screen.fill(BLACK)
+        # self.game_screen.fill(BLACK)
+        self.game_screen.blit(self.select_screen_background, self.select_screen_background.get_rect())
+        
 
         if(self.is_map_selected):
             self.game_screen.fill((255, 255, 255))
