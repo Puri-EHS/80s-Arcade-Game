@@ -24,6 +24,7 @@ class playerState():
         self.powerup_usable = False
         self.champAnimations = {}
         self.start_frame = 0
+        self.character_powerup_name = None
         self.pos = []
         
     
