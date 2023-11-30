@@ -10,18 +10,21 @@ class playerState():
         self.cur_powerups = None
         self.champAnimations = {}
         self.start_frame = 0
+        self.pos = []
         
     
     def load_animations(self, champion):
         
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
-        self.images = pygame.image.load()
+        self.images = pygame.image.load('Character_images', f'{self.champion}', 'Basic_Attacks', f'{x}' + '.jpg')
+        
     
     def update(self, events, frames):
         """ Will update after any action is taken
         
         """
+
 
     def updateHp(self, attack):
         """Will update the amount of helath remaining based on
@@ -30,13 +33,4 @@ class playerState():
         Args:
             attack (_type_): _description_
         """
-<<<<<<< HEAD:player-state.py
- 
- 
- 
-    def getHp(self):
-        """"gets the remaining hp after an attack"""
-    
-=======
         
->>>>>>> 327dcb555ad680dd64f53590dcf257c127a60a9f:playerState.py

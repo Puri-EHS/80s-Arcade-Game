@@ -34,8 +34,8 @@ class screenState():
     def update_screen(self, events, players):
         if self.current_screen == 0:
             self.start_screen()
-        # elif self.current_screen == 1:
-        #     self.champ_select_screen(events, players)
+        elif self.current_screen == 1:
+             self.champ_select_screen(events, players)
         elif self.current_screen == 1:
             # self.map_select_screen(events)
             self.map_carousel_select_screen(events)
@@ -130,12 +130,11 @@ class screenState():
                 if i == self.button_pos[1] and j == self.button_pos[0]:
                     pygame.draw.rect(self.game_screen, (0, 0, 255), self.rect)
                 pygame.draw.rect(self.game_screen, (0, 255, 0), self.rect, 3)
-                if char:
-                    text_surface = self.font.render(self.char_buttons[(i*4) + j], True, (0, 255, 0))
-                    self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', f'{self.char_buttons[i*4 + j]}' + '.gif')), self.rect)
-                else:
-                    text_surface = self.font.render(self.map_buttons[(i*4) + j], True, (0, 255, 0))
-                    self.game_screen.blit(pygame.image.load(os.path.join('char_select_img', f'{self.map_buttons[i*4 + j]}' + '.gif')), self.rect)
+                text_surface = self.font.render(self.char_buttons[(i*4) + j], True, (0, 255, 0))
+                img = pygame.image.load(os.path.join('char_select_img', f'{self.char_buttons[i*4 + j]}' + '.gif'))
+                if img.get_rect().x > 120:
+                    img = pygame.transform.scale(img, (120,100))
+                self.game_screen.blit(img, self.rect)
                 text_rect = text_surface.get_rect(center=self.rect.center)
                 self.game_screen.blit(text_surface, text_rect)
                 x += 150
