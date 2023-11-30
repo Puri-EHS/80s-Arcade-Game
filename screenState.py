@@ -22,7 +22,7 @@ class screenState():
         self.rect = pygame.Rect(100, 150, 120, 100)
         self.screens = []
         self.button_pos = [0, 0]
-        self.char_selected = 0
+        self.char_selected = []
         self.char_buttons = ["Balrog", "Blanka", "Chun Li", "Chalsim", "E Honda", "Guile", "Ken", "M Bison", "Ryu", "Sagat", "Vega", "Zangief"]
         self.num_char_selected = 0
         self.map_testing = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
@@ -36,10 +36,10 @@ class screenState():
             self.start_screen()
         elif self.current_screen == 1:
              self.champ_select_screen(events, players)
-        elif self.current_screen == 1:
+        elif self.current_screen == 2:
             # self.map_select_screen(events)
             self.map_carousel_select_screen(events)
-        elif self.current_screen == 2:
+        elif self.current_screen == 3:
             self.fight_screen()
 
     def start_screen(self):
