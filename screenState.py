@@ -30,6 +30,7 @@ class screenState():
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.current_map = 3
         self.is_map_selected = False
+        self.testPlayer = playerState("Bob", 100, True, False)
 
     def update_screen(self, events, players):
         if self.current_screen == 0:
@@ -40,7 +41,7 @@ class screenState():
             # self.map_select_screen(events)
             self.map_carousel_select_screen(events)
         elif self.current_screen == 3:
-            self.fight_screen()
+            self.fight_screen(events)
 
     def start_screen(self):
         start_text = self.font.render("PRESS SPACE TO START", 1, (0, 0, 0))
@@ -94,10 +95,20 @@ class screenState():
         
         self.draw_map_boxes(self.current_map)
 
-    def fight_screen(self):
+    def fight_screen(self, events):
         map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
         self.game_screen.blit(map_image, self.select_screen_background.get_rect())
 
+        for event in events: 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.current_screen += 1
+                else: 
+                    self.testPlayer.update(event.key)
+
+        pygame.draw.rect(self.game_screen, (0, 0, 255), pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100))
+        
+        
         # health bar
         pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 200, 50), 5)
         self.update_player_health(20, 1)
@@ -155,7 +166,9 @@ class screenState():
             text_rect.x -= 375
     
     def draw_map_boxes(self, cur_map):
-        self.game_screen.fill(BLACK)
+        # self.game_screen.fill(BLACK)
+        self.game_screen.blit(self.select_screen_background, self.select_screen_background.get_rect())
+        
 
         if(self.is_map_selected):
             self.game_screen.fill((255, 255, 255))

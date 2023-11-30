@@ -1,5 +1,5 @@
 import pygame
-import playerState
+from playerState import playerState
 from screenState import screenState
 import sys
 
@@ -17,6 +17,11 @@ pygame.display.set_caption("Street Fighter with a Twist ")
 
 players = {}
 game_screen = screenState(screen)
+
+# Time
+frame = 0
+time = 0
+
 
 # Screen flags
 
@@ -45,6 +50,11 @@ while running:
                     screen.blit(button_selected_text, (0, 0))
 
     game_screen.update_screen(events, players)
+
+    frame += 1
+    if(frame == 60):
+        time += 1
+        frame = 0
 
     pygame.display.flip()
 
