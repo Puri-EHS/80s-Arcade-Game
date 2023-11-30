@@ -23,6 +23,9 @@ class playerState():
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
         self.champAnimations = {}
+        self.pos = {'x': 100, 'y': 300}
+        self.jump = False
+        self.velocity = 0
         self.start_frame = 0
         self.character_powerup_name = None
         self.pos = []
@@ -35,13 +38,24 @@ class playerState():
         self.images = pygame.image.load('Character_images', f'{self.champion}', 'Basic_Attacks', f'{x}' + '.jpg')
         
     
-    def update(self, events, frames):
+    def update(self, key):
+        
+        if key == pygame.K_DOWN:
+            self.pos['y'] += -10
+        if key == pygame.K_LEFT:
+            self.pos['x'] += -10
+        elif key == pygame.K_RIGHT:
+            self.pos['x'] += 10
         """ Will update after any action is taken
         
         """
+    
+    def getPosition(self):
+        return self.pos
+        
         
 
-    def updateHp(self, attack, power_up:None):
+    def updateHp(self, attack):
         """Will update the amount of helath remaining based on
             the attack the user was hit with  
 

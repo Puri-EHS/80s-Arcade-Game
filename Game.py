@@ -1,5 +1,5 @@
 import pygame
-import playerState
+from playerState import playerState
 from screenState import screenState
 import sys
 
