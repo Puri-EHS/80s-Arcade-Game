@@ -1,11 +1,10 @@
 import pygame
 import screenState
-import playerState
-import SpriteSheet
 import sys
 
 # Initialize Pygame
 pygame.init()
+
 
 # Constants
 SCREEN_WIDTH = 800
