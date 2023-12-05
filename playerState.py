@@ -1,6 +1,8 @@
 #the first parameter is the powerup. the second parameter is the damage it does 
 import pygame 
 import Game
+import screenState 
+import SpriteSheet
 character_powerups = {
             "Ryu": ["Fireball", 70], 
             "Balrog": ["Superpunch", 80], 
@@ -64,8 +66,8 @@ class playerState():
         character_powerup_name = character_powerups[self.champion][0]  
         return character_powerup_name   
 
-    
-                                                     
+
+
     def usePowerup(self):
         while Game.running:
             for event in Game.events:
