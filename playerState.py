@@ -43,7 +43,6 @@ class playerState():
         
     
     def update(self, key):
-        
         if key == pygame.K_DOWN:
             if self.pos['y'] != 0:
                 self.pos['y'] += -10
