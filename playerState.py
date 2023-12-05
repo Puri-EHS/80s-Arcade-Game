@@ -1,6 +1,5 @@
 #the first parameter is the powerup. the second parameter is the damage it does 
 import pygame 
-
 character_powerups = {
             "Ryu": ["Fireball", 70], 
             "Balrog": ["Superpunch", 80], 
@@ -66,9 +65,8 @@ class playerState():
 
 
 
-    def usePowerup(self):
-        while Game.running:
-            for event in Game.events:
-                if event.type == pygame.K_P:
-                    character_powerup_damage = character_powerups[self.champion][1]
-                    self.updateHp(character_powerup_damage)
+    def usePowerup(self, events):
+        for event in events:
+            if event.type == pygame.K_P:
+                character_powerup_damage = character_powerups[self.champion][1]
+                self.updateHp(character_powerup_damage)
