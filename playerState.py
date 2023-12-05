@@ -1,9 +1,6 @@
-import os
 #the first parameter is the powerup. the second parameter is the damage it does 
 import pygame 
 import Game
-import screenState 
-import SpriteSheet
 character_powerups = {
             "Ryu": ["Fireball", 70], 
             "Balrog": ["Superpunch", 80], 
@@ -24,9 +21,7 @@ class playerState():
         self.hp = hp
         self.isBlocking = isBlocking
         self.inAnimation = inAninmation
-        self.MIN_HP_NUM = 0
-        self.powerup_usable = False
-        self.champAnimations = {"walk", "basic kick", "basic punch", "crouch", "jump"}
+        self.champAnimations = {}
         self.pos = {'x': 100, 'y': 300}
         self.jump = False
         self.velocity = 0
@@ -37,12 +32,11 @@ class playerState():
         
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
-        for x in self.champAnimations.keys():
-            for y in range(os.listdir(os.path.join('Character_images', f'{self.champion}', f'{x}'))):
-                self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', f'{x}', f'{y}' + '.jpg'))
+        self.images = pygame.image.load('Character_images', f'{self.champion}', 'Basic_Attacks', f'{x}' + '.jpg')
         
     
     def update(self, key):
+        
         if key == pygame.K_DOWN:
             if self.pos['y'] != 0:
                 self.pos['y'] += -10

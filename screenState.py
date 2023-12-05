@@ -1,6 +1,7 @@
 import pygame
 import os
-from playerState import playerState
+import playerState
+
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -103,7 +104,7 @@ class screenState():
             if event.type == pygame.KEYDOWN:
                 self.testPlayer.update(event.key)
 
-        #pygame.draw.rect(self.game_screen, (0, 0, 255), pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100))
+        pygame.draw.rect(self.game_screen, (0, 0, 255), pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100))
         
         
         # health bar
