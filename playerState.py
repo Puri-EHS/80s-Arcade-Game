@@ -1,12 +1,6 @@
 import os
 #the first parameter is the powerup. the second parameter is the damage it does 
 import pygame 
-<<<<<<< HEAD
-import Game
-import screenState 
-import SpriteSheet
-=======
->>>>>>> b024a14f639c413fe1086825398c379ed678e2b4
 character_powerups = {
             "Ryu": ["Fireball", 70], 
             "Balrog": ["Superpunch", 80], 

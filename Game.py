@@ -1,11 +1,5 @@
 import pygame
-<<<<<<< HEAD
-import screenState
-import playerState
-import SpriteSheet
-=======
 from screenState import screenState
->>>>>>> b024a14f639c413fe1086825398c379ed678e2b4
 import sys
 
 # Initialize Pygame
