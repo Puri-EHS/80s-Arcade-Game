@@ -103,7 +103,6 @@ class screenState():
         for event in events: 
             if event.type == pygame.KEYDOWN:
                 self.testPlayer.update(event.key)
-
         pygame.draw.rect(self.game_screen, (0, 0, 255), pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100))
         
         
