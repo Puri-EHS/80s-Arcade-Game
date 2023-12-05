@@ -1,5 +1,7 @@
 import pygame
 import screenState
+import playerState
+import SpriteSheet
 import sys
 
 # Initialize Pygame
