@@ -1,5 +1,6 @@
 #the first parameter is the powerup. the second parameter is the damage it does 
 import pygame 
+import Game
 character_powerups = {
             "Ryu": ["Fireball", 70], 
             "Balrog": ["Superpunch", 80], 
@@ -20,14 +21,11 @@ class playerState():
         self.hp = hp
         self.isBlocking = isBlocking
         self.inAnimation = inAninmation
-        self.MIN_HP_NUM = 0
-        self.powerup_usable = False
         self.champAnimations = {}
         self.pos = {'x': 100, 'y': 300}
         self.jump = False
         self.velocity = 0
         self.start_frame = 0
-        self.character_powerup_name = None
         
     
     def load_animations(self, champion):
@@ -40,18 +38,19 @@ class playerState():
     def update(self, key):
         
         if key == pygame.K_DOWN:
-            self.pos['y'] += -10
+            if self.pos['y'] != 0:
+                self.pos['y'] += -10
         if key == pygame.K_LEFT:
             self.pos['x'] += -10
         elif key == pygame.K_RIGHT:
             self.pos['x'] += 10
         """ Will update after any action is taken
-        
+
         """
     
     def getPosition(self):
         return self.pos
-        
+
         
 
     def updateHp(self, attack):
@@ -61,11 +60,14 @@ class playerState():
         Args:
             attack (_type_): _description_
         """
-    def setPowerup(self):
-        if self.powerup_usable:
-            self.character_powerup_name = character_powerups[self.champion][0]  
+    def getPowerup(self):
+        character_powerup_name = character_powerups[self.champion][0]  
+        return character_powerup_name                                                
     def usePowerup(self):
-        character_powerup_damage = character_powerups[self.champion][1]
-        self.updateHp(None, character_powerup_damage)
+        while Game.running:
+            for event in Game.events:
+                if event.type == pygame.K_P:
+                    character_powerup_damage = character_powerups[self.champion][1]
+                    self.updateHp(character_powerup_damage)
     def getHp(self):
         """"gets the remaining hp after an attack"""
