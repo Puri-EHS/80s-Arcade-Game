@@ -67,12 +67,13 @@ class playerState():
         """
     def getPowerup(self):
         character_powerup_name = character_powerups[self.champion][0]  
-        return character_powerup_name                                                
+        return character_powerup_name   
+
+    
+                                                     
     def usePowerup(self):
         while Game.running:
             for event in Game.events:
                 if event.type == pygame.K_P:
                     character_powerup_damage = character_powerups[self.champion][1]
                     self.updateHp(character_powerup_damage)
-    def getHp(self):
-        """"gets the remaining hp after an attack"""
