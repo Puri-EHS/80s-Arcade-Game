@@ -1,6 +1,6 @@
 #the first parameter is the powerup. the second parameter is the damage it does 
 import pygame 
-import Game
+
 character_powerups = {
             "Ryu": ["Fireball", 70], 
             "Balrog": ["Superpunch", 80], 

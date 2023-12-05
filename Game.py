@@ -1,5 +1,5 @@
 import pygame
-import screenState
+from screenState import screenState
 import sys
 
 # Initialize Pygame

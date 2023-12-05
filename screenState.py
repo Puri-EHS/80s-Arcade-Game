@@ -1,6 +1,6 @@
 import pygame
 import os
-import playerState
+from playerState import playerState
 
 
 SCREEN_WIDTH = 800
