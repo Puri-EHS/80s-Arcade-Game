@@ -1,7 +1,7 @@
 import pygame
 import os
 import Game
-Game.py()
+#Game.py()
 #https://ehmatthes.github.io/pcc_2e/beyond_pcc/pygame_sprite_sheets/#a-simple-sprite-sheet
 class spritesheet:
     def __init__(self, filename):
