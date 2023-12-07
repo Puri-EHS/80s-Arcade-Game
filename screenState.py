@@ -2,7 +2,6 @@ import pygame
 import os
 from playerState import playerState
 
-
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 BLACK = (0, 0, 0)

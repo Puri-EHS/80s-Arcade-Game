@@ -5,7 +5,6 @@ import sys
 # Initialize Pygame
 pygame.init()
 
-
 # Constants
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -14,7 +13,7 @@ BLUE = (0, 0, 255)
 # Initialize the screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Street Fighter with a Twist ")
-
+screen.get_rect()
 players = {}
 game_screen = screenState(screen)
 
