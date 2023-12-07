@@ -1,4 +1,5 @@
 import pygame
+from playerState import playerState
 from screenState import screenState
 import sys
 
@@ -14,6 +15,7 @@ BLUE = (0, 0, 255)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Street Fighter with a Twist ")
 screen.get_rect()
+player1 = 
 players = {}
 game_screen = screenState(screen)
 

@@ -15,15 +15,16 @@ character_powerups = {
             "M Bison": ["Super Strength", 110], 
             "Ken": ["Super Speed", 50]
         }
-class playerState():
+class playerState(pygame.sprite.Sprite):
     def __init__(self, champion: str, hp : int, isBlocking: bool, inAninmation: False):
+        pygame.sprite.Sprite.__init__(self)
         self.champion = champion
         self.hp = hp
         self.isBlocking = isBlocking
         self.inAnimation = inAninmation
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
-        self.champAnimations = {"walk", "basic kick", "basic punch", "crouch", "jump"}
+        self.champAnimations = {"walk": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}
         self.pos = {'x': 100, 'y': 300}
         self.jump = False
         self.velocity = 0
@@ -37,6 +38,8 @@ class playerState():
         for x in self.champAnimations.keys():
             for y in range(os.listdir(os.path.join('Character_images', f'{self.champion}', f'{x}'))):
                 self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', f'{x}', f'{y}' + '.jpg'))
+                self.champAnimations[f"{x}"].append(self.image)
+
         
     
     def update(self, key):
