@@ -29,6 +29,8 @@ class playerState(pygame.sprite.Sprite):
         self.jump = False
         self.velocity = 0
         self.start_frame = 0
+        self.character_powerup_name = None
+        self.isPlayer2 = isPlayer2
         
     
     def load_animations(self, champion):
@@ -44,13 +46,21 @@ class playerState(pygame.sprite.Sprite):
     
     def update(self, key):
         
-        if key == pygame.K_DOWN:
-            if self.pos['y'] != 0:
+        if(self.isPlayer2):
+            if key == pygame.K_UP:
                 self.pos['y'] += -10
-        if key == pygame.K_LEFT:
-            self.pos['x'] += -10
-        elif key == pygame.K_RIGHT:
-            self.pos['x'] += 10
+            if key == pygame.K_LEFT:
+                self.pos['x'] += -10
+            elif key == pygame.K_RIGHT:
+                self.pos['x'] += 10
+        else:
+            if key == pygame.K_w:
+                self.pos['y'] += -10
+            if key == pygame.K_a:
+                self.pos['x'] += -10
+            elif key == pygame.K_d:
+                self.pos['x'] += 10
+    
         """ Will update after any action is taken
 
         """

@@ -30,7 +30,10 @@ class screenState():
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.current_map = 3
         self.is_map_selected = False
-        self.testPlayer = playerState("Bob", 100, True, False)
+        self.testPlayer = playerState("Bob", 100, True, False, {'x': 100, 'y': 300})
+        self.testPlayer2 = playerState("X", 200, True, False, {'x': 400, 'y': 300}, True)
+        self.is_zoomed_in = True
+
 
     def update_screen(self, events, players):
         if self.current_screen == 0:
@@ -96,14 +99,34 @@ class screenState():
         self.draw_map_boxes(self.current_map)
 
     def fight_screen(self, events):
-        map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
-        self.game_screen.blit(map_image, self.select_screen_background.get_rect())
+        # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
+        # self.game_screen.blit(map_image, self.select_screen_background.get_rect())
+        left_border = (self.testPlayer.pos.get('x')+self.testPlayer2.pos.get('x'))/2
+
+        if left_border < 0:
+            left_border = 0
+        elif left_border > 390:
+            left_border = 390
+        if self.is_zoomed_in:
+            map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), (1200, SCREEN_HEIGHT))
+            self.game_screen.blit(map_image, (0, 0), (left_border, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+        else: 
+            map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), (1200, SCREEN_HEIGHT))
+            self.game_screen.blit(map_image, (0, 0), (200, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+        # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
 
         for event in events: 
+<<<<<<< HEAD
             if event.type == pygame.KEYDOWN:
                 self.testPlayer.update(event.key)
+=======
+            if event.type == pygame.KEYDOWN: 
+                self.testPlayer.update(event.key)
+                self.testPlayer2.update(event.key)
+
+>>>>>>> d67e192 (Make the fighting background pan left and right based on character positions #23)
         pygame.draw.rect(self.game_screen, (0, 0, 255), pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100))
-        
+        pygame.draw.rect(self.game_screen, (0, 255, 0), pygame.Rect(self.testPlayer2.pos.get('x'), self.testPlayer2.pos.get('y'), 50, 100))
         
         # health bar
         pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 200, 50), 5)
@@ -147,6 +170,7 @@ class screenState():
                 x += 150
             x = 125
             y += 150
+
     def draw_selected_char(self):
         player1_text = self.font.render("Player 1:", 1, (0, 0, 0))
         text_rect = self.rect
