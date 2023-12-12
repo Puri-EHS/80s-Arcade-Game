@@ -16,12 +16,12 @@ character_powerups = {
             "Ken": ["Super Speed", 50]
         }
 class playerState(pygame.sprite.Sprite):
-    def __init__(self, champion: str, hp : int, isBlocking: bool, inAninmation: False):
+    def __init__(self, champion: str):
         pygame.sprite.Sprite.__init__(self)
         self.champion = champion
-        self.hp = hp
-        self.isBlocking = isBlocking
-        self.inAnimation = inAninmation
+        self.hp = 100
+        self.isBlocking = False
+        self.inAnimation = False
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
         self.champAnimations = {"walk": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}

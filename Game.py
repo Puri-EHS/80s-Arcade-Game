@@ -15,7 +15,6 @@ BLUE = (0, 0, 255)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Street Fighter with a Twist ")
 screen.get_rect()
-player1 = 
 players = {}
 game_screen = screenState(screen)
 
@@ -49,6 +48,9 @@ while running:
                     # Add code to perform actions when a button is selected
                     button_selected_text = font.render((f"Button '{buttons_screen2[game_screen.button_pos[0] + game_screen.button_pos[1]*4]}' selected."), True, (0,0,255))
                     screen.blit(button_selected_text, (0, 0))
+    if len(players.keys()) == 0:
+        players["1"] = playerState(game_screen.char_selected[0])
+        players["2"] = playerState(game_screen.char_selected[1])
 
     game_screen.update_screen(events, players)
 
