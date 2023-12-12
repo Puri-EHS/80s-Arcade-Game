@@ -16,7 +16,7 @@ character_powerups = {
             "Ken": ["Super Speed", 50]
         }
 class playerState(pygame.sprite.Sprite):
-    def __init__(self, champion: str):
+    def __init__(self, champion: str, isPlayer2):
         pygame.sprite.Sprite.__init__(self)
         self.champion = champion
         self.hp = 100
@@ -45,7 +45,6 @@ class playerState(pygame.sprite.Sprite):
         
     
     def update(self, key):
-        
         if(self.isPlayer2):
             if key == pygame.K_UP:
                 self.pos['y'] += -10
@@ -60,7 +59,8 @@ class playerState(pygame.sprite.Sprite):
                 self.pos['x'] += -10
             elif key == pygame.K_d:
                 self.pos['x'] += 10
-    
+        
+    def update_move(key)
         """ Will update after any action is taken
 
         """
