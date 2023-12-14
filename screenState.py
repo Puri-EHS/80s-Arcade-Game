@@ -116,15 +116,10 @@ class screenState():
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
 
         for event in events: 
-<<<<<<< HEAD
-            if event.type == pygame.KEYDOWN:
-                self.testPlayer.update(event.key)
-=======
             if event.type == pygame.KEYDOWN: 
                 self.testPlayer.update(event.key)
                 self.testPlayer2.update(event.key)
 
->>>>>>> d67e192 (Make the fighting background pan left and right based on character positions #23)
         pygame.draw.rect(self.game_screen, (0, 0, 255), pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100))
         pygame.draw.rect(self.game_screen, (0, 255, 0), pygame.Rect(self.testPlayer2.pos.get('x'), self.testPlayer2.pos.get('y'), 50, 100))
         

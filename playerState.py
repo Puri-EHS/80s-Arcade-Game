@@ -1,6 +1,6 @@
 import os
-#the first parameter is the powerup. the second parameter is the damage it does 
-import pygame 
+import pygame
+#the first parameter is the powerup. the second parameter is the damage it does  
 character_powerups = {
             "Ryu": ["Fireball", 70], 
             "Balrog": ["Superpunch", 80], 
@@ -60,7 +60,7 @@ class playerState(pygame.sprite.Sprite):
             elif key == pygame.K_d:
                 self.pos['x'] += 10
         
-    def update_move(key)
+    def update_move(key): 
         """ Will update after any action is taken
 
         """
