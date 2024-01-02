@@ -1,17 +1,20 @@
 import pygame
+from pygame import Rect
 import os
+#Game.py()
 #https://ehmatthes.github.io/pcc_2e/beyond_pcc/pygame_sprite_sheets/#a-simple-sprite-sheet
 class spritesheet:
     def __init__(self, filename):
         self.sheet = pygame.image.load(filename)
+        pygame.display.set_mode((400,400))
         #rectangle parameter is (x,y,width,height) 
         #set the (x,y,width,height) into a singular variable 
     def get_image(self, rectangle, color):
         rect = pygame.Rect(rectangle)
         image = pygame.Surface(rect.size).convert()
         image.blit(self.sheet, (0,0), rect)
-        if color != None:
-            if color != -1:
+        if color is not None:
+            if color is not -1:
                 color = image.get_at((0,0))
                 image.set_colorkey(color, pygame.RLEACCEL)
         return image
@@ -28,10 +31,10 @@ class spritesheet:
 
 
 test = spritesheet(os.path.join('Character_Images', "Dhalsim.png"))
-walking_rect = Rect(0,0,512,116)
+walking_rect = Rect(0, 0, 56, 116)
 check = test.load_strip(walking_rect,9,None)
 for x in range(len(check)):
-    pygame.image.save(check[x], f"{x}")
+    pygame.image.save(check[x], f"{x}.png")
 
     
 
