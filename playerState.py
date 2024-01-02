@@ -18,6 +18,8 @@ character_powerups = {
 class playerState(pygame.sprite.Sprite):
     def __init__(self, champion: str, isPlayer2):
         pygame.sprite.Sprite.__init__(self)
+        self.image = None
+        self.cur_animation = 0
         self.champion = champion
         self.hp = 100
         self.isBlocking = False
@@ -31,16 +33,17 @@ class playerState(pygame.sprite.Sprite):
         self.start_frame = 0
         self.character_powerup_name = None
         self.isPlayer2 = isPlayer2
+        self.load_animations("Dalsim")
         
     
     def load_animations(self, champion):
         
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
-        for x in self.champAnimations.keys():
-            for y in range(os.listdir(os.path.join('Character_images', f'{self.champion}', f'{x}'))):
-                self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', f'{x}', f'{y}' + '.jpg'))
-                self.champAnimations[f"{x}"].append(self.image)
+        #for x in self.champAnimations.keys():
+        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk')))):
+            self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}'))
+            self.champAnimations[f"walk"].append(self.image)
 
         
     
@@ -50,8 +53,15 @@ class playerState(pygame.sprite.Sprite):
                 self.pos['y'] += -10
             if key == pygame.K_LEFT:
                 self.pos['x'] += -10
+                self.image = self.champAnimations["walk"][self.cur_animation]
+                self.cur_animation += 1
+                if self.cur_animation > len(self.champAnimations["walk"].get()):
+                    self.cur_animation = 0
             elif key == pygame.K_RIGHT:
                 self.pos['x'] += 10
+                self.image = self.champAnimations["walk"][self.cur_animation]
+                self.image = pygame.transform.flip(self.image, True, False)
+                self.cur_animation += 1
         else:
             if key == pygame.K_w:
                 self.pos['y'] += -10
@@ -59,12 +69,7 @@ class playerState(pygame.sprite.Sprite):
                 self.pos['x'] += -10
             elif key == pygame.K_d:
                 self.pos['x'] += 10
-        
-    def update_move(key)
-        """ Will update after any action is taken
 
-        """
-    
     def getPosition(self):
         return self.pos
 

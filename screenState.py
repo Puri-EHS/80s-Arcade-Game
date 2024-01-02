@@ -30,8 +30,8 @@ class screenState():
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.current_map = 3
         self.is_map_selected = False
-        self.testPlayer = playerState("Bob", 100, True, False, {'x': 100, 'y': 300})
-        self.testPlayer2 = playerState("X", 200, True, False, {'x': 400, 'y': 300}, True)
+        self.testPlayer = playerState("Dhalsim", False)
+        self.testPlayer2 = playerState("X", True)
         self.is_zoomed_in = True
 
 
@@ -116,16 +116,11 @@ class screenState():
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
 
         for event in events: 
-<<<<<<< HEAD
-            if event.type == pygame.KEYDOWN:
-                self.testPlayer.update(event.key)
-=======
             if event.type == pygame.KEYDOWN: 
                 self.testPlayer.update(event.key)
                 self.testPlayer2.update(event.key)
 
->>>>>>> d67e192 (Make the fighting background pan left and right based on character positions #23)
-        pygame.draw.rect(self.game_screen, (0, 0, 255), pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100))
+        self.game_screen.blit(self.testPlayer.image, (pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100)))
         pygame.draw.rect(self.game_screen, (0, 255, 0), pygame.Rect(self.testPlayer2.pos.get('x'), self.testPlayer2.pos.get('y'), 50, 100))
         
         # health bar

@@ -13,8 +13,8 @@ class spritesheet:
         rect = pygame.Rect(rectangle)
         image = pygame.Surface(rect.size).convert()
         image.blit(self.sheet, (0,0), rect)
-        if color is not None:
-            if color is not -1:
+        if color != None:
+            if color != -1:
                 color = image.get_at((0,0))
                 image.set_colorkey(color, pygame.RLEACCEL)
         return image
@@ -31,7 +31,7 @@ class spritesheet:
 
 
 test = spritesheet(os.path.join('Character_Images', "Dhalsim.png"))
-walking_rect = Rect(513,0,458,114)
+walking_rect = Rect(0,0,512,116)
 check = test.load_strip(walking_rect,9,None)
 for x in range(len(check)):
     pygame.image.save(check[x], f"{x}")
