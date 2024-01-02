@@ -31,7 +31,7 @@ class spritesheet:
 
 
 test = spritesheet(os.path.join('Character_Images', "Dhalsim.png"))
-walking_rect = Rect(0, 0, 56, 116)
+walking_rect = Rect(513, 0, 56.75, 116)
 check = test.load_strip(walking_rect,9,None)
 for x in range(len(check)):
     pygame.image.save(check[x], f"{x}.png")
