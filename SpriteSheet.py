@@ -1,12 +1,9 @@
 import pygame
-from pygame import Rect
 import os
-#Game.py()
 #https://ehmatthes.github.io/pcc_2e/beyond_pcc/pygame_sprite_sheets/#a-simple-sprite-sheet
 class spritesheet:
     def __init__(self, filename):
         self.sheet = pygame.image.load(filename)
-        pygame.display.set_mode((400,400))
         #rectangle parameter is (x,y,width,height) 
         #set the (x,y,width,height) into a singular variable 
     def get_image(self, rectangle, color):

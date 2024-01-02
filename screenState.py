@@ -120,7 +120,7 @@ class screenState():
                 self.testPlayer.update(event.key)
                 self.testPlayer2.update(event.key)
 
-        self.game_screen.blit(self.testPlayer.image, (pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100)))
+        pygame.draw.rect(self.game_screen, (0, 0, 255), pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100))
         pygame.draw.rect(self.game_screen, (0, 255, 0), pygame.Rect(self.testPlayer2.pos.get('x'), self.testPlayer2.pos.get('y'), 50, 100))
         
         # health bar
