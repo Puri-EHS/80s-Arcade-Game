@@ -30,8 +30,8 @@ class screenState():
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.current_map = 3
         self.is_map_selected = False
-        self.testPlayer = playerState("Bob", 100, True, False, {'x': 100, 'y': 300})
-        self.testPlayer2 = playerState("X", 200, True, False, {'x': 400, 'y': 300}, True)
+        self.testPlayer = playerState("Bob", False)
+        self.testPlayer2 = playerState("X", True)
         self.is_zoomed_in = True
 
 
