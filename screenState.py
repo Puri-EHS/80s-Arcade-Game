@@ -31,7 +31,7 @@ class screenState():
         self.current_map = 3
         self.is_map_selected = False
         self.testPlayer = playerState("Dhalsim", False)
-        self.testPlayer2 = playerState("X", True)
+        self.testPlayer2 = playerState("Balrog", True)
         self.is_zoomed_in = True
 
 
