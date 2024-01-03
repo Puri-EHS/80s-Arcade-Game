@@ -28,7 +28,7 @@ class playerState(pygame.sprite.Sprite):
         self.inAnimation = False
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
-        self.champAnimations = {"walk": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}
+        self.champAnimations = {"walk": [], "idle": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}
         self.pos = {'x': 100, 'y': 300}
         self.jump = False
         self.velocity = 0
