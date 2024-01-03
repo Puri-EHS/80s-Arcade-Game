@@ -23,19 +23,21 @@ class screenState():
         self.screens = []
         self.button_pos = [0, 0]
         self.char_selected = []
-        self.char_buttons = ["Balrog", "Blanka", "Chun Li", "Chalsim", "E Honda", "Guile", "Ken", "M Bison", "Ryu", "Sagat", "Vega", "Zangief"]
+        self.char_buttons = ["Balrog", "Blanka", "Chun Li", "Dhalsim", "E Honda", "Guile", "Ken", "M Bison", "Ryu", "Sagat", "Vega", "Zangief"]
         self.num_char_selected = 0
         self.map_testing = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
         self.map_backgrounds = ["Blanka Stage.png", "E Honda Stage (1).png", "Guile Stage.png", "Ken Stage.png", "Ryu Stage (1).png", "Zangief Stage (1).png"]
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         self.current_map = 3
         self.is_map_selected = False
+        self.players = pygame.sprite.Group()
         self.testPlayer = playerState("Dhalsim", False)
         self.testPlayer2 = playerState("Balrog", True)
+        self.is_player2 = False
         self.is_zoomed_in = True
 
 
-    def update_screen(self, events, players):
+    def update_screen(self, events, players, frame):
         if self.current_screen == 0:
             self.start_screen()
         elif self.current_screen == 1:
@@ -44,7 +46,7 @@ class screenState():
             # self.map_select_screen(events)
             self.map_carousel_select_screen(events)
         elif self.current_screen == 3:
-            self.fight_screen(events)
+            self.fight_screen(events, frame)
 
     def start_screen(self):
         start_text = self.font.render("PRESS SPACE TO START", 1, (0, 0, 0))
@@ -58,11 +60,15 @@ class screenState():
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if self.select_controls(event.key):
+                    player = playerState(f"{self.char_buttons[self.button_pos[0] + self.button_pos[1]*4]}", self.is_player2)
+                    self.players.add(player)
                     self.char_selected.append(self.button_pos)
                     players[f"{self.num_char_selected}"] = self.char_buttons[self.button_pos[0] + self.button_pos[1]*4]
                     self.num_char_selected += 1
                     if self.num_char_selected == 2:
                         self.current_screen += 1
+                    else:
+                        self.is_player2 = True
         self.draw_select_boxes(True)
         return players
 
@@ -98,7 +104,7 @@ class screenState():
         
         self.draw_map_boxes(self.current_map)
 
-    def fight_screen(self, events):
+    def fight_screen(self, events, frame):
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
         # self.game_screen.blit(map_image, self.select_screen_background.get_rect())
         left_border = (self.testPlayer.pos.get('x')+self.testPlayer2.pos.get('x'))/2
@@ -116,12 +122,8 @@ class screenState():
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
 
         for event in events: 
-            if event.type == pygame.KEYDOWN: 
-                self.testPlayer.update(event.key)
-                self.testPlayer2.update(event.key)
-
-        pygame.draw.rect(self.game_screen, (0, 0, 255), pygame.Rect(self.testPlayer.pos.get('x'), self.testPlayer.pos.get('y'), 50, 100))
-        pygame.draw.rect(self.game_screen, (0, 255, 0), pygame.Rect(self.testPlayer2.pos.get('x'), self.testPlayer2.pos.get('y'), 50, 100))
+            self.players.update(event)
+            self.players.draw(self.game_screen)
         
         # health bar
         pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 200, 50), 5)
