@@ -30,9 +30,9 @@ class spritesheet:
         return self.images_at(tups, colorkey) 
 
 
-test = spritesheet(os.path.join('Character_Images', "Dhalsim.png"))
-walking_rect = Rect(513, 0, 56.75, 116)
-check = test.load_strip(walking_rect,9,None)
+test = spritesheet(os.path.join('Character_Images', "Balrog.gif"))
+walking_rect = Rect(449, 0, 48.25, 117)
+check = test.load_strip(walking_rect,7,None)
 for x in range(len(check)):
     pygame.image.save(check[x], f"{x}.png")
 
