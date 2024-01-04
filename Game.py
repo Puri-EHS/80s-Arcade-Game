@@ -54,19 +54,19 @@ while running:
                     button_selected_text = font.render((f"Button '{buttons_screen2[game_screen.button_pos[0] + game_screen.button_pos[1]*4]}' selected."), True, (0,0,255))
         if event.type == pygame.KEYDOWN: 
             if event.key == pygame.K_p: 
+                screen.blit(powerup_image, (0, 89))
                 text_timer = 1.75 
                 while text_timer > 0.0:
                     font = pygame.font.Font(None, 26)
-                    text = font.render(playerState.getPowerup(playerState), True, (0,0,0))
-                    game_screen.blit(text, (400,300)) 
+                    text = font.render(players["1"].getPowerup(), True, (0,0,0))
+                    text = font.render(players["2"].getPowerup(), True, (0,0,0))
+                    screen.blit(text, (400,300)) 
                     text_timer = text_timer-1
-                game_screen.blit(powerup_image, (0, 89))
-                playerState.usePowerup(playerState)
-  
-
-    #if len(players.keys()) == 0:
-        #players["1"] = playerState(game_screen.char_selected[0])
-        #players["2"] = playerState(game_screen.char_selected[1])
+                players["1"].usePowerup()
+                players["2"].usePowerup()
+    if len(players.keys()) == 0:
+        players["1"] = playerState(game_screen.char_selected[0])
+        players["2"] = playerState(game_screen.char_selected[1])
 
     game_screen.update_screen(events, players, frame=frame)
  
