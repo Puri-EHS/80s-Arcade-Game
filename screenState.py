@@ -18,7 +18,7 @@ class screenState():
         self.select_screen_background = pygame.image.load(os.path.join('Backgrounds', "Character Select Background.jpg"))
         self.select_screen_background = pygame.transform.scale(self.select_screen_background, (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.current_screen = 0
-        self.map_selected = None
+        self.map_selected = 3
         self.rect = pygame.Rect(100, 150, 120, 100)
         self.screens = []
         self.button_pos = [0, 0]
@@ -28,8 +28,6 @@ class screenState():
         self.map_testing = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
         self.map_backgrounds = ["Blanka Stage.png", "E Honda Stage (1).png", "Guile Stage.png", "Ken Stage.png", "Ryu Stage (1).png", "Zangief Stage (1).png"]
         self.map_buttons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-        self.current_map = 3
-        self.is_map_selected = False
         self.players = pygame.sprite.Group()
         self.testPlayer = playerState("Dhalsim", False)
         self.testPlayer2 = playerState("Balrog", True)
@@ -85,24 +83,22 @@ class screenState():
         
         for event in events: 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and self.is_map_selected:
+                if event.key == pygame.K_SPACE:
                     self.current_screen += 1
-                else: 
-                    if event.key == pygame.K_RIGHT:
-                        self.current_map += 1
-                    if event.key == pygame.K_LEFT:
-                        self.current_map -= 1
-                    if self.current_map == len(self.map_backgrounds):
-                        self.current_map = 0
-                    if self.current_map < 0:
-                        self.current_map = len(self.map_backgrounds) - 1
-                    if event.key == pygame.K_RETURN:
-                        self.is_map_selected = True
-                        self.map_selected = self.current_map
+                if event.key == pygame.K_RIGHT:
+                    self.map_selected += 1
+                if event.key == pygame.K_LEFT:
+                    self.map_selected -= 1
+
+                if self.map_selected == len(self.map_backgrounds):
+                    self.map_selected = 0
+                if self.map_selected < 0:
+                    self.map_selected = len(self.map_backgrounds) - 1
+                    
 
                 
         
-        self.draw_map_boxes(self.current_map)
+        self.draw_map_boxes(self.map_selected)
 
     def fight_screen(self, events, frame):
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
@@ -185,10 +181,6 @@ class screenState():
     def draw_map_boxes(self, cur_map):
         # self.game_screen.fill(BLACK)
         self.game_screen.blit(self.select_screen_background, self.select_screen_background.get_rect())
-        
-
-        if(self.is_map_selected):
-            self.game_screen.fill((255, 255, 255))
 
         rect_left = pygame.Rect(50, 250, 120, 80)
         rect_middle = pygame.Rect(250, 200, 300, 200)
