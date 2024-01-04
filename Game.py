@@ -52,7 +52,7 @@ while running:
         #players["1"] = playerState(game_screen.char_selected[0])
         #players["2"] = playerState(game_screen.char_selected[1])
 
-    game_screen.update_screen(events, players)
+    game_screen.update_screen(events, players, frame=frame)
 
     frame += 1
     if(frame == 60):
