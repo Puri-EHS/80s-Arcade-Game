@@ -32,6 +32,9 @@ font = pygame.font.Font(None, 36)
 # Button data for Screen 2
 buttons_screen2 = ["Green", "Yellow", "Blue", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 
+#Initialize the Power_up icon
+powerup_image = pygame.image.load(os.path.join('Other_images', "Powerup_icon.png"))
+powerup_image = pygame.transform.scale(powerup_image, (93, 93))
 # Main loop
 running = True
 char_selected = 0
@@ -49,12 +52,22 @@ while running:
                 if event.key == pygame.K_RETURN:
                     # Add code to perform actions when a button is selected
                     button_selected_text = font.render((f"Button '{buttons_screen2[game_screen.button_pos[0] + game_screen.button_pos[1]*4]}' selected."), True, (0,0,255))
-                    screen.blit(button_selected_text, (0, 0))
+        if event.type == pygame.K_p: 
+            playerState.usePowerup()
+            game_screen.blit(powerup_image, (0, 89))
+            text_timer = 1.75 
+            while text_timer > 0.0:
+                font = pygame.font.Font(None, 26)
+                text = font.render(playerState.getPowerup(), True, (0,0,0))
+                game_screen.blit(text, (400,300)) 
+                text_timer = text_timer-1
+
     #if len(players.keys()) == 0:
         #players["1"] = playerState(game_screen.char_selected[0])
         #players["2"] = playerState(game_screen.char_selected[1])
 
     game_screen.update_screen(events, players, frame=frame)
+ 
 
     frame += 1
     if(frame == 60):
