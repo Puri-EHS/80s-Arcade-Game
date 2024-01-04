@@ -19,6 +19,7 @@ players = {}
 game_screen = screenState(screen)
 
 # Time
+clock = pygame.time.Clock()
 frame = 0
 time = 0
 
@@ -35,6 +36,7 @@ buttons_screen2 = ["Green", "Yellow", "Blue", "4", "5", "6", "7", "8", "9", "10"
 running = True
 char_selected = 0
 while running:
+    clock.tick(60)
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.QUIT:

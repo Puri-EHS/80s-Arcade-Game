@@ -22,7 +22,7 @@ class playerState(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = None
         self.cur_animation = 0
-        self.cur_type_animation = ""
+        self.cur_type_animation = "idle"
         self.champion = champion
         self.hp = 100
         self.isBlocking = False
@@ -55,20 +55,30 @@ class playerState(pygame.sprite.Sprite):
         
     
     def update(self, key):
+        self.update_move(key)
+        if self.frame == 20:
+            self.cur_animation += 1
+            if self.cur_animation > len(self.champAnimations[f"{self.cur_type_animation}"]):
+                self.cur_animation = 0
+            self.frame = 0
+        self.frame += 1
+        
+    def update_move(self, key): 
         if(self.isPlayer2):
-
             if(key.type == pygame.KEYDOWN):
                 if key == pygame.K_LEFT:
                     self.cur_pressed_keys["left"] = True
                     self.cur_type_animation = "walk"
-                elif key == pygame.K_RIGHT:
+                    self.cur_animation = 0
+                if key == pygame.K_RIGHT:
                     self.cur_pressed_keys["right"] = True
                     self.cur_type_animation = "walk"
+                    self.cur_animation = 0
             if(key.type == pygame.KEYUP):
                 if key == pygame.K_LEFT:
                     self.cur_pressed_keys["left"] = False
                     self.frame = 0
-                elif key == pygame.K_RIGHT:
+                if key == pygame.K_RIGHT:
                     self.cur_pressed_keys["right"] = False
                     self.frame = 0
         else:
@@ -76,14 +86,16 @@ class playerState(pygame.sprite.Sprite):
                 if key == pygame.K_a:
                     self.cur_pressed_keys["left"] = True
                     self.cur_type_animation = "walk"
-                elif key == pygame.K_d:
+                    self.cur_animation = 0
+                if key == pygame.K_d:
                     self.cur_pressed_keys["right"] = True
                     self.cur_type_animation = "walk"
+                    self.cur_animation = 0
             if(key.type == pygame.KEYUP):
                 if key == pygame.K_a:
                     self.cur_pressed_keys["left"] = False
                     self.frame = 0
-                elif key == pygame.K_d:
+                if key == pygame.K_d:
                     self.cur_pressed_keys["right"] = False
                     self.frame = 0
         if self.cur_pressed_keys["left"]:
@@ -96,20 +108,9 @@ class playerState(pygame.sprite.Sprite):
                 self.image = self.champAnimations["walk"][self.cur_animation]
                 if self.cur_facing_left:
                     self.image = pygame.transform.flip(self.image, True, False)
-        if key == None:
-            self.image = self.champAnimations["idle"][self.cur_animation]
-            self.cur_type_animation = "idle"
-        if self.frame == 20:
-            self.cur_animation += 1
-            if self.cur_animation > len(self.champAnimations[f"{self.cur_type_animation}"].get()):
-                self.cur_animation = 0
-            self.frame = 0
-        self.frame += 1
-        
-    def update_move(key): 
-        """ Will update after any action is taken
-
-        """
+        #else:
+            #self.image = self.champAnimations["idle"][self.cur_animation]
+            #self.cur_type_animation = "idle"
     
     def getPosition(self):
         return self.pos
