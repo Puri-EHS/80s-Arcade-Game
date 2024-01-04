@@ -19,6 +19,7 @@ players = {}
 game_screen = screenState(screen)
 
 # Time
+clock = pygame.time.Clock()
 frame = 0
 time = 0
 
@@ -38,6 +39,7 @@ powerup_image = pygame.transform.scale(powerup_image, (93, 93))
 running = True
 char_selected = 0
 while running:
+    clock.tick(60)
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.QUIT:

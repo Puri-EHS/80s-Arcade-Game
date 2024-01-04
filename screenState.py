@@ -103,6 +103,7 @@ class screenState():
     def fight_screen(self, events, frame):
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
         # self.game_screen.blit(map_image, self.select_screen_background.get_rect())
+        
         left_border = (self.testPlayer.pos.get('x')+self.testPlayer2.pos.get('x'))/2
 
         if left_border < 0:
@@ -112,9 +113,11 @@ class screenState():
         if self.is_zoomed_in:
             map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), (1200, SCREEN_HEIGHT))
             self.game_screen.blit(map_image, (0, 0), (left_border, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+            self.players.draw(self.game_screen)
         else: 
             map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), (1200, SCREEN_HEIGHT))
             self.game_screen.blit(map_image, (0, 0), (200, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+            self.players.draw(self.game_screen)
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
 
         for event in events: 
@@ -154,7 +157,8 @@ class screenState():
                     pygame.draw.rect(self.game_screen, (0, 0, 255), self.rect)
                 pygame.draw.rect(self.game_screen, (0, 255, 0), self.rect, 3)
                 text_surface = self.font.render(self.char_buttons[(i*4) + j], True, (0, 255, 0))
-                img = pygame.image.load(os.path.join('char_select_img', f'{self.char_buttons[i*4 + j]}' + '.gif'))
+                img = pygame.image.load(os.path.join('char_select_img', f'{self.char_buttons[i*4 + j]}' + '.gif')).convert_alpha()
+                img.set_colorkey((255,255,255))
                 if img.get_rect().x > 120:
                     img = pygame.transform.scale(img, (120,100))
                 self.game_screen.blit(img, self.rect)
