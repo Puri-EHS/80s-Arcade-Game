@@ -15,8 +15,6 @@ character_powerups = {
             "M Bison": ["Super Strength", 110], 
             "Ken": ["Super Speed", 50]
         }
-powerup_image = pygame.image.load(os.path.join('Other_images', "Powerup icon.png"))
-powerup_image = pygame.transform.scale(powerup_image, (93, 93))
 class playerState(pygame.sprite.Sprite):
     def __init__(self, champion: str, isPlayer2):
         pygame.sprite.Sprite.__init__(self)
@@ -127,16 +125,7 @@ class playerState(pygame.sprite.Sprite):
         character_powerup_name = character_powerups[self.champion][0]  
         return character_powerup_name 
 
-    def usePowerup(self, events):
-        for event in events:
-            if event.type == pygame.K_p:
-                pygame.blit(powerup_image, (0, 89))
-                text_timer = 1.75 
-                while text_timer > 0.0:
-                    font = pygame.font.Font(None, 26)
-                    text = font.render(self.getPowerup, True, (0,0,0))
-                    pygame.blit(text, (400,300)) 
-                    text_timer = text_timer-1
+    def usePowerup(self):
                 powerup_length = 25 
                 while powerup_length > 0:
                     character_powerup_damage = character_powerups[self.champion][1]
