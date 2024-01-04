@@ -125,15 +125,20 @@ class playerState(pygame.sprite.Sprite):
         """
     def getPowerup(self):
         character_powerup_name = character_powerups[self.champion][0]  
-        return character_powerup_name   
-
-
+        return character_powerup_name 
 
     def usePowerup(self, events):
         for event in events:
-            if event.type == pygame.K_P:
-                pygame.blit(powerup_image)
-                timer = 25 
-                while timer > 0:
+            if event.type == pygame.K_p:
+                pygame.blit(powerup_image, (0, 89))
+                text_timer = 1.75 
+                while text_timer > 0.0:
+                    font = pygame.font.Font(None, 26)
+                    text = font.render(self.getPowerup, True, (0,0,0))
+                    pygame.blit(text, (400,300)) 
+                    text_timer = text_timer-1
+                powerup_length = 25 
+                while powerup_length > 0:
                     character_powerup_damage = character_powerups[self.champion][1]
                     self.updateHp(character_powerup_damage)
+                    powerup_length = powerup_length-1
