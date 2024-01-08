@@ -62,11 +62,11 @@ while running:
                     text = font.render(players["2"].getPowerup(), True, (0,0,0))
                     screen.blit(text, (400,300)) 
                     text_timer = text_timer-1
-                players["1"].usePowerup()
-                players["2"].usePowerup()
+                players[1].usePowerup()
+                players[2].usePowerup()
     if len(players.keys()) == 0:
-        players["1"] = playerState(game_screen.char_selected[0])
-        players["2"] = playerState(game_screen.char_selected[1])
+        players["1"] = playerState(game_screen.char_buttons[3], False)
+        players["2"] = playerState(game_screen.char_buttons[6], True)
 
     game_screen.update_screen(events, players, frame=frame)
  
@@ -74,7 +74,7 @@ while running:
     frame += 1
     if(frame == 60):
         time += 1
-        frame = 0
+        frame = 0 
 
     pygame.display.flip()
 
