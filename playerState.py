@@ -37,8 +37,11 @@ class playerState(pygame.sprite.Sprite):
         self.isPlayer2 = isPlayer2
         self.cur_facing_left = isPlayer2
         self.cur_frame = 0
-        self.load_animations("Dhalsim")
-        self.rect = self.image.get_rect()
+        self.load_animations("Dalsim")
+        if isPlayer2:
+            self.rect = self.image.get_rect()
+            self.rect.x += 400
+        self.rect.y -= 300
         
     
     def load_animations(self, champion):
@@ -99,9 +102,9 @@ class playerState(pygame.sprite.Sprite):
                 self.image = self.champAnimations["walk"][self.cur_animation]
                 if self.cur_facing_left:
                     self.image = pygame.transform.flip(self.image, True, False)
-        #else:
-            #self.image = self.champAnimations["idle"][self.cur_animation]
-            #self.cur_type_animation = "idle"
+        else:
+            self.image = self.champAnimations["idle"][self.cur_animation]
+            self.cur_type_animation = "idle"
     
     def getPosition(self):
         return self.pos
