@@ -20,7 +20,6 @@ powerup_image = pygame.transform.scale(powerup_image, (93, 93))
 class playerState(pygame.sprite.Sprite):
     def __init__(self, champion: str, isPlayer2):
         pygame.sprite.Sprite.__init__(self)
-        self.image = None
         self.cur_animation = 0
         self.cur_type_animation = "idle"
         self.champion = champion
@@ -39,11 +38,14 @@ class playerState(pygame.sprite.Sprite):
         self.isPlayer2 = isPlayer2
         self.cur_facing_left = isPlayer2
         self.cur_frame = 0
-        self.load_animations("Dalsim")
+        self.load_animations(f"{champion}")
+        self.image = self.champAnimations["idle"][0]
+        self.rect = self.image.get_rect()
         if isPlayer2:
-            self.rect = self.image.get_rect()
-            self.rect.x += 400
-        self.rect.y -= 300
+            self.rect.x += 700
+        else:
+            self.rect.x += 50
+        self.rect.y += 350
         
     
     def load_animations(self, champion):
@@ -52,14 +54,13 @@ class playerState(pygame.sprite.Sprite):
             champAnimations, and populate the dictinonary"""
         #for x in self.champAnimations.keys():
         for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
-            self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
-            self.champAnimations[f"walk"].append(self.image)
+            self.champAnimations[f"walk"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png')))
         
         for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
             self.champAnimations[f"idle"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png')))
         
         for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
-             self.champAnimations[f"jump"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{x}.png')))
+             self.champAnimations[f"jump"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png')))
         
         
     
