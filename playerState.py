@@ -46,9 +46,9 @@ class playerState(pygame.sprite.Sprite):
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
         #for x in self.champAnimations.keys():
-        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
-            self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
-            self.champAnimations[f"walk"].append(self.image)
+        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
+            self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{y}.png'))
+            self.champAnimations[f"idle"].append(self.image)
 
         
     
