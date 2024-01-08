@@ -37,7 +37,7 @@ class playerState(pygame.sprite.Sprite):
         self.isPlayer2 = isPlayer2
         self.cur_facing_left = isPlayer2
         self.cur_frame = 0
-        self.load_animations("Dalsim")
+        self.load_animations("Dhalsim")
         if isPlayer2:
             self.rect = self.image.get_rect()
             self.rect.x += 400
@@ -49,15 +49,15 @@ class playerState(pygame.sprite.Sprite):
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
         #for x in self.champAnimations.keys():
-        #for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
-            #self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
-            #self.champAnimations[f"walk"].append(self.image)
+        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
+            self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
+            self.champAnimations[f"walk"].append(self.image)
         
         for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
             self.champAnimations[f"idle"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png')))
         
-        #for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
-            #self.champAnimations[f"jump"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{x}.png')))
+        for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
+            self.champAnimations[f"jump"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{x}.png')))
     def update(self, key):
         if(self.isPlayer2):
 
