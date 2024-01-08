@@ -15,6 +15,8 @@ character_powerups = {
             "M Bison": ["Super Strength", 110], 
             "Ken": ["Super Speed", 50]
         }
+powerup_image = pygame.image.load(os.path.join('Other_images', "Powerup icon.png"))
+powerup_image = pygame.transform.scale(powerup_image, (93, 93))
 class playerState(pygame.sprite.Sprite):
     def __init__(self, champion: str, isPlayer2):
         pygame.sprite.Sprite.__init__(self)
@@ -36,7 +38,7 @@ class playerState(pygame.sprite.Sprite):
         self.character_powerup_name = None
         self.isPlayer2 = isPlayer2
         self.cur_facing_left = isPlayer2
-        self.frame = 0
+        self.cur_frame = 0
         self.load_animations("Dalsim")
         self.rect = self.image.get_rect()
         
@@ -46,23 +48,21 @@ class playerState(pygame.sprite.Sprite):
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
         #for x in self.champAnimations.keys():
-        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
-            self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{y}.png'))
-            self.champAnimations[f"idle"].append(self.image)
-
+        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
+            self.image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
+            self.champAnimations[f"walk"].append(self.image)
+        
+        for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
+            self.champAnimations[f"idle"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png')))
+        
+        for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
+             self.champAnimations[f"jump"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{x}.png')))
+        
         
     
     def update(self, key):
-        self.update_move(key)
-        if self.frame == 20:
-            self.cur_animation += 1
-            if self.cur_animation > len(self.champAnimations[f"{self.cur_type_animation}"]):
-                self.cur_animation = 0
-            self.frame = 0
-        self.frame += 1
-        
-    def update_move(self, key): 
         if(self.isPlayer2):
+
             if(key.type == pygame.KEYDOWN):
                 if key == pygame.K_LEFT:
                     self.cur_pressed_keys["left"] = True
@@ -71,7 +71,6 @@ class playerState(pygame.sprite.Sprite):
                 if key == pygame.K_RIGHT:
                     self.cur_pressed_keys["right"] = True
                     self.cur_type_animation = "walk"
-                    self.cur_animation = 0
             if(key.type == pygame.KEYUP):
                 if key == pygame.K_LEFT:
                     self.cur_pressed_keys["left"] = False
@@ -88,7 +87,6 @@ class playerState(pygame.sprite.Sprite):
                 if key == pygame.K_d:
                     self.cur_pressed_keys["right"] = True
                     self.cur_type_animation = "walk"
-                    self.cur_animation = 0
             if(key.type == pygame.KEYUP):
                 if key == pygame.K_a:
                     self.cur_pressed_keys["left"] = False
@@ -124,11 +122,10 @@ class playerState(pygame.sprite.Sprite):
         """
     def getPowerup(self):
         character_powerup_name = character_powerups[self.champion][0]  
-        return character_powerup_name 
+        return character_powerup_name   
 
     def usePowerup(self):
                 powerup_length = 25 
                 while powerup_length > 0:
                     character_powerup_damage = character_powerups[self.champion][1]
                     self.updateHp(character_powerup_damage)
-                    powerup_length = powerup_length-1
