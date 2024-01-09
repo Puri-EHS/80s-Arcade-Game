@@ -15,7 +15,6 @@ BLUE = (0, 0, 255)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Street Fighter with a Twist ")
 screen.get_rect()
-players = {}
 game_screen = screenState(screen)
 
 # Time
@@ -35,6 +34,13 @@ buttons_screen2 = ["Green", "Yellow", "Blue", "4", "5", "6", "7", "8", "9", "10"
 #Initialize the Power_up icon
 powerup_image = pygame.image.load(os.path.join('Other_images', "Powerup_icon.png"))
 powerup_image = pygame.transform.scale(powerup_image, (93, 93))
+
+#Players
+player1 = playerState(game_screen.char_buttons[3], False)
+player2 = playerState(game_screen.char_buttons[6], True)
+players = {}
+players["1"] = player1
+players["2"] = player2
 # Main loop
 running = True
 char_selected = 0
@@ -54,19 +60,16 @@ while running:
                     button_selected_text = font.render((f"Button '{buttons_screen2[game_screen.button_pos[0] + game_screen.button_pos[1]*4]}' selected."), True, (0,0,255))
         if event.type == pygame.KEYDOWN: 
             if event.key == pygame.K_p: 
-                screen.blit(powerup_image, (0, 89))
+                screen.blit(powerup_image, (400, 500))
                 text_timer = 1.75 
                 while text_timer > 0.0:
                     font = pygame.font.Font(None, 26)
-                    text = font.render(players["1"].getPowerup(), True, (0,0,0))
-                    text = font.render(players["2"].getPowerup(), True, (0,0,0))
+                    text = font.render(player1.getPowerup(), True, (0,0,0))
+                    text = font.render(player2.getPowerup(), True, (0,0,0))
                     screen.blit(text, (400,300)) 
                     text_timer = text_timer-1
-                players["1"].usePowerup()
-                players["2"].usePowerup()
-    if len(players.keys()) == 0:
-        players["1"] = playerState(game_screen.char_buttons[3], False)
-        players["2"] = playerState(game_screen.char_buttons[6], True)
+                player1.usePowerup()
+                player2.usePowerup()
 
     game_screen.update_screen(events, players, frame=frame)
  
