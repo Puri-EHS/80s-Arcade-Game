@@ -15,6 +15,24 @@ character_powerups = {
             "M Bison": ["Super Strength", 110], 
             "Ken": ["Super Speed", 50]
         }
+
+# formatted as [punch, kick]
+
+character_damage_values = {
+            "Ryu": [7, 10],
+            "Balrog": [10, 7],
+            "Blanka": [7, 8],
+            "Dhalsim": [5, 11],
+            "Sagat":  [10, 6],
+            "Guile": [8, 8],
+            "Vega": [9, 7],
+            "Chun Li": [6, 9],
+            "Zangief": [7, 7],
+            "E Honda": [9, 7],
+            "M Bison": [9, 6],
+            "Ken": [7, 11]
+}
+
 class playerState(pygame.sprite.Sprite):
     def __init__(self, champion: str, isPlayer2):
         pygame.sprite.Sprite.__init__(self)
@@ -24,6 +42,8 @@ class playerState(pygame.sprite.Sprite):
         self.hp = 100
         self.isBlocking = False
         self.inAnimation = False
+        self.isAttacking = False
+        self.attackValue = 0
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
         self.champAnimations = {"walk": [], "idle": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}
@@ -90,8 +110,10 @@ class playerState(pygame.sprite.Sprite):
 
                 if key == pygame.K_PERIOD:
                      self.cur_pressed_keys["punch"] = False
+                     self.isAttacking = False
                 if key == pygame.K_SLASH:
                      self.cur_pressed_keys["kick"] = False
+                     self.isAttacking = False
         else:
             if(key.type == pygame.KEYDOWN):
                 if key == pygame.K_a:
@@ -119,8 +141,10 @@ class playerState(pygame.sprite.Sprite):
 
                 if key == pygame.K_f:
                      self.cur_pressed_keys["punch"] = False
+                     self.isAttacking = False
                 if key == pygame.K_g:
                      self.cur_pressed_keys["kick"] = False
+                     self.isAttacking = False
 
         if self.cur_pressed_keys["left"]:
                 self.pos['x'] += -10
@@ -132,6 +156,18 @@ class playerState(pygame.sprite.Sprite):
                 self.image = self.champAnimations["walk"][self.cur_animation]
                 if self.cur_facing_left:
                     self.image = pygame.transform.flip(self.image, True, False)
+
+        if self.cur_pressed_keys["punch"]:
+             self.image = self.champAnimations["punch"][self.cur_animation]
+             self.isAttacking = True
+             self.attackValue = character_damage_values[self.champion][0]
+        if self.cur_pressed_keys["kick"]:
+             self.image = self.champAnimations["kick"][self.cur_animation]
+             self.isAttacking = True
+             self.attackValue = character_damage_values[self.champion][1]
+
+
+
         else:
             self.image = self.champAnimations["idle"][self.cur_animation]
             self.cur_type_animation = "idle"
@@ -141,7 +177,10 @@ class playerState(pygame.sprite.Sprite):
 
         
 
-    def updateHp(self, attack):
+    def updateHp(self, attackVal):
+        if self.isBlocking == False:
+             self.hp -= attackVal
+
         """Will update the amount of helath remaining based on
             the attack the user was hit with  
 
