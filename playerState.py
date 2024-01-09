@@ -55,6 +55,7 @@ class playerState(pygame.sprite.Sprite):
         self.character_powerup_name = None
         self.isPlayer2 = isPlayer2
         self.cur_facing_left = isPlayer2
+        self.use_power_up = False
         self.cur_frame = 0
         self.load_animations(f"{champion}")
         self.image = self.champAnimations["idle"][0]

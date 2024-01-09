@@ -112,12 +112,12 @@ class screenState():
                     text_timer = 1.75 
                     while text_timer > 0.0:
                         font = pygame.font.Font(None, 26)
-                        text = font.render("Player 1 Activates their Powerup: " + player1.getPowerup(), True, (0,0,0))
-                        text = font.render("Player 2 Activates their Powerup: " + player2.getPowerup(), True, (0,0,0))
+                        #text = font.render("Player 1 Activates their Powerup: " + player1.getPowerup(), True, (0,0,0))
+                        #text = font.render("Player 2 Activates their Powerup: " + player2.getPowerup(), True, (0,0,0))
                         self.game_screen.blit(text, (400,300)) 
                         text_timer = text_timer-1
-                player1.usePowerup()
-                player2.usePowerup()
+                #player1.usePowerup()
+                #player2.usePowerup()
 
         
         # health bar
