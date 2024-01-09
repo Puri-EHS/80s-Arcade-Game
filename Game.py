@@ -15,7 +15,6 @@ BLUE = (0, 0, 255)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Street Fighter with a Twist ")
 screen.get_rect()
-players = {}
 game_screen = screenState(screen)
 
 # Time
@@ -33,8 +32,14 @@ font = pygame.font.Font(None, 36)
 buttons_screen2 = ["Green", "Yellow", "Blue", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 
 #Initialize the Power_up icon
-powerup_image = pygame.image.load(os.path.join('Other_images', "Powerup_icon.png"))
-powerup_image = pygame.transform.scale(powerup_image, (93, 93))
+
+
+#Players
+player1 = playerState(game_screen.char_buttons[3], False)
+player2 = playerState(game_screen.char_buttons[6], True)
+players = {}
+players["1"] = player1
+players["2"] = player2
 # Main loop
 running = True
 char_selected = 0
