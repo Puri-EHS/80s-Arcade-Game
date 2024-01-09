@@ -159,11 +159,11 @@ class playerState(pygame.sprite.Sprite):
                     self.image = pygame.transform.flip(self.image, True, False)
 
         if self.cur_pressed_keys["punch"]:
-             self.image = self.champAnimations["punch"][self.cur_animation]
+             self.image = self.champAnimations["basic punch"][self.cur_animation]
              self.isAttacking = True
              self.attackValue = character_damage_values[self.champion][0]
         if self.cur_pressed_keys["kick"]:
-             self.image = self.champAnimations["kick"][self.cur_animation]
+             self.image = self.champAnimations["basic kick"][self.cur_animation]
              self.isAttacking = True
              self.attackValue = character_damage_values[self.champion][1]
 
