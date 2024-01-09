@@ -44,14 +44,6 @@ while running:
     for event in events:
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                if game_screen.current_screen != 3 and game_screen.current_screen != 1:
-                    game_screen.current_screen += 1
-            elif game_screen.current_screen == 1:
-                if event.key == pygame.K_RETURN:
-                    # Add code to perform actions when a button is selected
-                    button_selected_text = font.render((f"Button '{buttons_screen2[game_screen.button_pos[0] + game_screen.button_pos[1]*4]}' selected."), True, (0,0,255))
         if event.type == pygame.KEYDOWN: 
             if event.key == pygame.K_p: 
                 screen.blit(powerup_image, (0, 89))
@@ -64,9 +56,6 @@ while running:
                     text_timer = text_timer-1
                 players["1"].usePowerup()
                 players["2"].usePowerup()
-    if len(players.keys()) == 0:
-        players["1"] = playerState(game_screen.char_buttons[3], False)
-        players["2"] = playerState(game_screen.char_buttons[6], True)
 
     game_screen.update_screen(events, players, frame=frame)
  

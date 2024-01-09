@@ -64,7 +64,6 @@ class playerState(pygame.sprite.Sprite):
     
     def update(self, key):
         if(self.isPlayer2):
-
             if(key.type == pygame.KEYDOWN):
                 if key == pygame.K_LEFT:
                     self.cur_pressed_keys["left"] = True
@@ -96,13 +95,16 @@ class playerState(pygame.sprite.Sprite):
                 if key == pygame.K_d:
                     self.cur_pressed_keys["right"] = False
                     self.frame = 0
+        self.move_char()
+
+    def move_char(self):
         if self.cur_pressed_keys["left"]:
-                self.pos['x'] += -10
+                self.pos['x'] += -100
                 self.image = self.champAnimations["walk"][self.cur_animation]
                 if self.cur_facing_left != True:
                     self.image = pygame.transform.flip(self.image, True, False)
         if self.cur_pressed_keys["right"]:
-                self.pos['x'] += 10
+                self.pos['x'] += 100
                 self.image = self.champAnimations["walk"][self.cur_animation]
                 if self.cur_facing_left:
                     self.image = pygame.transform.flip(self.image, True, False)
