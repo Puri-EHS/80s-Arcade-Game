@@ -27,7 +27,7 @@ class playerState(pygame.sprite.Sprite):
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
         self.champAnimations = {"walk": [], "idle": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}
-        self.cur_pressed_keys = {"left": False, "right": False, "down": False}
+        self.cur_pressed_keys = {"left": False, "right": False, "down": False, "kick": False, "punch": False}
         self.pos = {'x': 100, 'y': 300}
         self.jump = False
         self.velocity = 0
@@ -73,13 +73,25 @@ class playerState(pygame.sprite.Sprite):
                 if key == pygame.K_RIGHT:
                     self.cur_pressed_keys["right"] = True
                     self.cur_type_animation = "walk"
+
+                if key == pygame.K_PERIOD:
+                     self.cur_pressed_keys["punch"] = True
+                     self.cur_type_animation = "punch"
+                if key == pygame.K_SLASH:
+                     self.cur_pressed_keys["kick"] = True
+                     self.cur_type_animation = "kick"
+
             if(key.type == pygame.KEYUP):
+                self.frame = 0
                 if key == pygame.K_LEFT:
                     self.cur_pressed_keys["left"] = False
-                    self.frame = 0
                 if key == pygame.K_RIGHT:
                     self.cur_pressed_keys["right"] = False
-                    self.frame = 0
+
+                if key == pygame.K_PERIOD:
+                     self.cur_pressed_keys["punch"] = False
+                if key == pygame.K_SLASH:
+                     self.cur_pressed_keys["kick"] = False
         else:
             if(key.type == pygame.KEYDOWN):
                 if key == pygame.K_a:
@@ -89,13 +101,27 @@ class playerState(pygame.sprite.Sprite):
                 if key == pygame.K_d:
                     self.cur_pressed_keys["right"] = True
                     self.cur_type_animation = "walk"
+
+                
+                if key == pygame.K_f:
+                     self.cur_pressed_keys["punch"] = True
+                     self.cur_type_animation = "punch"
+                if key == pygame.K_g:
+                     self.cur_pressed_keys["kick"] = True
+                     self.cur_type_animation = "kick"
+
             if(key.type == pygame.KEYUP):
+                self.frame = 0
                 if key == pygame.K_a:
                     self.cur_pressed_keys["left"] = False
-                    self.frame = 0
                 if key == pygame.K_d:
                     self.cur_pressed_keys["right"] = False
-                    self.frame = 0
+
+                if key == pygame.K_f:
+                     self.cur_pressed_keys["punch"] = False
+                if key == pygame.K_g:
+                     self.cur_pressed_keys["kick"] = False
+
         if self.cur_pressed_keys["left"]:
                 self.pos['x'] += -10
                 self.image = self.champAnimations["walk"][self.cur_animation]
