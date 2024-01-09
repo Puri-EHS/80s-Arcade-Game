@@ -19,7 +19,23 @@ to multiple updated versions to be released.
   
 - Anything Interesting:
   
-- Instructions to Run the Game: 
+- Instructions to Run the Game: first do the stuff with selecting players and characters. The key controls are detailed below.
+
+Player 1: 
+- W: jump 
+- D: forward
+- A: backward
+- F: punch
+- G: kick
+- H: activate power-up
+
+Player 2
+- Up Arrow: jump
+- Left Arrow: forward
+- Right Arrow: backward
+- Period: punch
+- Forward Slash: kick
+- Shift: activate power-up
   
 
 **Architecture:**
