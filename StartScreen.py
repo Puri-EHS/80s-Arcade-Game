@@ -12,10 +12,11 @@ class StartScreen():
         self.text_pos = self.text.get_rect()
         self.text_pos.center = self.background.get_rect().center
         self.text_pos.y += 200
+
     def update(self, events):
         self.screen.blit(self.background, (0,0))
         self.screen.blit(self.text, self.text_pos)
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if pygame.key.key_code(" ") == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE:
                     return True

@@ -1,5 +1,6 @@
 import os
 import pygame
+from Game import Game
 #the first parameter is the powerup. the second parameter is the damage it does  
 character_powerups = {
             "Ryu": ["Fireball", 70], 
@@ -85,6 +86,7 @@ class playerState(pygame.sprite.Sprite):
     
     def update(self, key):
         if(self.isPlayer2):
+
             if(key.type == pygame.KEYDOWN):
                 if key == pygame.K_LEFT:
                     self.cur_pressed_keys["left"] = True
@@ -147,12 +149,12 @@ class playerState(pygame.sprite.Sprite):
                      self.isAttacking = False
 
         if self.cur_pressed_keys["left"]:
-                self.pos['x'] += -100
+                self.pos['x'] += -10
                 self.image = self.champAnimations["walk"][self.cur_animation]
                 if self.cur_facing_left != True:
                     self.image = pygame.transform.flip(self.image, True, False)
         if self.cur_pressed_keys["right"]:
-                self.pos['x'] += 100
+                self.pos['x'] += 10
                 self.image = self.champAnimations["walk"][self.cur_animation]
                 if self.cur_facing_left:
                     self.image = pygame.transform.flip(self.image, True, False)
@@ -191,8 +193,18 @@ class playerState(pygame.sprite.Sprite):
         character_powerup_name = character_powerups[self.champion][0]  
         return character_powerup_name   
 
-    def usePowerup(self):
-                powerup_length = 25 
-                while powerup_length > 0:
-                    character_powerup_damage = character_powerups[self.champion][1]
-                    self.updateHp(character_powerup_damage)
+    def usePowerup(self, events):
+        for event in events: 
+            if event.type == pygame.KEYDOWN: 
+                if event.key == pygame.K_p: 
+                    text_timer = 1.75 
+                    while text_timer > 0.0:
+                        font = pygame.font.Font(None, 26)
+                        text = font.render(self.getPowerup(), True, (0,0,0)) 
+                        Game.game_screen.blit(text, (400,300)) 
+                        text_timer -= 1
+                    powerup_length = 25 
+                    while powerup_length > 0:
+                        character_powerup_damage = character_powerups[self.champion][1]
+                        self.attackValue += character_powerup_damage
+                        powerup_length -= 1

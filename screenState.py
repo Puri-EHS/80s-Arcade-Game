@@ -1,6 +1,5 @@
 import pygame
 import os
-from playerState import playerState
 from StartScreen import StartScreen
 from ChampionSelectScreen import ChampionSelectScreen
 from MapSelectScreen import MapSelectScreen
@@ -22,8 +21,6 @@ class screenState():
         self.num_char_selected = 0
         self.chars_selected = []
         self.players = pygame.sprite.Group()
-        self.testPlayer = playerState("Dhalsim", False)
-        self.testPlayer2 = playerState("Balrog", True)
         self.is_player2 = False
         self.is_zoomed_in = True
         self.startScreen = StartScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -53,17 +50,6 @@ class screenState():
             self.move_fight_border()
             self.players.update(event)
             self.players.draw(self.game_screen)
-            if event.type == pygame.KEYDOWN: 
-                if event.key == pygame.K_p: 
-                    text_timer = 1.75 
-                    while text_timer > 0.0:
-                        font = pygame.font.Font(None, 26)
-                        #text = font.render("Player 1 Activates their Powerup: " + player1.getPowerup(), True, (0,0,0))
-                        #text = font.render("Player 2 Activates their Powerup: " + player2.getPowerup(), True, (0,0,0))
-                        self.game_screen.blit(text, (400,300)) 
-                        text_timer = text_timer-1
-                #player1.usePowerup()
-                #player2.usePowerup()
 
         
         # health bar
@@ -77,7 +63,7 @@ class screenState():
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
         # self.game_screen.blit(map_image, self.select_screen_background.get_rect())
         
-        left_border = (self.testPlayer.pos.get('x')+self.testPlayer2.pos.get('x'))/2
+        left_border = (self.players.pos.get('x')+self.players.pos.get('x'))/2
 
         if left_border < 0:
             left_border = 0
