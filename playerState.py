@@ -4,17 +4,17 @@ from Game import Game
 #the first parameter is the powerup. the second parameter is the damage it does  
 character_powerups = {
             "Ryu": ["Fireball", 70], 
-            "Balrog": ["Superpunch", 80], 
+            "Balrog": ["Strong punch", 80], 
             "Blanka": ["Energized Attack", 65], 
             "Dhalsim": ["Fury Fire", 50],  
             "Sagat":  ["Rapid Hit", 45],  
-            "Guile": ["Flash Kick", 40], 
+            "Guile": ["Flash Punch", 40], 
             "Vega": ["Super Claw Attack", 130], 
-            "Chun Li": ["Power Kick", 25],  
+            "Chun Li": ["Power Puunch", 25],  
             "Zangief": ["Lariat", 15], 
             "E Honda": ["Super Might", 100], 
             "M Bison": ["Super Strength", 110], 
-            "Ken": ["Super Speed", 50]
+            "Ken": ["Lgitightning Punch", 50]
         }
 
 # formatted as [punch, kick]
@@ -48,7 +48,7 @@ class playerState(pygame.sprite.Sprite):
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
         self.champAnimations = {"walk": [], "idle": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}
-        self.cur_pressed_keys = {"left": False, "right": False, "down": False, "kick": False, "punch": False}
+        self.cur_pressed_keys = {"left": False, "right": False, "down": False, "kick": False, "punch": False, "powerup": False}
         self.pos = {'x': 100, 'y': 300}
         self.jump = False
         self.velocity = 0
@@ -102,6 +102,8 @@ class playerState(pygame.sprite.Sprite):
                 if key == pygame.K_SLASH:
                      self.cur_pressed_keys["kick"] = True
                      self.cur_type_animation = "kick"
+                if key == pygame.K_RSHIFT:
+                    self.cur_pressed_keys["powerup"] = True
 
             if(key.type == pygame.KEYUP):
                 self.frame = 0
@@ -116,6 +118,9 @@ class playerState(pygame.sprite.Sprite):
                 if key == pygame.K_SLASH:
                      self.cur_pressed_keys["kick"] = False
                      self.isAttacking = False
+
+                if key == pygame.K_RSHIFT:
+                    self.cur_pressed_keys["powerup"] = False
         else:
             if(key.type == pygame.KEYDOWN):
                 if key == pygame.K_a:
@@ -134,6 +139,9 @@ class playerState(pygame.sprite.Sprite):
                      self.cur_pressed_keys["kick"] = True
                      self.cur_type_animation = "kick"
 
+                if key == pygame.K_h:
+                    self.cur_pressed_keys["powerup"] = True
+
             if(key.type == pygame.KEYUP):
                 self.frame = 0
                 if key == pygame.K_a:
@@ -147,6 +155,9 @@ class playerState(pygame.sprite.Sprite):
                 if key == pygame.K_g:
                      self.cur_pressed_keys["kick"] = False
                      self.isAttacking = False
+
+                if key == pygame.K_h:
+                    self.cur_pressed_keys = False
 
         if self.cur_pressed_keys["left"]:
                 self.pos['x'] += -10
@@ -200,11 +211,14 @@ class playerState(pygame.sprite.Sprite):
                     text_timer = 1.75 
                     while text_timer > 0.0:
                         font = pygame.font.Font(None, 26)
-                        text = font.render(self.getPowerup(), True, (0,0,0)) 
+                        if self.isPlayer2: 
+                            text = font.render("Player 2 Uses " + self.getPowerup(), True, (0,0,0)) 
+                        else: 
+                            text = font.render("Player 1 Uses " + self.getPowerup(), True, (0,0,0))  
                         Game.game_screen.blit(text, (400,300)) 
                         text_timer -= 1
                     powerup_length = 25 
-                    while powerup_length > 0:
+                    while powerup_length > 0: 
                         character_powerup_damage = character_powerups[self.champion][1]
                         self.attackValue += character_powerup_damage
                         powerup_length -= 1
