@@ -45,7 +45,7 @@ class screenState():
 
     def fight_screen(self, events, frame):
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
-
+        
         for event in events:
             self.move_fight_border()
             self.players.update(event)
@@ -62,8 +62,8 @@ class screenState():
     def move_fight_border(self):
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
         # self.game_screen.blit(map_image, self.select_screen_background.get_rect())
-        
-        left_border = (self.players.pos.get('x')+self.players.pos.get('x'))/2
+        player_list = self.players.sprites()
+        left_border = (player_list[0].pos.get('x')+player_list[1].pos.get('x'))/2
 
         if left_border < 0:
             left_border = 0
