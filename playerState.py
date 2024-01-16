@@ -14,7 +14,7 @@ character_powerups = {
             "Zangief": ["Lariat", 15], 
             "E Honda": ["Super Might", 100], 
             "M Bison": ["Super Strength", 110], 
-            "Ken": ["lightning Punch", 50]
+            "Ken": ["Lightning Punch", 50]
         }
 
 # formatted as [punch, kick]
