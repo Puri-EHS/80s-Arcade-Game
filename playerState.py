@@ -197,7 +197,7 @@ class playerState(pygame.sprite.Sprite):
         for event in events: 
             if event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_p: 
-                    text_timer = 1.75 
+                    text_timer = 4 
                     while text_timer > 0.0:
                         font = pygame.font.Font(None, 26)
                         if self.isPlayer2: 
@@ -205,9 +205,10 @@ class playerState(pygame.sprite.Sprite):
                         else: 
                             text = font.render("Player 1 Uses " + self.getPowerup(), True, (0,0,0))  
                         Game.game_screen.blit(text, (400,300)) 
-                        text_timer -= 1
+                        text_timer -= 1.0
                     powerup_length = 25 
-                    while powerup_length > 0: 
+                    counter = 0 
+                    while powerup_length >= counter: 
                         character_powerup_damage = character_powerups[self.champion][1]
                         self.attackValue += character_powerup_damage
-                        powerup_length -= 1
+                        counter+=1
