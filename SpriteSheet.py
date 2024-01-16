@@ -30,8 +30,8 @@ class spritesheet:
         return self.images_at(tups, colorkey) 
 
 
-test = spritesheet(os.path.join('Character_Images', "Balrog.gif"))
-walking_rect = Rect(449, 0, 48.25, 117)
+test = spritesheet(os.path.join('Character_Images', "Ken","Ken.jpg"))
+walking_rect = Rect(448,0,42,106)
 check = test.load_strip(walking_rect,7,None)
 for x in range(len(check)):
     pygame.image.save(check[x], f"{x}.png")
