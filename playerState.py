@@ -34,6 +34,10 @@ character_damage_values = {
             "Ken": [7, 11]
 }
 
+
+powerup_icon = pygame.image.load(os.path.join('Other_images', "Powerup_icon.png"))
+powerup_icon = pygame.transform.scale(powerup_icon, (93,93)) 
+
 class playerState(pygame.sprite.Sprite):
     def __init__(self, champion: str, isPlayer2):
         pygame.sprite.Sprite.__init__(self)
@@ -200,11 +204,15 @@ class playerState(pygame.sprite.Sprite):
                     text_timer = 1.75 
                     while text_timer > 0.0:
                         font = pygame.font.Font(None, 26)
-                        text = font.render(self.getPowerup(), True, (0,0,0)) 
+                        if self.isPlayer2: 
+                            text = font.render("Player 2 Uses " + self.getPowerup(), True, (0,0,0)) 
+                        else: 
+                            text = font.render("Player 1 Uses " + self.getPowerup(), True, (0,0,0))  
                         Game.game_screen.blit(text, (400,300)) 
                         text_timer -= 1
                     powerup_length = 25 
                     while powerup_length > 0:
+                        Game.game_screen.blit(powerup_icon, (0,0))
                         character_powerup_damage = character_powerups[self.champion][1]
                         self.attackValue += character_powerup_damage
                         powerup_length -= 1
