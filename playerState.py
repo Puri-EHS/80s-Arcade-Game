@@ -4,17 +4,17 @@ from Game import Game
 #the first parameter is the powerup. the second parameter is the damage it does  
 character_powerups = {
             "Ryu": ["Fireball", 70], 
-            "Balrog": ["Superpunch", 80], 
+            "Balrog": ["Strong punch", 80], 
             "Blanka": ["Energized Attack", 65], 
             "Dhalsim": ["Fury Fire", 50],  
             "Sagat":  ["Rapid Hit", 45],  
-            "Guile": ["Flash Kick", 40], 
+            "Guile": ["Flash Punch", 40], 
             "Vega": ["Super Claw Attack", 130], 
-            "Chun Li": ["Power Kick", 25],  
+            "Chun Li": ["Power Puunch", 25],  
             "Zangief": ["Lariat", 15], 
             "E Honda": ["Super Might", 100], 
             "M Bison": ["Super Strength", 110], 
-            "Ken": ["Super Speed", 50]
+            "Ken": ["lightning Punch", 50]
         }
 
 # formatted as [punch, kick]
