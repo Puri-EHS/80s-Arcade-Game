@@ -14,7 +14,7 @@ character_powerups = {
             "Zangief": ["Lariat", 15], 
             "E Honda": ["Super Might", 100], 
             "M Bison": ["Super Strength", 110], 
-            "Ken": ["Lightning Punch", 50]
+            "Ken": ["Lgitightning Punch", 50]
         }
 
 # formatted as [punch, kick]
@@ -212,7 +212,10 @@ class playerState(pygame.sprite.Sprite):
                         text_timer -= 1
                     powerup_length = 25 
                     while powerup_length > 0:
-                        Game.game_screen.blit(powerup_icon, (0,0))
+                        if not self.isPlayer2: 
+                            Game.game_screen.blit(powerup_icon, (0,0))
+                        else: 
+                            Game.game_screen.blit(powerup_icon, (600,0))
                         character_powerup_damage = character_powerups[self.champion][1]
                         self.attackValue += character_powerup_damage
                         powerup_length -= 1
