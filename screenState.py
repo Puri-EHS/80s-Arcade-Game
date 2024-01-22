@@ -29,7 +29,7 @@ class screenState():
         self.mapSelectScreen = MapSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
-    def update_screen(self, events, players, frame):
+    def update_screen(self, events):
         if self.current_screen == 0:
             if self.startScreen.update(events):
                 self.current_screen += 1
@@ -45,9 +45,9 @@ class screenState():
                 self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_selected)), (1200, SCREEN_HEIGHT))
                 self.current_screen += 1
         elif self.current_screen == 3:
-            self.fight_screen(events, frame)
+            self.fight_screen(events)
 
-    def fight_screen(self, events, frame):
+    def fight_screen(self, events):
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
         
         for event in events:

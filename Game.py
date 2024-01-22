@@ -35,8 +35,6 @@ class Game():
     #Initialize the Power_up icon
 
 
-    #Players
-    players = {}
     # Main loop
     running = True
     char_selected = 0
@@ -47,7 +45,7 @@ class Game():
             if event.type == pygame.QUIT:
                 running = False
 
-        game_screen.update_screen(events, players, frame=frame)
+        game_screen.update_screen(events)
     
 
         frame += 1

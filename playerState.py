@@ -41,7 +41,6 @@ class playerState(pygame.sprite.Sprite):
         self.champion = champion
         self.hp = 100
         self.isBlocking = False
-        self.inAnimation = False
         self.isAttacking = False
         self.attackValue = 0
         self.MIN_HP_NUM = 0
@@ -84,28 +83,27 @@ class playerState(pygame.sprite.Sprite):
         
     
     def update(self):
-        if self.cur_pressed_keys["left"]:
-                self.pos['x'] += -10
-                self.image = self.champAnimations["walk"][self.cur_animation]
-                if self.cur_facing_left != True:
-                    self.image = pygame.transform.flip(self.image, True, False)
-        if self.cur_pressed_keys["right"]:
-                self.pos['x'] += 10
-                self.image = self.champAnimations["walk"][self.cur_animation]
-                if self.cur_facing_left:
-                    self.image = pygame.transform.flip(self.image, True, False)
-
-        if self.cur_pressed_keys["punch"]:
-             self.image = self.champAnimations["basic punch"][self.cur_animation]
-             self.isAttacking = True
-             self.attackValue = character_damage_values[self.champion][0]
-        if self.cur_pressed_keys["kick"]:
-             self.image = self.champAnimations["basic kick"][self.cur_animation]
-             self.isAttacking = True
-             self.attackValue = character_damage_values[self.champion][1]
+        if self.isAttacking == False:
+            if self.cur_pressed_keys["left"]:
+                    self.pos['x'] += -10
+                    self.image = self.champAnimations["walk"][self.cur_animation]
+                    if self.cur_facing_left != True:
+                        self.image = pygame.transform.flip(self.image, True, False)
+            elif self.cur_pressed_keys["right"]:
+                    self.pos['x'] += 10
+                    self.image = self.champAnimations["walk"][self.cur_animation]
+                    if self.cur_facing_left:
+                        self.image = pygame.transform.flip(self.image, True, False)
+            else:
+                self.image = self.champAnimations["idle"][self.cur_animation]
+                self.cur_type_animation = "idle"
         else:
-            self.image = self.champAnimations["idle"][self.cur_animation]
-            self.cur_type_animation = "idle"
+            if self.cur_pressed_keys["punch"]:
+                 self.image = self.champAnimations["basic punch"][self.cur_animation]
+                 self.attackValue = character_damage_values[self.champion][0]
+            if self.cur_pressed_keys["kick"]:
+                 self.image = self.champAnimations["basic kick"][self.cur_animation]
+                 self.attackValue = character_damage_values[self.champion][1]
 
     def getPosition(self):
         return self.pos
