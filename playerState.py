@@ -57,7 +57,7 @@ class playerState(pygame.sprite.Sprite):
         self.cur_facing_left = isPlayer2
         self.use_power_up = False
         self.cur_frame = 0
-        self.load_animations(f"{champion}")
+        self.load_animations()
         self.image = self.champAnimations["idle"][0]
         self.rect = self.image.get_rect()
         if isPlayer2:
@@ -67,13 +67,13 @@ class playerState(pygame.sprite.Sprite):
         self.rect.y += 350
         
     
-    def load_animations(self, champion):
+    def load_animations(self):
         
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
         #for x in self.champAnimations.keys():
-        #for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
-            #self.champAnimations[f"walk"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png')))
+        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
+            self.champAnimations[f"walk"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png')))
         
         for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
             self.champAnimations[f"idle"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png')))
@@ -83,81 +83,7 @@ class playerState(pygame.sprite.Sprite):
         
         
     
-    def update(self, key):
-        if(self.isPlayer2):
-
-            if(key.type == pygame.KEYDOWN):
-                if key == pygame.K_LEFT:
-                    self.cur_pressed_keys["left"] = True
-                    self.cur_type_animation = "walk"
-                    self.cur_animation = 0
-                if key == pygame.K_RIGHT:
-                    self.cur_pressed_keys["right"] = True
-                    self.cur_type_animation = "walk"
-
-                if key == pygame.K_PERIOD:
-                     self.cur_pressed_keys["punch"] = True
-                     self.cur_type_animation = "punch"
-                if key == pygame.K_SLASH:
-                     self.cur_pressed_keys["kick"] = True
-                     self.cur_type_animation = "kick"
-                if key == pygame.K_RSHIFT:
-                    self.cur_pressed_keys["powerup"] = True
-
-            if(key.type == pygame.KEYUP):
-                self.frame = 0
-                if key == pygame.K_LEFT:
-                    self.cur_pressed_keys["left"] = False
-                if key == pygame.K_RIGHT:
-                    self.cur_pressed_keys["right"] = False
-
-                if key == pygame.K_PERIOD:
-                     self.cur_pressed_keys["punch"] = False
-                     self.isAttacking = False
-                if key == pygame.K_SLASH:
-                     self.cur_pressed_keys["kick"] = False
-                     self.isAttacking = False
-
-                if key == pygame.K_RSHIFT:
-                    self.cur_pressed_keys["powerup"] = False
-        else:
-            if(key.type == pygame.KEYDOWN):
-                if key == pygame.K_a:
-                    self.cur_pressed_keys["left"] = True
-                    self.cur_type_animation = "walk"
-                    self.cur_animation = 0
-                if key == pygame.K_d:
-                    self.cur_pressed_keys["right"] = True
-                    self.cur_type_animation = "walk"
-
-                
-                if key == pygame.K_f:
-                     self.cur_pressed_keys["punch"] = True
-                     self.cur_type_animation = "punch"
-                if key == pygame.K_g:
-                     self.cur_pressed_keys["kick"] = True
-                     self.cur_type_animation = "kick"
-
-                if key == pygame.K_h:
-                    self.cur_pressed_keys["powerup"] = True
-
-            if(key.type == pygame.KEYUP):
-                self.frame = 0
-                if key == pygame.K_a:
-                    self.cur_pressed_keys["left"] = False
-                if key == pygame.K_d:
-                    self.cur_pressed_keys["right"] = False
-
-                if key == pygame.K_f:
-                     self.cur_pressed_keys["punch"] = False
-                     self.isAttacking = False
-                if key == pygame.K_g:
-                     self.cur_pressed_keys["kick"] = False
-                     self.isAttacking = False
-
-                if key == pygame.K_h:
-                    self.cur_pressed_keys = False
-
+    def update(self):
         if self.cur_pressed_keys["left"]:
                 self.pos['x'] += -10
                 self.image = self.champAnimations["walk"][self.cur_animation]
@@ -177,13 +103,10 @@ class playerState(pygame.sprite.Sprite):
              self.image = self.champAnimations["basic kick"][self.cur_animation]
              self.isAttacking = True
              self.attackValue = character_damage_values[self.champion][1]
-
-
-
         else:
             self.image = self.champAnimations["idle"][self.cur_animation]
             self.cur_type_animation = "idle"
-    
+
     def getPosition(self):
         return self.pos
 
