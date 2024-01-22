@@ -52,7 +52,7 @@ class playerState(pygame.sprite.Sprite):
         self.velocity = 0
         self.character_powerup_name = None
         self.isPlayer2 = isPlayer2
-        self.cur_facing_left = False
+        self.cur_facing_left = isPlayer2
         self.use_power_up = False
         self.cur_frame = 0
         self.load_animations()
@@ -82,6 +82,8 @@ class playerState(pygame.sprite.Sprite):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"idle"].append(image)
         
         #for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
@@ -108,6 +110,7 @@ class playerState(pygame.sprite.Sprite):
                     self.image = self.champAnimations["walk"][self.cur_frame//5]
                     if self.cur_facing_left:
                         self.image = pygame.transform.flip(self.image, True, False)
+                        self.cur_facing_left = False
             else:
                 if self.cur_frame >= len(self.champAnimations["idle"]):
                          self.cur_frame = 0

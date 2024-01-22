@@ -22,7 +22,6 @@ class screenState():
         self.num_char_selected = 0
         self.chars_selected = []
         self.players = pygame.sprite.Group()
-        self.is_player2 = False
         self.is_zoomed_in = True
         self.startScreen = StartScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.champSelectScreen = ChampionSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
