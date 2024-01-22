@@ -3,6 +3,7 @@ import os
 from StartScreen import StartScreen
 from ChampionSelectScreen import ChampionSelectScreen
 from MapSelectScreen import MapSelectScreen
+from playerState import playerState
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -15,8 +16,7 @@ class screenState():
     def __init__(self, game_screen) -> None:
         self.game_screen = game_screen
         self.current_screen = 0
-        self.map_selected = None
-        self.map_image = None
+        self.map_selected = ""
         self.rect = pygame.Rect(100, 150, 120, 100)
         self.screens = []
         self.num_char_selected = 0
@@ -29,30 +29,28 @@ class screenState():
         self.mapSelectScreen = MapSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
-    def update_screen(self, events):
+    def update_screen(self, events, players, frame):
         if self.current_screen == 0:
             if self.startScreen.update(events):
                 self.current_screen += 1
         elif self.current_screen == 1:
             self.chars_selected = self.champSelectScreen.update(events)
             if self.chars_selected != None:
-                for x in self.chars_selected:
-                    self.players.add(x)
                 self.current_screen += 1
         elif self.current_screen == 2:
             self.map_selected = self.mapSelectScreen.update(events)
-            if self.map_selected != None:
-                self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_selected)), (1200, SCREEN_HEIGHT))
+            if self.map_selected != "":
                 self.current_screen += 1
         elif self.current_screen == 3:
-            self.fight_screen(events)
+            self.fight_screen(events, frame)
 
-    def fight_screen(self, events):
+    def fight_screen(self, events, frame):
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
-        
-        self.move_fight_border()
-        self.players.update(events)
-        self.players.draw(self.game_screen)
+
+        for event in events:
+            self.move_fight_border()
+            self.players.update(event)
+            self.players.draw(self.game_screen)
 
         
         # health bar
@@ -62,20 +60,23 @@ class screenState():
         pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 20, 200, 50), 5)
         self.update_player_health(80, 2)
 
+
     def move_fight_border(self):
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
         # self.game_screen.blit(map_image, self.select_screen_background.get_rect())
-        player_list = self.players.sprites()
-        left_border = (player_list[0].rect.x+player_list[1].rect.x)/2
+        
+        left_border = (self.players.pos.get('x')+self.players.pos.get('x'))/2
 
         if left_border < 0:
             left_border = 0
         elif left_border > 390:
             left_border = 390
         if self.is_zoomed_in:
-            self.game_screen.blit(self.map_image, (0, 0), (left_border, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+            map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), (1200, SCREEN_HEIGHT))
+            self.game_screen.blit(map_image, (0, 0), (left_border, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
         else: 
-            self.game_screen.blit(self.map_image, (0, 0), (200, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+            map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), (1200, SCREEN_HEIGHT))
+            self.game_screen.blit(map_image, (0, 0), (200, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def update_player_health(self, health, player_number):
         health_color = None
@@ -90,3 +91,12 @@ class screenState():
             pygame.draw.rect(self.game_screen, health_color , (35, 25, health * 2, 40))
         else: 
             pygame.draw.rect(self.game_screen, health_color , (SCREEN_WIDTH - health * 2 - 35, 25, health * 2, 40))
+
+    def update_powerup(self, player_number):
+        powerup_color = (0,0,255)
+        time = 25 
+        while time > 0:
+            if player_number == 1: 
+                pygame.draw.rect(self.game_screen, powerup_color, (45, 35, 20 ,50))
+            else: 
+                pygame.draw.rect(self.game_screen, powerup_color, (SCREEN_WIDTH-45, 20, 35, 50))
