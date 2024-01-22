@@ -47,7 +47,6 @@ class Game():
 
         game_screen.update_screen(events)
     
-
         frame += 1
         if(frame == 60):
             time += 1

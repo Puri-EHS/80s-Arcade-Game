@@ -50,10 +50,9 @@ class playerState(pygame.sprite.Sprite):
         self.pos = {'x': 100, 'y': 300}
         self.jump = False
         self.velocity = 0
-        self.start_frame = 0
         self.character_powerup_name = None
         self.isPlayer2 = isPlayer2
-        self.cur_facing_left = isPlayer2
+        self.cur_facing_left = False
         self.use_power_up = False
         self.cur_frame = 0
         self.load_animations()
@@ -72,10 +71,16 @@ class playerState(pygame.sprite.Sprite):
             champAnimations, and populate the dictinonary"""
         #for x in self.champAnimations.keys():
         for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
-            self.champAnimations[f"walk"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png')))
+            image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
+            if self.isPlayer2:
+                 image = pygame.transform.flip(image, True, False)
+            self.champAnimations[f"walk"].append(image)
         
         for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
-            self.champAnimations[f"idle"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png')))
+            image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png'))
+            if self.isPlayer2:
+                 image = pygame.transform.flip(image, True, False)
+            self.champAnimations[f"idle"].append(image)
         
         #for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
              #self.champAnimations[f"jump"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png')))
@@ -86,16 +91,27 @@ class playerState(pygame.sprite.Sprite):
         if self.isAttacking == False:
             if self.cur_pressed_keys["left"]:
                     self.pos['x'] += -10
-                    self.image = self.champAnimations["walk"][self.cur_animation]
+                    self.cur_frame += 1
+                    if self.cur_frame >= len(self.champAnimations["walk"]):
+                         self.cur_frame = 0
+                    self.image = self.champAnimations["walk"][self.cur_frame]
                     if self.cur_facing_left != True:
                         self.image = pygame.transform.flip(self.image, True, False)
+                        self.cur_facing_left = True
             elif self.cur_pressed_keys["right"]:
                     self.pos['x'] += 10
-                    self.image = self.champAnimations["walk"][self.cur_animation]
+                    self.cur_frame += 1
+                    if self.cur_frame >= len(self.champAnimations["walk"]):
+                         self.cur_frame = 0
+                    self.image = self.champAnimations["walk"][self.cur_frame]
                     if self.cur_facing_left:
                         self.image = pygame.transform.flip(self.image, True, False)
             else:
-                self.image = self.champAnimations["idle"][self.cur_animation]
+                if self.cur_frame >= len(self.champAnimations["idle"]):
+                         self.cur_frame = 0
+                self.image = self.champAnimations["idle"][self.cur_frame]
+                if self.cur_facing_left != True:
+                     self.image = pygame.transform.flip(self.image, True, False)
                 self.cur_type_animation = "idle"
         else:
             if self.cur_pressed_keys["punch"]:

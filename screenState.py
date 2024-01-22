@@ -50,10 +50,9 @@ class screenState():
     def fight_screen(self, events):
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
         
-        for event in events:
-            self.move_fight_border()
-            self.players.update(event)
-            self.players.draw(self.game_screen)
+        self.move_fight_border()
+        self.players.update(events)
+        self.players.draw(self.game_screen)
 
         
         # health bar
