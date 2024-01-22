@@ -45,6 +45,7 @@ class playerState(pygame.sprite.Sprite):
         self.attackValue = 0
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
+        self.champions_background_color = {"Balrog": [0, 0, 0], "Blanka": [], "ChunLi": [], "Dhalsim": [32, 144, 160], "E Honda": [], "Guile": [], "Ken": [128, 184, 168], "M Bison": [], "Ryu": [], "Sagat": [], "Vega":[], "Zangief": []}
         self.champAnimations = {"walk": [], "idle": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}
         self.cur_pressed_keys = {"left": False, "right": False, "down": False, "kick": False, "punch": False, "powerup": False}
         self.jump = False
@@ -73,6 +74,8 @@ class playerState(pygame.sprite.Sprite):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"walk"].append(image)
         
         for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
