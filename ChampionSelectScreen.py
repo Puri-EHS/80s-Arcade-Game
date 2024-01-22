@@ -1,5 +1,6 @@
 import pygame
 import os
+from playerState import playerState
 
 class ChampionSelectScreen():
 
@@ -17,7 +18,10 @@ class ChampionSelectScreen():
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if self.select_controls(event.key):
-                    self.char_selected.append(self.char_buttons[self.button_pos[0] + self.button_pos[1]*4])
+                    player = playerState(self.char_buttons[self.button_pos[0] + self.button_pos[1]*4])
+                    if len(self.char_selected) == 1:
+                        player.isPlayer2 = True
+                    self.char_selected.append(player)
         self.draw_select_boxes(True)
         if len(self.char_selected) == 2:
             return self.char_selected

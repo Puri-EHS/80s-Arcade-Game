@@ -15,7 +15,8 @@ class screenState():
     def __init__(self, game_screen) -> None:
         self.game_screen = game_screen
         self.current_screen = 0
-        self.map_selected = ""
+        self.map_selected = None
+        self.map_image = None
         self.rect = pygame.Rect(100, 150, 120, 100)
         self.screens = []
         self.num_char_selected = 0
@@ -35,10 +36,13 @@ class screenState():
         elif self.current_screen == 1:
             self.chars_selected = self.champSelectScreen.update(events)
             if self.chars_selected != None:
+                for x in self.chars_selected:
+                    self.players.add(x)
                 self.current_screen += 1
         elif self.current_screen == 2:
             self.map_selected = self.mapSelectScreen.update(events)
-            if self.map_selected != "":
+            if self.map_selected != None:
+                self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_selected)), (1200, SCREEN_HEIGHT))
                 self.current_screen += 1
         elif self.current_screen == 3:
             self.fight_screen(events, frame)
@@ -70,11 +74,9 @@ class screenState():
         elif left_border > 390:
             left_border = 390
         if self.is_zoomed_in:
-            map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), (1200, SCREEN_HEIGHT))
-            self.game_screen.blit(map_image, (0, 0), (left_border, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+            self.game_screen.blit(self.map_image, (0, 0), (left_border, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
         else: 
-            map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), (1200, SCREEN_HEIGHT))
-            self.game_screen.blit(map_image, (0, 0), (200, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+            self.game_screen.blit(self.map_image, (0, 0), (200, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def update_player_health(self, health, player_number):
         health_color = None

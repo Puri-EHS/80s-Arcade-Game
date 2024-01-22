@@ -1,6 +1,5 @@
 import os
 import pygame
-from Game import Game
 #the first parameter is the powerup. the second parameter is the damage it does  
 character_powerups = {
             "Ryu": ["Fireball", 70], 
@@ -35,7 +34,7 @@ character_damage_values = {
 }
 
 class playerState(pygame.sprite.Sprite):
-    def __init__(self, champion: str, isPlayer2):
+    def __init__(self, champion: str, isPlayer2 = False):
         pygame.sprite.Sprite.__init__(self)
         self.cur_animation = 0
         self.cur_type_animation = "idle"
@@ -204,22 +203,22 @@ class playerState(pygame.sprite.Sprite):
         character_powerup_name = character_powerups[self.champion][0]  
         return character_powerup_name   
 
-    def usePowerup(self, events):
-        for event in events: 
-            if event.type == pygame.KEYDOWN: 
-                if event.key == pygame.K_p: 
-                    text_timer = 4 
-                    while text_timer > 0.0:
-                        font = pygame.font.Font(None, 26)
-                        if self.isPlayer2: 
-                            text = font.render("Player 2 Uses " + self.getPowerup(), True, (0,0,0)) 
-                        else: 
-                            text = font.render("Player 1 Uses " + self.getPowerup(), True, (0,0,0))  
-                        Game.game_screen.blit(text, (400,300)) 
-                        text_timer -= 1.0
-                    powerup_length = 25 
-                    counter = 0 
-                    while powerup_length >= counter: 
-                        character_powerup_damage = character_powerups[self.champion][1]
-                        self.attackValue += character_powerup_damage
-                        counter+=1
+    #def usePowerup(self, events):
+    #    for event in events: 
+    #        if event.type == pygame.KEYDOWN: 
+    #            if event.key == pygame.K_p: 
+    #                text_timer = 4 
+    #                while text_timer > 0.0:
+    #                    font = pygame.font.Font(None, 26)
+    #                    if self.isPlayer2: 
+    #                        text = font.render("Player 2 Uses " + self.getPowerup(), True, (0,0,0)) 
+    #                    else: 
+    #                        text = font.render("Player 1 Uses " + self.getPowerup(), True, (0,0,0))  
+    #                    Game.game_screen.blit(text, (400,300)) 
+    #                    text_timer -= 1.0
+    #                powerup_length = 25 
+    #                counter = 0 
+    #                while powerup_length >= counter: 
+    #                    character_powerup_damage = character_powerups[self.champion][1]
+    #                    self.attackValue += character_powerup_damage
+    #                    counter+=1
