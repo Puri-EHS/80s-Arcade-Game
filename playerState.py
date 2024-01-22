@@ -47,7 +47,6 @@ class playerState(pygame.sprite.Sprite):
         self.powerup_usable = False
         self.champAnimations = {"walk": [], "idle": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}
         self.cur_pressed_keys = {"left": False, "right": False, "down": False, "kick": False, "punch": False, "powerup": False}
-        self.pos = {'x': 100, 'y': 300}
         self.jump = False
         self.velocity = 0
         self.character_powerup_name = None
@@ -90,7 +89,7 @@ class playerState(pygame.sprite.Sprite):
     def update(self):
         if self.isAttacking == False:
             if self.cur_pressed_keys["left"]:
-                    self.pos['x'] += -10
+                    self.rect.x += -10
                     self.cur_frame += 1
                     if self.cur_frame >= len(self.champAnimations["walk"]):
                          self.cur_frame = 0
@@ -99,7 +98,7 @@ class playerState(pygame.sprite.Sprite):
                         self.image = pygame.transform.flip(self.image, True, False)
                         self.cur_facing_left = True
             elif self.cur_pressed_keys["right"]:
-                    self.pos['x'] += 10
+                    self.rect.x += 10
                     self.cur_frame += 1
                     if self.cur_frame >= len(self.champAnimations["walk"]):
                          self.cur_frame = 0
@@ -122,7 +121,7 @@ class playerState(pygame.sprite.Sprite):
                  self.attackValue = character_damage_values[self.champion][1]
 
     def getPosition(self):
-        return self.pos
+        return self.rect
 
         
 

@@ -66,7 +66,7 @@ class screenState():
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
         # self.game_screen.blit(map_image, self.select_screen_background.get_rect())
         player_list = self.players.sprites()
-        left_border = (player_list[0].pos.get('x')+player_list[1].pos.get('x'))/2
+        left_border = (player_list[0].rect.x+player_list[1].rect.x)/2
 
         if left_border < 0:
             left_border = 0
