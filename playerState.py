@@ -89,20 +89,20 @@ class playerState(pygame.sprite.Sprite):
     def update(self):
         if self.isAttacking == False:
             if self.cur_pressed_keys["left"]:
-                    self.rect.x += -10
+                    self.rect.x += -5
                     self.cur_frame += 1
-                    if self.cur_frame >= len(self.champAnimations["walk"]):
+                    if self.cur_frame/5 >= len(self.champAnimations["walk"]):
                          self.cur_frame = 0
-                    self.image = self.champAnimations["walk"][self.cur_frame]
+                    self.image = self.champAnimations["walk"][self.cur_frame//5]
                     if self.cur_facing_left != True:
                         self.image = pygame.transform.flip(self.image, True, False)
                         self.cur_facing_left = True
             elif self.cur_pressed_keys["right"]:
-                    self.rect.x += 10
+                    self.rect.x += 5
                     self.cur_frame += 1
-                    if self.cur_frame >= len(self.champAnimations["walk"]):
+                    if self.cur_frame/5 >= len(self.champAnimations["walk"]):
                          self.cur_frame = 0
-                    self.image = self.champAnimations["walk"][self.cur_frame]
+                    self.image = self.champAnimations["walk"][self.cur_frame//5]
                     if self.cur_facing_left:
                         self.image = pygame.transform.flip(self.image, True, False)
             else:
