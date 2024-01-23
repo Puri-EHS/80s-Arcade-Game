@@ -11,6 +11,8 @@ class player2(playerState):
             if((event.type == pygame.KEYDOWN) or (event.type == pygame.KEYUP)) and self.isAttacking == False:
                 self.update_action(event)
                 self.update_continuous(event)
+                if (event.key == pygame.K_p): 
+                    self.usePowerup(event)
         return super().update()
 
     def update_action(self, event):
@@ -39,3 +41,16 @@ class player2(playerState):
                 self.cur_pressed_keys["left"] = False
             if event.key == pygame.K_d:
                 self.cur_pressed_keys["right"] = False
+    
+    def usePowerup(self, event):
+        if event.type == pygame.KEYDOWN: 
+                if event.key == pygame.K_p: 
+                    powerup_length = 25 
+                    counter = 0 
+                    while powerup_length >= counter:
+                        character_powerup_damage = player2.getPowerupInfo(self.champion, 1)
+                        if "kick" in player2.getPowerupInfo(self.champion, 0): 
+                            set_attack = player2.setAttackVal(self.champion, True, character_powerup_damage)
+                        else: 
+                            set_attack = player2.setAttackVal(self.champion, False, character_powerup_damage)
+                        counter+=1
