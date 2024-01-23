@@ -52,6 +52,7 @@ class screenState():
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
         
         self.move_fight_border()
+        self.player_out_of_bounds()
         self.players.update(events)
         self.players.draw(self.game_screen)
         for event in events:
@@ -85,6 +86,15 @@ class screenState():
             self.game_screen.blit(self.map_image, (0, 0), (left_border, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
         else: 
             self.game_screen.blit(self.map_image, (0, 0), (200, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+
+
+    def player_out_of_bounds(self, left_border):
+        player1_x = self.players.sprites()[0].rect.x
+        player2_x = self.players.sprites()[0].rect.x
+
+        if player1_x < 0:
+            
+
 
     def update_player_health(self, health, player_number):
         health_color = None
