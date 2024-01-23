@@ -23,12 +23,15 @@ class player2(playerState):
         if event.key == pygame.K_PERIOD:
             self.cur_type_animation = "punch"
             self.isAttacking = True
+            self.isBlocking = False
         if event.key == pygame.K_SLASH:
             self.cur_type_animation = "kick"
             self.isAttacking = True
+            self.isBlocking = False
         if event.key == pygame.K_RSHIFT:
             self.cur_pressed_keys["powerup"] = True
-            self.isAttacking = True      
+            self.isAttacking = True
+            self.isBlocking = False      
 
     def update_continuous(self, event):
         if(event.type == pygame.KEYDOWN):
