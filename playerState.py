@@ -70,7 +70,7 @@ class playerState(pygame.sprite.Sprite):
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
         #for x in self.champAnimations.keys():
-        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
+        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk')))):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
@@ -78,7 +78,7 @@ class playerState(pygame.sprite.Sprite):
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"walk"].append(image)
         
-        for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
+        for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle')))):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
@@ -100,7 +100,7 @@ class playerState(pygame.sprite.Sprite):
                          self.cur_frame = 0
                     self.image = self.champAnimations["walk"][self.cur_frame//5]
                     if self.cur_facing_left != True:
-                        self.image = pygame.transform.flip(self.image, True, False)
+                        self.image = pygame.transform.flip(self.champAnimations["walk"][self.cur_frame//5], True, False)
                         self.cur_facing_left = True
             elif self.cur_pressed_keys["right"]:
                     self.rect.x += 5
@@ -109,14 +109,15 @@ class playerState(pygame.sprite.Sprite):
                          self.cur_frame = 0
                     self.image = self.champAnimations["walk"][self.cur_frame//5]
                     if self.cur_facing_left:
-                        self.image = pygame.transform.flip(self.image, True, False)
+                        self.image = pygame.transform.flip(self.champAnimations["walk"][self.cur_frame//5], True, False)
                         self.cur_facing_left = False
             else:
-                if self.cur_frame >= len(self.champAnimations["idle"]):
-                         self.cur_frame = 0
-                self.image = self.champAnimations["idle"][self.cur_frame]
+                self.cur_frame += 1
+                if self.cur_frame/5 >= len(self.champAnimations["idle"]):
+                    self.cur_frame = 0
+                self.image = self.champAnimations["idle"][self.cur_frame//5]
                 if self.cur_facing_left != True:
-                     self.image = pygame.transform.flip(self.image, True, False)
+                     self.image = pygame.transform.flip(self.champAnimations["idle"][self.cur_frame//5], True, False)
                 self.cur_type_animation = "idle"
         else:
             if self.cur_pressed_keys["punch"]:
