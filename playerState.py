@@ -74,7 +74,7 @@ class playerState(pygame.sprite.Sprite):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
-        for image in self.champAnimations:    
+        ~for image in self.champAnimations:    
                 self.champAnimations[image] = image.convert_alpha()
                 image.set_colorkey(self.champions_background_color[f"{self.champion}"])
                 self.champAnimations[f"walk"].append(image)
