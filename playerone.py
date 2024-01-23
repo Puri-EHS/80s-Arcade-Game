@@ -35,8 +35,10 @@ class player1(playerState):
             if event.key == pygame.K_a or event.key == pygame.K_d:
                 if event.key == pygame.K_d:
                     self.cur_pressed_keys["right"] = True
+                    self.isBlocking = False
                 if event.key == pygame.K_a:
                     self.cur_pressed_keys["left"] = True
+                    self.isBlocking = False
                 self.cur_type_animation = "walk"
                 self.cur_animation = 0
             if event.key == pygame.K_s:
@@ -48,9 +50,11 @@ class player1(playerState):
             self.frame = 0
             if event.key == pygame.K_a:
                 self.cur_pressed_keys["left"] = False
+                self.isBlocking = True
             if event.key == pygame.K_d:
                 self.cur_pressed_keys["right"] = False
-            if event.key == pygame.K_a:
+                self.isBlocking = True
+            if event.key == pygame.K_s:
                 self.cur_pressed_keys["down"] = False
     
     def usePowerup(self, event):
