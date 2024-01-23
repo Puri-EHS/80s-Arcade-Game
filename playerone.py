@@ -16,6 +16,10 @@ class player1(playerState):
         return super().update()
 
     def update_action(self, event):
+        if event.key == pygame.K_w:
+            self.cur_type_animation = "jump"
+            self.jump = True
+            self.isBlocking = False    
         if event.key == pygame.K_f:
             self.cur_type_animation = "punch"
             self.isAttacking = True
@@ -35,13 +39,20 @@ class player1(playerState):
                     self.cur_pressed_keys["left"] = True
                 self.cur_type_animation = "walk"
                 self.cur_animation = 0
+            if event.key == pygame.K_s:
+                self.cur_pressed_keys["down"] = True
+            self.cur_type_animation = "crouch"
+            self.cur_animation = 0
+        
         if(event.type == pygame.KEYUP):
             self.frame = 0
             if event.key == pygame.K_a:
                 self.cur_pressed_keys["left"] = False
             if event.key == pygame.K_RIGHT:
                 self.cur_pressed_keys["right"] = False
-
+            if event.key == pygame.K_a:
+                self.cur_pressed_keys["down"] = False
+    
     def usePowerup(self, event):
         if event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_p: 

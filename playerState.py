@@ -86,7 +86,7 @@ class playerState(pygame.sprite.Sprite):
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"idle"].append(image)
         
-        for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
+    """   for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
@@ -118,7 +118,7 @@ class playerState(pygame.sprite.Sprite):
             image.convert_alpha()
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"basic punch"].append(image)
-            
+            """
             
                     
         
