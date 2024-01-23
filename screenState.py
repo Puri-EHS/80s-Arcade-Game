@@ -88,25 +88,25 @@ class screenState():
             self.game_screen.blit(self.map_image, (0, 0), (200, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
-    def player_out_of_bounds(self, left_border):
+    def player_out_of_bounds(self):
         player1_x = self.players.sprites()[0].rect.x
         player2_x = self.players.sprites()[0].rect.x
 
         if player1_x < 0:
             icon = pygame.image.load(os.path.join('Other_images', 'player1_left_outofbounds.png'))
-            self.screen.blit(icon, pygame.Rect(20, 250, 30, 30))
+            self.game_screen.blit(icon, pygame.Rect(20, 250, 20, 20))
 
         elif player1_x > SCREEN_WIDTH:
             icon = pygame.image.load(os.path.join('Other_images', 'player1_right_outofbounds.png'))
-            self.screen.blit(icon, pygame.Rect(20, 250, 30, 30))
+            self.game_screen.blit(icon, pygame.Rect(720, 250, 20, 20))
 
         if player2_x < 0:
             icon = pygame.image.load(os.path.join('Other_images', 'player2_left_outofbounds.png'))
-            self.screen.blit(icon, pygame.Rect(750, 250, 30, 30))
+            self.game_screen.blit(icon, pygame.Rect(20, 250, 20, 20))
 
         elif player2_x > SCREEN_WIDTH:
             icon = pygame.image.load(os.path.join('Other_images', 'player2_right_outofbounds.png'))
-            self.screen.blit(icon, pygame.Rect(750, 250, 30, 30))
+            self.game_screen.blit(icon, pygame.Rect(720, 250, 20, 20))
             
 
 
