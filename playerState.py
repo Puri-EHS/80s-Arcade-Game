@@ -120,9 +120,6 @@ class playerState(pygame.sprite.Sprite):
             self.champAnimations[f"basic punch"].append(image)
             """
             
-                    
-        
-    
     def update(self):
         if self.isAttacking == False:
             if self.cur_pressed_keys["left"]:
@@ -174,11 +171,13 @@ class playerState(pygame.sprite.Sprite):
         Args:
             attack (_type_): _description_
         """
-    def getPowerupInfo(self, champion, index): 
+#gets powerup information depending on champion and whether the name of the powerup, punch, or kick damage is needed   
+    def getPowerupInfo(champion, index): 
         return character_powerups[champion][index]
 
 
-    def setAttackVal(self, champion, isKick, player_powerup): 
+#sets the attack value during powerup usage and resets after powerup usage 
+    def setAttackVal(champion, isKick, player_powerup): 
         original_kick =  character_damage_values[champion][1]
         original_punch = character_damage_values[champion][0] 
 

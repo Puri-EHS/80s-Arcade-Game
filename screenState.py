@@ -102,16 +102,6 @@ class screenState():
 
     def update_powerup(self, player_number):
         powerup_color = (0,0,255)
-        text_timer = 3.0
-        while text_timer > 0.0:
-            font = pygame.font.Font(None, 26)
-            if player_number == 1:
-                text = font.render("Player 1 Uses " + player1.getPowerupInfo(player1.champion, 0), True, (0,0,0))  
-            else: 
-                text = font.render("Player 2 Uses " + player2.getPowerupInfo(player2.champion, 0), True, (0,0,0))  
-            self.game_screen.blit(text, (400,300)) 
-            text_timer -= 1.0
-
         time = 25 
         while time > 0:
             if player_number == 1: 
