@@ -52,6 +52,7 @@ class screenState():
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
         
         self.move_fight_border()
+        self.player_out_of_bounds()
         self.players.update(events)
         self.players.draw(self.game_screen)
         for event in events:
@@ -65,11 +66,13 @@ class screenState():
 
         
         # health bar
-        pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 200, 50), 5)
-        self.update_player_health(20, 1)
+        player1_hp = self.players.sprites()[0].hp
+        player2_hp = self.players.sprites()[1].hp
+        pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 210, 50), 5)
+        self.update_player_health(player1_hp, 1)
 
-        pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 20, 200, 50), 5)
-        self.update_player_health(80, 2)
+        pygame.draw.rect(self.game_screen, (0, 0, 0), (560, 20, 210, 50), 5)
+        self.update_player_health(player2_hp, 2)
 
     def move_fight_border(self):
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
@@ -85,6 +88,41 @@ class screenState():
             self.game_screen.blit(self.map_image, (0, 0), (left_border, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
         else: 
             self.game_screen.blit(self.map_image, (0, 0), (200, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+
+
+    def player_out_of_bounds(self):
+        player1_x = self.players.sprites()[0].rect.x
+        player2_x = self.players.sprites()[1].rect.x
+        left_icon_triggered = False
+        right_icon_triggered = False
+
+        if player2_x < 0:
+            icon = pygame.image.load(os.path.join('Other_images', 'player2_left_outofbounds.png'))
+            self.game_screen.blit(icon, pygame.Rect(20, 250, 20, 20))
+            left_icon_triggered = True
+
+        elif player2_x > SCREEN_WIDTH:
+            icon = pygame.image.load(os.path.join('Other_images', 'player2_right_outofbounds.png'))
+            self.game_screen.blit(icon, pygame.Rect(705, 250, 20, 20))
+            right_icon_triggered = True
+
+        if player1_x < 0:
+            icon = pygame.image.load(os.path.join('Other_images', 'player1_left_outofbounds.png'))
+            if left_icon_triggered:
+                self.game_screen.blit(icon, pygame.Rect(20, 160, 20, 20))
+            else:
+                self.game_screen.blit(icon, pygame.Rect(20, 250, 20, 20))
+            left_icon_triggered = True
+
+        elif player1_x > SCREEN_WIDTH:
+            icon = pygame.image.load(os.path.join('Other_images', 'player1_right_outofbounds.png'))
+            if right_icon_triggered:
+                self.game_screen.blit(icon, pygame.Rect(705, 160, 20, 20))
+            else:
+                self.game_screen.blit(icon, pygame.Rect(705, 250, 20, 20))
+            right_icon_triggered = True
+            
+
 
     def update_player_health(self, health, player_number):
         health_color = None
