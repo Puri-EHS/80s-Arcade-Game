@@ -3,17 +3,14 @@ from playerState import playerState
 
 class player1(playerState):
 
-    def __init__(self, champion: str, isPlayer2=False): 
-        self.champion = champion
-        super().__init__(self.champion, isPlayer2)
+    def __init__(self, champion: str, isPlayer2=False):
+        super().__init__(champion, isPlayer2)
 
     def update(self, events):
         for event in events:
             if((event.type == pygame.KEYDOWN) or (event.type == pygame.KEYUP)) and self.isAttacking == False:
                 self.update_action(event)
                 self.update_continuous(event)
-                if (event.key == pygame.K_p): 
-                    self.usePowerup(event)
         return super().update()
 
     def update_action(self, event):
@@ -42,16 +39,3 @@ class player1(playerState):
                 self.cur_pressed_keys["left"] = False
             if event.key == pygame.K_RIGHT:
                 self.cur_pressed_keys["right"] = False
-
-    def usePowerup(self, event):
-        if event.type == pygame.KEYDOWN: 
-                if event.key == pygame.K_p: 
-                    powerup_length = 25 
-                    counter = 0 
-                    while powerup_length >= counter:
-                        character_powerup_damage = player1.getPowerupInfo(self.champion, 1)
-                        if "kick" in player1.getPowerupInfo(self.champion, 0): 
-                            set_attack = player1.setAttackVal(self.champion, True, character_powerup_damage)
-                        else: 
-                            set_attack = player1.setAttackVal(self.champion, False, character_powerup_damage)
-                        counter+=1
