@@ -86,9 +86,41 @@ class playerState(pygame.sprite.Sprite):
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"idle"].append(image)
         
-        #for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
-             #self.champAnimations[f"jump"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png')))
+    """   for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
+            image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png'))
+            if self.isPlayer2:
+                 image = pygame.transform.flip(image, True, False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
+            self.champAnimations[f"jump"].append(image)
+
+        for w in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'crouch'))) - 1):
+            image = pygame.image.load(os.path.join('Character_Images',f'{self.champion}','crouch',f'{w}.png'))
+            if self.isPlayer2:
+                image = pygame.transform.flip(image,True,False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
+            self.champAnimations[f"crouch"].append(image)
+            
+        for v in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'basic kick'))) - 1):
+            image = pygame.image.load(os.path.join('Character_Images',f'{self.champion}','basic kick',f'{v}.png'))
+            if self.isPlayer2:
+                image = pygame.transform.flip(image,True,False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
+            self.champAnimations[f"basic kick"].append(image)
         
+        
+        for u in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'basic punch'))) - 1):
+            image = pygame.image.load(os.path.join('Character_Images',f'{self.champion}','basic punch',f'{u}.png'))
+            if self.isPlayer2:
+                image = pygame.transform.flip(image,True,False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
+            self.champAnimations[f"basic punch"].append(image)
+            """
+            
+                    
         
     
     def update(self):
@@ -142,26 +174,22 @@ class playerState(pygame.sprite.Sprite):
         Args:
             attack (_type_): _description_
         """
-    def getPowerup(self):
-        character_powerup_name = character_powerups[self.champion][0]  
-        return character_powerup_name   
+    def getPowerupInfo(self, champion, index): 
+        return character_powerups[champion][index]
 
-    #def usePowerup(self, events):
-    #    for event in events: 
-    #        if event.type == pygame.KEYDOWN: 
-    #            if event.key == pygame.K_p: 
-    #                text_timer = 4 
-    #                while text_timer > 0.0:
-    #                    font = pygame.font.Font(None, 26)
-    #                    if self.isPlayer2: 
-    #                        text = font.render("Player 2 Uses " + self.getPowerup(), True, (0,0,0)) 
-    #                    else: 
-    #                        text = font.render("Player 1 Uses " + self.getPowerup(), True, (0,0,0))  
-    #                    Game.game_screen.blit(text, (400,300)) 
-    #                    text_timer -= 1.0
-    #                powerup_length = 25 
-    #                counter = 0 
-    #                while powerup_length >= counter: 
-    #                    character_powerup_damage = character_powerups[self.champion][1]
-    #                    self.attackValue += character_powerup_damage
-    #                    counter+=1
+
+    def setAttackVal(self, champion, isKick, player_powerup): 
+        original_kick =  character_damage_values[champion][1]
+        original_punch = character_damage_values[champion][0] 
+
+        if isKick:
+            character_damage_values[champion][1] += player_powerup
+        else:
+            character_damage_values[champion][0] += player_powerup 
+        
+        if isKick: 
+            character_damage_values[champion][1] = original_kick
+        else: 
+            character_damage_values[champion][0] = original_punch
+
+
