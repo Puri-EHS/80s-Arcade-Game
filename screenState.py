@@ -93,6 +93,20 @@ class screenState():
         player2_x = self.players.sprites()[0].rect.x
 
         if player1_x < 0:
+            icon = pygame.image.load(os.path.join('Other_images', 'player1_left_outofbounds.png'))
+            self.screen.blit(icon, pygame.Rect(20, 250, 30, 30))
+
+        elif player1_x > SCREEN_WIDTH:
+            icon = pygame.image.load(os.path.join('Other_images', 'player1_right_outofbounds.png'))
+            self.screen.blit(icon, pygame.Rect(20, 250, 30, 30))
+
+        if player2_x < 0:
+            icon = pygame.image.load(os.path.join('Other_images', 'player2_left_outofbounds.png'))
+            self.screen.blit(icon, pygame.Rect(750, 250, 30, 30))
+
+        elif player2_x > SCREEN_WIDTH:
+            icon = pygame.image.load(os.path.join('Other_images', 'player2_right_outofbounds.png'))
+            self.screen.blit(icon, pygame.Rect(750, 250, 30, 30))
             
 
 
