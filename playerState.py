@@ -9,11 +9,11 @@ character_powerups = {
             "Sagat":  ["Rapid Hit", 45],  
             "Guile": ["Flash Punch", 40], 
             "Vega": ["Super Claw Attack", 130], 
-            "Chun Li": ["Power Puunch", 25],  
+            "Chun Li": ["Power Punch", 25],  
             "Zangief": ["Lariat", 15], 
-            "E Honda": ["Super Might", 100], 
+            "E Honda": ["Super Kick", 100], 
             "M Bison": ["Super Strength", 110], 
-            "Ken": ["Lgitightning Punch", 50]
+            "Ken": ["Lightning Kick", 50]
         }
 
 # formatted as [punch, kick]
@@ -118,13 +118,14 @@ class playerState(pygame.sprite.Sprite):
                 if self.cur_facing_left != True:
                      self.image = pygame.transform.flip(self.image, True, False)
                 self.cur_type_animation = "idle"
-        else:
-            if self.cur_pressed_keys["punch"]:
+        elif self.cur_pressed_keys["punch"]:
                  self.image = self.champAnimations["basic punch"][self.cur_animation]
                  self.attackValue = character_damage_values[self.champion][0]
-            if self.cur_pressed_keys["kick"]:
+        elif self.cur_pressed_keys["kick"]:
                  self.image = self.champAnimations["basic kick"][self.cur_animation]
                  self.attackValue = character_damage_values[self.champion][1]
+            
+
 
     def getPosition(self):
         return self.rect
@@ -141,26 +142,22 @@ class playerState(pygame.sprite.Sprite):
         Args:
             attack (_type_): _description_
         """
-    def getPowerup(self):
-        character_powerup_name = character_powerups[self.champion][0]  
-        return character_powerup_name   
+    def getPowerupInfo(self, champion, index): 
+        return character_powerups[champion][index]
+    
+    
+    def setAttackVal(self, champion, isKick, player_powerup): 
+        original_kick =  character_damage_values[champion][1]
+        original_punch = character_damage_values[champion][0] 
 
-    #def usePowerup(self, events):
-    #    for event in events: 
-    #        if event.type == pygame.KEYDOWN: 
-    #            if event.key == pygame.K_p: 
-    #                text_timer = 4 
-    #                while text_timer > 0.0:
-    #                    font = pygame.font.Font(None, 26)
-    #                    if self.isPlayer2: 
-    #                        text = font.render("Player 2 Uses " + self.getPowerup(), True, (0,0,0)) 
-    #                    else: 
-    #                        text = font.render("Player 1 Uses " + self.getPowerup(), True, (0,0,0))  
-    #                    Game.game_screen.blit(text, (400,300)) 
-    #                    text_timer -= 1.0
-    #                powerup_length = 25 
-    #                counter = 0 
-    #                while powerup_length >= counter: 
-    #                    character_powerup_damage = character_powerups[self.champion][1]
-    #                    self.attackValue += character_powerup_damage
-    #                    counter+=1
+        if isKick:
+            character_damage_values[champion][1] += player_powerup
+        else:
+            character_damage_values[champion][0] += player_powerup
+
+        if isKick: 
+            character_damage_values[champion][1] = original_kick
+        else: 
+            character_damage_values[champion][0] = original_punch
+                 
+         

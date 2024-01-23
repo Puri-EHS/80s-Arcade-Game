@@ -4,6 +4,8 @@ from StartScreen import StartScreen
 from ChampionSelectScreen import ChampionSelectScreen
 from MapSelectScreen import MapSelectScreen
 from playerState import playerState
+from playerone import player1 
+from playertwo import player2
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -50,11 +52,19 @@ class screenState():
             self.move_fight_border()
             self.players.update(event)
             self.players.draw(self.game_screen)
+            if event.type == pygame.KEYDOWN: 
+                if event.key == pygame.K_p: 
+                    pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 15, 200, 50), 5)
+                    self.update_powerup(1)
+
+                    pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 15, 200, 50), 5)
+                    self.update_powerup(2)
+
 
         
         # health bar
         pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 200, 50), 5)
-        self.update_player_health(20, 1)
+        self.update_player_health(80, 1)
 
         pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 20, 200, 50), 5)
         self.update_player_health(80, 2)
@@ -93,6 +103,16 @@ class screenState():
 
     def update_powerup(self, player_number):
         powerup_color = (0,0,255)
+        text_timer = 3.0
+        while text_timer > 0.0:
+            font = pygame.font.Font(None, 26)
+            if player_number == 1:
+                text = font.render("Player 1 Uses " + player1.getPowerupInfo(player1.champion, 0), True, (0,0,0))  
+            else: 
+                text = font.render("Player 2 Uses " + player2.getPowerupInfo(player2.champion, 0), True, (0,0,0))  
+            self.game_screen.blit(text, (400,300)) 
+            text_timer -= 1.0
+
         time = 25 
         while time > 0:
             if player_number == 1: 
