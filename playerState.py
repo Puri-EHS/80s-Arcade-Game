@@ -86,9 +86,41 @@ class playerState(pygame.sprite.Sprite):
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"idle"].append(image)
         
-        #for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
-             #self.champAnimations[f"jump"].append(pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png')))
+        for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
+            image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png'))
+            if self.isPlayer2:
+                 image = pygame.transform.flip(image, True, False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
+            self.champAnimations[f"jump"].append(image)
+
+        for w in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'crouch'))) - 1):
+            image = pygame.image.load(os.path.join('Character_Images',f'{self.champion}','crouch',f'{w}.png'))
+            if self.isPlayer2:
+                image = pygame.transform.flip(image,True,False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
+            self.champAnimations[f"crouch"].append(image)
+            
+        for v in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'basic kick'))) - 1):
+            image = pygame.image.load(os.path.join('Character_Images',f'{self.champion}','basic kick',f'{v}.png'))
+            if self.isPlayer2:
+                image = pygame.transform.flip(image,True,False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
+            self.champAnimations[f"basic kick"].append(image)
         
+        
+        for u in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'basic punch'))) - 1):
+            image = pygame.image.load(os.path.join('Character_Images',f'{self.champion}','basic punch',f'{u}.png'))
+            if self.isPlayer2:
+                image = pygame.transform.flip(image,True,False)
+            image.convert_alpha()
+            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
+            self.champAnimations[f"basic punch"].append(image)
+            
+            
+                    
         
     
     def update(self):
