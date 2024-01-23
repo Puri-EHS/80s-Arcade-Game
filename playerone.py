@@ -48,7 +48,7 @@ class player1(playerState):
             self.frame = 0
             if event.key == pygame.K_a:
                 self.cur_pressed_keys["left"] = False
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_d:
                 self.cur_pressed_keys["right"] = False
             if event.key == pygame.K_a:
                 self.cur_pressed_keys["down"] = False

@@ -39,7 +39,7 @@ class player2(playerState):
             self.frame = 0
             if event.key == pygame.K_LEFT:
                 self.cur_pressed_keys["left"] = False
-            if event.key == pygame.K_d:
+            if event.key == pygame.K_RIGHT:
                 self.cur_pressed_keys["right"] = False
     
     def usePowerup(self, event):
