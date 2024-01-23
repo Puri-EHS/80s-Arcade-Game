@@ -16,6 +16,10 @@ class player2(playerState):
         return super().update()
 
     def update_action(self, event):
+        if event.key == pygame.K_UP:
+            self.cur_type_animation = 'jump'
+            self.jump = True
+            self.isBlocking = False
         if event.key == pygame.K_PERIOD:
             self.cur_type_animation = "punch"
             self.isAttacking = True

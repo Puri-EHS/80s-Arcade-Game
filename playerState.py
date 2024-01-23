@@ -70,7 +70,7 @@ class playerState(pygame.sprite.Sprite):
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
         #for x in self.champAnimations.keys():
-        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk')))):
+        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
@@ -78,7 +78,7 @@ class playerState(pygame.sprite.Sprite):
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"walk"].append(image)
         
-        for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle')))):
+        for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
@@ -86,7 +86,7 @@ class playerState(pygame.sprite.Sprite):
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"idle"].append(image)
         
-    """   for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
+ """       for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
@@ -118,8 +118,8 @@ class playerState(pygame.sprite.Sprite):
             image.convert_alpha()
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"basic punch"].append(image)
-            """
             
+            """
                     
         
     
@@ -132,7 +132,7 @@ class playerState(pygame.sprite.Sprite):
                          self.cur_frame = 0
                     self.image = self.champAnimations["walk"][self.cur_frame//5]
                     if self.cur_facing_left != True:
-                        self.image = pygame.transform.flip(self.champAnimations["walk"][self.cur_frame//5], True, False)
+                        self.image = pygame.transform.flip(self.image, True, False)
                         self.cur_facing_left = True
             elif self.cur_pressed_keys["right"]:
                     self.rect.x += 5
@@ -141,15 +141,14 @@ class playerState(pygame.sprite.Sprite):
                          self.cur_frame = 0
                     self.image = self.champAnimations["walk"][self.cur_frame//5]
                     if self.cur_facing_left:
-                        self.image = pygame.transform.flip(self.champAnimations["walk"][self.cur_frame//5], True, False)
+                        self.image = pygame.transform.flip(self.image, True, False)
                         self.cur_facing_left = False
             else:
-                self.cur_frame += 1
-                if self.cur_frame/5 >= len(self.champAnimations["idle"]):
-                    self.cur_frame = 0
-                self.image = self.champAnimations["idle"][self.cur_frame//5]
+                if self.cur_frame >= len(self.champAnimations["idle"]):
+                         self.cur_frame = 0
+                self.image = self.champAnimations["idle"][self.cur_frame]
                 if self.cur_facing_left != True:
-                     self.image = pygame.transform.flip(self.champAnimations["idle"][self.cur_frame//5], True, False)
+                     self.image = pygame.transform.flip(self.image, True, False)
                 self.cur_type_animation = "idle"
         else:
             if self.cur_pressed_keys["punch"]:
@@ -174,22 +173,26 @@ class playerState(pygame.sprite.Sprite):
         Args:
             attack (_type_): _description_
         """
-    def getPowerupInfo(self, champion, index): 
-        return character_powerups[champion][index]
+    def getPowerup(self):
+        character_powerup_name = character_powerups[self.champion][0]  
+        return character_powerup_name   
 
-
-    def setAttackVal(self, champion, isKick, player_powerup): 
-        original_kick =  character_damage_values[champion][1]
-        original_punch = character_damage_values[champion][0] 
-
-        if isKick:
-            character_damage_values[champion][1] += player_powerup
-        else:
-            character_damage_values[champion][0] += player_powerup 
-        
-        if isKick: 
-            character_damage_values[champion][1] = original_kick
-        else: 
-            character_damage_values[champion][0] = original_punch
-
-
+    #def usePowerup(self, events):
+    #    for event in events: 
+    #        if event.type == pygame.KEYDOWN: 
+    #            if event.key == pygame.K_p: 
+    #                text_timer = 4 
+    #                while text_timer > 0.0:
+    #                    font = pygame.font.Font(None, 26)
+    #                    if self.isPlayer2: 
+    #                        text = font.render("Player 2 Uses " + self.getPowerup(), True, (0,0,0)) 
+    #                    else: 
+    #                        text = font.render("Player 1 Uses " + self.getPowerup(), True, (0,0,0))  
+    #                    Game.game_screen.blit(text, (400,300)) 
+    #                    text_timer -= 1.0
+    #                powerup_length = 25 
+    #                counter = 0 
+    #                while powerup_length >= counter: 
+    #                    character_powerup_damage = character_powerups[self.champion][1]
+    #                    self.attackValue += character_powerup_damage
+    #                    counter+=1

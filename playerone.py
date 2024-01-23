@@ -53,7 +53,7 @@ class player1(playerState):
                 self.isBlocking = True
             if event.key == pygame.K_d:
                 self.cur_pressed_keys["right"] = False
-                self.isBlocking = True
+                self.isBlocking = False
             if event.key == pygame.K_s:
                 self.cur_pressed_keys["down"] = False
     
