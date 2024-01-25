@@ -50,7 +50,7 @@ class player2(playerState):
                 self.cur_pressed_keys["right"] = False
     
     def usePowerup(self, event):
-        if event.type == pygame.KEYDOWN: 
+        if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
                 if event.key == pygame.K_p: 
                     powerup_length = 25 
                     counter = 0 

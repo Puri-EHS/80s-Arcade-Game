@@ -52,7 +52,7 @@ class player1(playerState):
                 self.isBlocking = False
     
     def usePowerup(self, event):
-        if event.type == pygame.KEYDOWN: 
+        if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
                 if event.key == pygame.K_p: 
                     powerup_length = 25 
                     counter = 0 

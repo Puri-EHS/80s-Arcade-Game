@@ -56,7 +56,7 @@ class screenState():
         self.players.update(events)
         self.players.draw(self.game_screen)
         for event in events:
-            if event.type == pygame.KEYDOWN: 
+            if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
                 if event.key == pygame.K_p: 
                     pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 15, 200, 50), 5)
                     self.update_powerup(1)
@@ -139,17 +139,7 @@ class screenState():
             pygame.draw.rect(self.game_screen, health_color , (SCREEN_WIDTH - health * 2 - 35, 25, health * 2, 40))
 
     def update_powerup(self, player_number):
-        powerup_color = (0,0,255)
-        text_timer = 3.0
-        while text_timer > 0.0:
-            font = pygame.font.Font(None, 26)
-            if player_number == 1:
-                text = font.render("Player 1 Uses " + player1.getPowerupInfo(player1.champion, 0), True, (0,0,0))  
-            else: 
-                text = font.render("Player 2 Uses " + player2.getPowerupInfo(player2.champion, 0), True, (0,0,0))  
-            self.game_screen.blit(text, (400,300)) 
-            text_timer -= 1.0
-
+        powerup_color = (0,0,255) 
         time = 25 
         while time > 0:
             if player_number == 1: 
