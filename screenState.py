@@ -87,6 +87,11 @@ class screenState():
                     pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 15, 200, 50), 5)
                     self.update_powerup(2)
 
+        player1 = self.players.sprites()[0]
+        player2 = self.players.sprites()[1]
+
+        # if player1.isAttacking:
+	    #     player2.updateHp(player1.attackVal)
         
         # health bar
         pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 210, 50), 5)
