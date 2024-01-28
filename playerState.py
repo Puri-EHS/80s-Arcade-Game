@@ -36,7 +36,6 @@ character_damage_values = {
 class playerState(pygame.sprite.Sprite):
     def __init__(self, champion: str, isPlayer2 = False):
         pygame.sprite.Sprite.__init__(self)
-        self.cur_animation = 0
         self.cur_type_animation = "idle"
         self.champion = champion
         self.hp = 100
@@ -70,17 +69,23 @@ class playerState(pygame.sprite.Sprite):
         """Will load the animations for the current champion into 
             champAnimations, and populate the dictinonary"""
         #for x in self.champAnimations.keys():
-        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk'))) - 1):
+        for y in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'walk')))):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'walk', f'{y}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
             self.champAnimations[f"walk"].append(image)
         
-        for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle'))) - 1):
+        for x in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'idle')))):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'idle', f'{x}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
             self.champAnimations[f"idle"].append(image)
+
+        for u in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'basic punch')))):
+            image = pygame.image.load(os.path.join('Character_Images',f'{self.champion}','basic punch',f'{u}.png'))
+            if self.isPlayer2:
+                image = pygame.transform.flip(image,True,False)
+            self.champAnimations[f"basic punch"].append(image)
         
         """for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png'))
@@ -105,15 +110,6 @@ class playerState(pygame.sprite.Sprite):
             image.convert_alpha()
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"basic kick"].append(image)
-        
-        
-        for u in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'basic punch'))) - 1):
-            image = pygame.image.load(os.path.join('Character_Images',f'{self.champion}','basic punch',f'{u}.png'))
-            if self.isPlayer2:
-                image = pygame.transform.flip(image,True,False)
-            image.convert_alpha()
-            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
-            self.champAnimations[f"basic punch"].append(image)
             
             """
                     
@@ -125,7 +121,7 @@ class playerState(pygame.sprite.Sprite):
                     self.rect.x += -5
                     self.cur_frame += 1
                     if self.cur_frame/5 >= len(self.champAnimations["walk"]):
-                         self.cur_frame = 0
+                        self.cur_frame = 0
                     self.image = self.champAnimations["walk"][self.cur_frame//5]
                     if self.isPlayer2 != True:
                         self.image = pygame.transform.flip(self.image, True, False)
@@ -134,25 +130,31 @@ class playerState(pygame.sprite.Sprite):
                     self.rect.x += 5
                     self.cur_frame += 1
                     if self.cur_frame/5 >= len(self.champAnimations["walk"]):
-                         self.cur_frame = 0
+                        self.cur_frame = 0
                     self.image = self.champAnimations["walk"][self.cur_frame//5]
                     if self.isPlayer2:
                         self.image = pygame.transform.flip(self.image, True, False)
                         self.same_initial_direction = False
             else:
                 if self.cur_frame >= len(self.champAnimations["idle"]):
-                         self.cur_frame = 0
+                        self.cur_frame = 0
                 self.image = self.champAnimations["idle"][self.cur_frame]
                 if self.same_initial_direction != True:
                      self.image = pygame.transform.flip(self.image, True, False)
                 self.cur_type_animation = "idle"
         else:
-            if self.cur_pressed_keys["punch"]:
-                 self.image = self.champAnimations["basic punch"][self.cur_animation]
-                 self.attackValue = character_damage_values[self.champion][0]
+            if self.cur_type_animation == 'punch':
+                self.cur_frame += 1
+                if self.cur_frame/5 >= len(self.champAnimations["basic punch"]):
+                    self.cur_frame = 0
+                    self.isAttacking = False
+                self.image = self.champAnimations["basic punch"][self.cur_frame//5]
+                if self.same_initial_direction != True:
+                    self.image = pygame.transform.flip(self.image, True, False)
+                self.attackValue = character_damage_values[self.champion][0]
             if self.cur_pressed_keys["kick"]:
-                 self.image = self.champAnimations["basic kick"][self.cur_animation]
-                 self.attackValue = character_damage_values[self.champion][1]
+                self.image = self.champAnimations["basic kick"][self.cur_frame]
+                self.attackValue = character_damage_values[self.champion][1]
 
     def getPosition(self):
         return self.rect

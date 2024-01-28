@@ -13,6 +13,7 @@ class player2(playerState):
                 self.update_continuous(event)
                 if (event.key == pygame.K_p): 
                     self.usePowerup(event)
+            self.cur_pressed_keys["right", "left"] = False
         return super().update()
 
     def update_action(self, event):
@@ -46,8 +47,10 @@ class player2(playerState):
             self.frame = 0
             if event.key == pygame.K_LEFT:
                 self.cur_pressed_keys["left"] = False
+                self.cur_frame = 0
             if event.key == pygame.K_RIGHT:
                 self.cur_pressed_keys["right"] = False
+                self.cur_frame = 0
     
     def usePowerup(self, event):
         if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
