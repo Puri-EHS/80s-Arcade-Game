@@ -33,6 +33,8 @@ class player2(playerState):
             self.cur_pressed_keys["powerup"] = True
             self.isAttacking = True
             self.isBlocking = False      
+        if event.key == pygame.K_DELETE:
+            super.updateHp(100)
 
     def update_continuous(self, event):
         if(event.type == pygame.KEYDOWN):

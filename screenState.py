@@ -50,12 +50,9 @@ class screenState():
                 self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_selected)), (1200, SCREEN_HEIGHT))
                 self.current_screen += 1
         elif self.current_screen == 3:
-            self.winner = self.fight_screen(events)
-            if self.winner != None:
-                self.current_screen += 1
+            self.fight_screen(events)
         elif self.current_screen == 4:
-            self.gameOverScreen.update(events, self.winner)
-        
+            self.game_over_screen(events)
 
     def fight_screen(self, events):
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
@@ -98,7 +95,10 @@ class screenState():
         self.update_player_health(sprites[0].hp, 1)
 
         pygame.draw.rect(self.game_screen, (0, 0, 0), (560, 20, 210, 50), 5)
-        self.update_player_health(sprites[1].hp, 2)
+        self.update_player_health(player2_hp, 2)
+
+        if player1_hp <= 0 or player2_hp <= 0:
+            self.current_screen += 1
 
     def move_fight_border(self):
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
@@ -172,3 +172,6 @@ class screenState():
                 pygame.draw.rect(self.game_screen, powerup_color, (45, 35, 20 ,50))
             else: 
                 pygame.draw.rect(self.game_screen, powerup_color, (SCREEN_WIDTH-45, 20, 35, 50))
+
+    def game_over_screen(self):
+        print("game_over")
