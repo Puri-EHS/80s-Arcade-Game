@@ -30,7 +30,7 @@ class player1(playerState):
             self.isBlocking = False
         if event.key == pygame.K_h:
             self.cur_pressed_keys["powerup"] = True
-            self.isAttacking = True      
+            self.isAttacking = True
             self.isBlocking = False      
 
     def update_continuous(self, event):

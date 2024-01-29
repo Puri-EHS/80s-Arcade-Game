@@ -25,6 +25,7 @@ class screenState():
         self.chars_selected = []
         self.players = pygame.sprite.Group()
         self.is_zoomed_in = True
+        self.players_position = {'player1': pygame.Rect, 'player2': pygame.Rect}
         self.startScreen = StartScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.champSelectScreen = ChampionSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.mapSelectScreen = MapSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -52,8 +53,25 @@ class screenState():
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
         
         self.move_fight_border()
-        self.player_out_of_bounds()
+        self.player_out_of_bounds() #pygame.sprite.players.sprites()
         self.players.update(events)
+        sprites = pygame.sprite.players.sprites()
+        self.players_position['player1'] = (pygame.sprite.players.sprites())[0]
+        self.players_position['player2'] = (pygame.sprite.players.sprites())[1]
+        for x in sprites():
+            if x.isAttacking():
+                if pygame.sprite.collide_rect(self.players_position["player1"].getPosition(),self.players_position['player2'].getPosition()):
+                    if x.isPlayer2 != True:
+                        if x.cur_type_animation == 'punch':
+                            sprites[1].updateHp(x.character_damage_values[x.champion][0])
+                        if x.cur_type_animation == 'kick':
+                            sprites[1].updateHp(x.character_damage_values[x.champion][1])
+                    else:
+                        if x.cur_type_animation == 'punch':
+                            sprites[0].updateHp(x.character_damage_values[x.champion][0])
+                        if x.cur_type_animation == 'kick':
+                            sprites[0].updateHp(x.character_damage_values[x.champion][1])
+                        
         self.players.draw(self.game_screen)
         for event in events:
             if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
