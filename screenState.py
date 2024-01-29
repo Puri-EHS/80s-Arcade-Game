@@ -5,6 +5,7 @@ from ChampionSelectScreen import ChampionSelectScreen
 from MapSelectScreen import MapSelectScreen
 from playerone import player1
 from playertwo import player2
+from GameOverScreen import GameOverScreen
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -25,10 +26,12 @@ class screenState():
         self.chars_selected = []
         self.players = pygame.sprite.Group()
         self.is_zoomed_in = True
+        self.winner = None
         self.players_position = {'player1': pygame.Rect, 'player2': pygame.Rect}
         self.startScreen = StartScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.champSelectScreen = ChampionSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.mapSelectScreen = MapSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.gameOverScreen = GameOverScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
     def update_screen(self, events):
@@ -47,7 +50,12 @@ class screenState():
                 self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_selected)), (1200, SCREEN_HEIGHT))
                 self.current_screen += 1
         elif self.current_screen == 3:
-            self.fight_screen(events)
+            self.winner = self.fight_screen(events)
+            if self.winner != None:
+                self.current_screen += 1
+        elif self.current_screen == 4:
+            self.gameOverScreen.update(events, self.winner)
+        
 
     def fight_screen(self, events):
         # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
@@ -55,23 +63,20 @@ class screenState():
         self.move_fight_border()
         self.player_out_of_bounds() #pygame.sprite.players.sprites()
         self.players.update(events)
-        sprites = pygame.sprite.players.sprites()
-        self.players_position['player1'] = (pygame.sprite.players.sprites())[0]
-        self.players_position['player2'] = (pygame.sprite.players.sprites())[1]
-        for x in sprites():
-            if x.isAttacking():
-                if pygame.sprite.collide_rect(self.players_position["player1"].getPosition(),self.players_position['player2'].getPosition()):
+        sprites = self.players.sprites()
+        for x in sprites:
+            if x.isAttacking and x.landed_hit != True:
+                if pygame.sprite.collide_rect(sprites[0], sprites[1]):
                     if x.isPlayer2 != True:
-                        if x.cur_type_animation == 'punch':
-                            sprites[1].updateHp(x.character_damage_values[x.champion][0])
-                        if x.cur_type_animation == 'kick':
-                            sprites[1].updateHp(x.character_damage_values[x.champion][1])
+                        sprites[1].updateHp(x.attackValue)
+                        sprites[0].landed_hit = True
+                        if sprites[1].hp <= 0:
+                            return 1
                     else:
-                        if x.cur_type_animation == 'punch':
-                            sprites[0].updateHp(x.character_damage_values[x.champion][0])
-                        if x.cur_type_animation == 'kick':
-                            sprites[0].updateHp(x.character_damage_values[x.champion][1])
-                        
+                        sprites[0].updateHp(x.attackValue)
+                        sprites[1].landed_hit = True
+                        if sprites[0].hp <= 0:
+                            return 2
         self.players.draw(self.game_screen)
         for event in events:
             if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
@@ -84,13 +89,11 @@ class screenState():
 
         
         # health bar
-        player1_hp = self.players.sprites()[0].hp
-        player2_hp = self.players.sprites()[1].hp
         pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 210, 50), 5)
-        self.update_player_health(player1_hp, 1)
+        self.update_player_health(sprites[0].hp, 1)
 
         pygame.draw.rect(self.game_screen, (0, 0, 0), (560, 20, 210, 50), 5)
-        self.update_player_health(player2_hp, 2)
+        self.update_player_health(sprites[1].hp, 2)
 
     def move_fight_border(self):
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)

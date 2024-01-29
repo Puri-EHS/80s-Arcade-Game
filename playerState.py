@@ -28,6 +28,7 @@ class playerState(pygame.sprite.Sprite):
         self.hp = 100
         self.isBlocking = False
         self.isAttacking = False
+        self.landed_hit = False
         self.attackValue = 0
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
@@ -150,15 +151,16 @@ class playerState(pygame.sprite.Sprite):
                 if self.cur_frame/5 >= len(self.champAnimations["basic punch"]):
                     self.cur_frame = 0
                     self.isAttacking = False
+                    self.landed_hit = False
                 self.image = self.champAnimations["basic punch"][self.cur_frame//5]  
                 #check for collison between two sprites and check if the charcter that got attacked is blocking or not 
                 #then update their hp using 
                 if self.same_initial_direction != True: #making sure you know what direction playertwo is facing in 
                     self.image = pygame.transform.flip(self.image, True, False)
-                self.attackValue = character_damage_values[self.champion][0]
+                self.attackValue = self.character_damage_values[self.champion][0]
             if self.cur_pressed_keys["kick"]:
                 self.image = self.champAnimations["basic kick"][self.cur_frame]
-                self.attackValue = character_damage_values[self.champion][1]
+                self.attackValue = self.character_damage_values[self.champion][1]
 
     def getPosition(self):
         return self.rect
@@ -176,18 +178,18 @@ class playerState(pygame.sprite.Sprite):
     def getPowerupInfo(champion, index): 
         return character_powerups[champion][index]
     
-    def setAttackVal(champion, isKick, player_powerup): 
-        original_kick =  character_damage_values[champion][1]
-        original_punch = character_damage_values[champion][0] 
+    def setAttackVal(self, champion, isKick, player_powerup): 
+        original_kick =  self.character_damage_values[champion][1]
+        original_punch = self.character_damage_values[champion][0] 
 
         if isKick:
-            character_damage_values[champion][1] += player_powerup
+            self.character_damage_values[champion][1] += player_powerup
         else:
-            character_damage_values[champion][0] += player_powerup
+            self.character_damage_values[champion][0] += player_powerup
 
         if isKick: 
-            character_damage_values[champion][1] = original_kick
+            self.character_damage_values[champion][1] = original_kick
         else: 
-            character_damage_values[champion][0] = original_punch
+            self.character_damage_values[champion][0] = original_punch
 
 
