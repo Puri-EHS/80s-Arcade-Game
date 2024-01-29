@@ -16,22 +16,9 @@ character_powerups = {
             "Ken": ["Lgitightning Punch", 50]
         }
 
-# formatted as [punch, kick]
 
-character_damage_values = {
-            "Ryu": [7, 10],
-            "Balrog": [10, 7],
-            "Blanka": [7, 8],
-            "Dhalsim": [5, 11],
-            "Sagat":  [10, 6],
-            "Guile": [8, 8],
-            "Vega": [9, 7],
-            "Chun Li": [6, 9],
-            "Zangief": [7, 7],
-            "E Honda": [9, 7],
-            "M Bison": [9, 6],
-            "Ken": [7, 11]
-}
+
+
 
 class playerState(pygame.sprite.Sprite):
     def __init__(self, champion: str, isPlayer2 = False):
@@ -163,8 +150,10 @@ class playerState(pygame.sprite.Sprite):
                 if self.cur_frame/5 >= len(self.champAnimations["basic punch"]):
                     self.cur_frame = 0
                     self.isAttacking = False
-                self.image = self.champAnimations["basic punch"][self.cur_frame//5]
-                if self.same_initial_direction != True:
+                self.image = self.champAnimations["basic punch"][self.cur_frame//5]  
+                #check for collison between two sprites and check if the charcter that got attacked is blocking or not 
+                #then update their hp using 
+                if self.same_initial_direction != True: #making sure you know what direction playertwo is facing in 
                     self.image = pygame.transform.flip(self.image, True, False)
                 self.attackValue = character_damage_values[self.champion][0]
             if self.cur_pressed_keys["kick"]:
