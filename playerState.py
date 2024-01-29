@@ -63,6 +63,21 @@ class playerState(pygame.sprite.Sprite):
             self.rect.x += 50
         self.rect.y += 350
         
+        # formatted as [punch, kick]
+        self.character_damage_values = {
+            "Ryu": [7, 10],
+            "Balrog": [10, 7],
+            "Blanka": [7, 8],
+            "Dhalsim": [5, 11],
+            "Sagat":  [10, 6],
+            "Guile": [8, 8],
+            "Vega": [9, 7],
+            "Chun Li": [6, 9],
+            "Zangief": [7, 7],
+            "E Honda": [9, 7],
+            "M Bison": [9, 6],
+            "Ken": [7, 11]
+}
     
     def load_animations(self):
         
