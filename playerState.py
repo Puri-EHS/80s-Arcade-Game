@@ -89,7 +89,7 @@ class playerState(pygame.sprite.Sprite):
                 image = pygame.transform.flip(image,True,False)
             self.champAnimations[f"basic punch"].append(image)
         
-        """for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jumping'))) - 1):
+        for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
@@ -113,7 +113,7 @@ class playerState(pygame.sprite.Sprite):
             image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"basic kick"].append(image)
             
-            """
+            
                     
         
     
@@ -160,7 +160,7 @@ class playerState(pygame.sprite.Sprite):
                 #then update their hp using 
                 if self.same_initial_direction != True: #making sure you know what direction playertwo is facing in 
                     self.image = pygame.transform.flip(self.image, True, False)
-                self.attackValue = self.updateHp(character_damage_values[self.champion][0])
+                #self.attackValue = self.updateHp(character_damage_values[self.champion][0])
             if self.cur_pressed_keys["kick"]:
                 self.image = self.champAnimations["basic kick"][self.cur_frame]
                 self.attackValue = self.updateAttackVal(self.champion)

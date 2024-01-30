@@ -75,15 +75,28 @@ class screenState():
             if x.isAttacking and x.landed_hit != True:
                 if pygame.sprite.collide_rect(sprites[0], sprites[1]):
                     if x.isPlayer2 != True:
-                        sprites[1].updateHp(x.attackValue)
-                        sprites[0].landed_hit = True
-                        if sprites[1].hp <= 0:
-                            return 1
+                        #check for punch or kick
+                        if x.cur_type_animation == 'punch':
+                            sprites[1].updateHp(x.attackValue[0])
+                            sprites[0].landed_hit = True
+                            if sprites[1].hp <= 0:
+                                return 1
+                        if x.cur_type_animation == 'kick':
+                            sprites[1].updateHp(x.attackValue[1])
+                            sprites[0].landed_hit = True
+                            if sprites[1].hp <= 0:
+                                return 1
                     else:
-                        sprites[0].updateHp(x.attackValue)
-                        sprites[1].landed_hit = True
-                        if sprites[0].hp <= 0:
-                            return 2
+                        if x.cur_type_animation == 'punch':
+                            sprites[0].updateHp(x.attackValue[0])
+                            sprites[1].landed_hit = True
+                            if sprites[0].hp <= 0:
+                                return 2
+                        if x.cur_type_animation == 'kick':
+                            sprites[0].updateHp(x.attackValue[1])
+                            sprites[1].landed_hit = True
+                            if sprites[0].hp <= 0:
+                                return 2
         self.players.draw(self.game_screen)
         for event in events:
             if event.type == pygame.KEYDOWN: 
