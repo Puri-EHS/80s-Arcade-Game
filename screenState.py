@@ -31,7 +31,7 @@ class screenState():
         self.startScreen = StartScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.champSelectScreen = ChampionSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.mapSelectScreen = MapSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
-        self.gameOverScreen = GameOverScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.player_that_won = 5
 
 
     def update_screen(self, events):
@@ -50,7 +50,7 @@ class screenState():
                 self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_selected)), (1200, SCREEN_HEIGHT))
                 self.current_screen += 1
         elif self.current_screen == 3:
-            self.fight_screen(events)
+            self.fight_screen2(events)
         elif self.current_screen == 4:
             self.game_over_screen(events)
 
@@ -91,6 +91,37 @@ class screenState():
 	    #     player2.updateHp(player1.attackVal)
         
         # health bar
+        player1_hp = self.players.sprites()[0].hp
+        player2_hp = self.players.sprites()[1].hp
+        pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 210, 50), 5)
+        self.update_player_health(player1_hp, 1)
+
+        pygame.draw.rect(self.game_screen, (0, 0, 0), (560, 20, 210, 50), 5)
+        self.update_player_health(player2_hp, 2)
+
+        if player1_hp <= 0:
+            self.current_screen += 1
+            self.player_that_won = 2
+        if player2_hp <= 0:
+            self.current_screen += 1
+            self.player_that_won = 1
+
+    def fight_screen2(self, events):
+        # image, (xcoordtobeplaced, ycoordtobeplaced), xcoordtostartcutting, ycoordtostartcutting, lenofimage, heightofimage
+        
+        self.move_fight_border()
+        self.player_out_of_bounds() #pygame.sprite.players.sprites()
+        self.players.update(events)
+        self.players.draw(self.game_screen)
+        
+
+        player1 = self.players.sprites()[0]
+        player2 = self.players.sprites()[1]
+
+        # if player1.isAttacking:
+	    #     player2.updateHp(player1.attackVal)
+        
+        # health bar
         pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 20, 210, 50), 5)
         self.update_player_health(sprites[0].hp, 1)
 
@@ -99,6 +130,7 @@ class screenState():
 
         if player1_hp <= 0 or player2_hp <= 0:
             self.current_screen += 1
+
 
     def move_fight_border(self):
         # map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[self.map_selected])), SCREEN_SIZE)
@@ -173,5 +205,55 @@ class screenState():
             else: 
                 pygame.draw.rect(self.game_screen, powerup_color, (SCREEN_WIDTH-45, 20, 35, 50))
 
-    def game_over_screen(self):
-        print("game_over")
+    def game_over_screen(self, events):
+        game_over_background = pygame.image.load(os.path.join('Backgrounds', "game_over_screen.jpeg"))
+        game_over_background = pygame.transform.scale(game_over_background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.game_screen.blit(game_over_background, (0,0))
+        font = pygame.font.SysFont("ptserif", 70)
+
+        winning_player_text = font.render("Player " + str(self.player_that_won) + " Wins!", 1, (222, 71, 33))
+        winning_player_text_pos = winning_player_text.get_rect()
+        winning_player_text_pos.center = game_over_background.get_rect().center
+        winning_player_text_pos.y -= 120
+        self.game_screen.blit(winning_player_text, winning_player_text_pos)
+
+        font = pygame.font.SysFont("ptserif", 50)
+
+        instructions_text = font.render("To Restart Press Space", 1, (222, 146, 33))
+
+        instructions2_text = font.render("To End Game Press Enter", 1, (222, 187, 33))
+
+        instructions_text_pos = instructions_text.get_rect()
+        instructions_text_pos.center = game_over_background.get_rect().center
+        instructions_text_pos.y += 110
+
+        instructions2_text_pos = instructions2_text.get_rect()
+        instructions2_text_pos.center = game_over_background.get_rect().center
+        instructions2_text_pos.y += 180
+
+        self.game_screen.blit(instructions_text, instructions_text_pos)
+        self.game_screen.blit(instructions2_text, instructions2_text_pos)
+        
+        self.users_next_steps(events)
+
+    
+    def users_next_steps(self, events):
+        for event in events:
+            if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
+                if event.key == pygame.K_SPACE:
+                    self.reset_game()
+                if event.key == pygame.K_RETURN:
+                    pygame.quit()
+
+    def reset_game(self):
+        self.current_screen = 0
+        self.map_selected = None
+        self.map_image = None
+        self.num_char_selected = 0
+        self.champSelectScreen.reset()
+        self.players = pygame.sprite.Group()
+        self.players_position = {'player1': pygame.Rect, 'player2': pygame.Rect}
+        self.player_that_won = None
+
+        
+

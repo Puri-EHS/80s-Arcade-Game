@@ -72,6 +72,9 @@ class ChampionSelectScreen():
         self.button_pos[1] = self.button_pos[1]%3
         return False
     
+    def reset(self):
+        self.char_selected = []
+
     #def draw_selected_char(self):
         #player1_text = self.font.render("Player 1:", 1, (0, 0, 0))
         #text_rect = self.rect
