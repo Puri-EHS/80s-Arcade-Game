@@ -54,7 +54,8 @@ class screenState():
             if self.winner != None:
                 self.current_screen += 1
         elif self.current_screen == 4:
-            self.gameOverScreen.update(events, self.winner)
+            if self.gameOverScreen.update(events, self.winner):
+                self.current_screen = 0
         
 
     def fight_screen(self, events):

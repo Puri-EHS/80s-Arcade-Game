@@ -13,7 +13,6 @@ class player2(playerState):
                 self.update_continuous(event)
                 if (event.key == pygame.K_p): 
                     self.usePowerup(event)
-            self.cur_pressed_keys["right", "left"] = False
         return super().update()
 
     def update_action(self, event):

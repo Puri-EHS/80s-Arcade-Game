@@ -139,9 +139,9 @@ class playerState(pygame.sprite.Sprite):
                         self.image = pygame.transform.flip(self.image, True, False)
                         self.same_initial_direction = False
             else:
-                if self.cur_frame >= len(self.champAnimations["idle"]):
+                if self.cur_frame/5 >= len(self.champAnimations["idle"]):
                         self.cur_frame = 0
-                self.image = self.champAnimations["idle"][self.cur_frame]
+                self.image = self.champAnimations["idle"][self.cur_frame//5]
                 if self.same_initial_direction != True:
                      self.image = pygame.transform.flip(self.image, True, False)
                 self.cur_type_animation = "idle"
