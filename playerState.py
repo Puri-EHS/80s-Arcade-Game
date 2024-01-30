@@ -160,11 +160,11 @@ class playerState(pygame.sprite.Sprite):
                 #then update their hp using 
                 if self.same_initial_direction != True: #making sure you know what direction playertwo is facing in 
                     self.image = pygame.transform.flip(self.image, True, False)
-                self.attackValue = self.character_damage_values[self.champion][0]
+                self.attackValue = self.updateHp(character_damage_values[self.champion][0])
             if self.cur_pressed_keys["kick"]:
                 self.image = self.champAnimations["basic kick"][self.cur_frame]
-                self.attackValue = self.character_damage_values[self.champion][1]
-
+                self.attackValue = self.updateAttackVal(self.champion)
+            #when doing anything with attackValue, use the updateAttackVal, 
     def getPosition(self):
         return self.rect
 
@@ -172,7 +172,7 @@ class playerState(pygame.sprite.Sprite):
         if self.isBlocking == False:
              self.hp -= attackVal
 
-        """Will update the amount of helath remaining based on
+        """Will update the amount of health remaining based on
             the attack the user was hit with  
 
         Args:
