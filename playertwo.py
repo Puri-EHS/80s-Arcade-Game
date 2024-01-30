@@ -11,7 +11,7 @@ class player2(playerState):
             if((event.type == pygame.KEYDOWN) or (event.type == pygame.KEYUP)) and self.isAttacking == False:
                 self.update_action(event)
                 self.update_continuous(event)
-                if (event.key == pygame.K_p): 
+                if (event.key == pygame.K_l): 
                     self.usePowerup(event)
         return super().update()
 
@@ -49,7 +49,7 @@ class player2(playerState):
     
     def usePowerup(self, event):
         if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
-                if event.key == pygame.K_p: 
+                if event.key == pygame.K_l: 
                     powerup_length = 25 
                     counter = 0 
                     while powerup_length >= counter:
