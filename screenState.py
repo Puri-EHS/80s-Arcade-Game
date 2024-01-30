@@ -51,6 +51,7 @@ class screenState():
                 self.current_screen += 1
         elif self.current_screen == 2:
             self.map_selected = self.mapSelectScreen.update(events)
+            self.champSelectScreen.draw_selected_characters()
             if self.map_selected != None:
                 self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', f"{self.map_selected}.png")), (1200, SCREEN_HEIGHT))
                 pygame.mixer.music.fadeout(2)
