@@ -43,7 +43,7 @@ class playerState(pygame.sprite.Sprite):
         self.isBlocking = False
         self.isAttacking = False
         self.landed_hit = False
-        self.attackValue = 0
+        self.attackValue = character_damage_values[self.champion]
         self.MIN_HP_NUM = 0
         self.powerup_usable = False
         self.champions_background_color = {"Balrog": [0, 0, 0], "Blanka": [], "ChunLi": [], "Dhalsim": [32, 144, 160], "E Honda": [], "Guile": [], "Ken": [128, 184, 168], "M Bison": [], "Ryu": [], "Sagat": [], "Vega":[], "Zangief": []}
@@ -177,16 +177,15 @@ class playerState(pygame.sprite.Sprite):
     def getPowerupInfo(champion, index): 
         return character_powerups[champion][index]
     
-    def setAttackVal(champion, isKick, player_powerup): 
-        original_kick =  character_damage_values[champion][1]
-        original_punch = character_damage_values[champion][0] 
-
+    def setAttackVal(champion, isKick, player_powerup): #possibly have to change the method to support using tuples
         if isKick:
-            character_damage_values[champion][1] += player_powerup
+            character_damage_values[champion][1] += player_powerup #have to update attackVal after updating them 
         else:
             character_damage_values[champion][0] += player_powerup
-
-        if isKick: 
-            character_damage_values[champion][1] = original_kick
-        else: 
-            character_damage_values[champion][0] = original_punch
+        playerState.updateAttackVal(champion)
+    
+    
+    def updateAttackVal(self,champion):
+        self.attackValue = character_damage_values[champion]    
+        
+        
