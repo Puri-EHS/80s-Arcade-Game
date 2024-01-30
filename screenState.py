@@ -6,6 +6,7 @@ from MapSelectScreen import MapSelectScreen
 from playerone import player1
 from playertwo import player2
 from GameOverScreen import GameOverScreen
+from transition import transition
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -30,6 +31,7 @@ class screenState():
         self.is_zoomed_in = True
         self.winner = None
         self.players_position = {'player1': pygame.Rect, 'player2': pygame.Rect}
+        self.transition = transition()
         self.startScreen = StartScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.champSelectScreen = ChampionSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.mapSelectScreen = MapSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -39,7 +41,7 @@ class screenState():
     def update_screen(self, events):
         if self.current_screen == 0:
             if self.startScreen.update(events):
-                self.current_screen += 1
+                self.transition.reset()
                 pygame.mixer.music.fadeout(2)
                 pygame.mixer.music.load(os.path.join('music', 'Player Select.mp3'))
                 pygame.mixer.music.play(-1)
@@ -48,19 +50,23 @@ class screenState():
             if self.chars_selected != None:
                 for x in self.chars_selected:
                     self.players.add(x)
-                self.current_screen += 1
+                self.transition.reset()
         elif self.current_screen == 2:
             self.map_selected = self.mapSelectScreen.update(events)
             if self.map_selected != None:
                 self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', f"{self.map_selected}.png")), (1200, SCREEN_HEIGHT))
+                self.transition.reset()
                 pygame.mixer.music.fadeout(2)
                 pygame.mixer.music.load(os.path.join('music', 'stage music', f"{self.map_selected}.mp3"))
                 pygame.mixer.music.play(-1)
-                self.current_screen += 1
         elif self.current_screen == 3:
             self.fight_screen(events)
         elif self.current_screen == 4:
             self.game_over_screen(events)
+        if self.transition.fading != None:
+            self.transition.draw(self.game_screen)
+            if self.transition.update():
+                self.current_screen += 1
         
 
     def fight_screen(self, events):
@@ -109,12 +115,12 @@ class screenState():
         self.update_player_health(player2_hp, 2)
 
         if player1_hp <= 0:
-            self.current_screen += 1
+            self.transition.reset()
             pygame.mixer.music.fadeout(2)
             pygame.mixer.music.load(os.path.join('music', 'Game Over.mp3'))
             self.player_that_won = 2
         if player2_hp <= 0:
-            self.current_screen += 1
+            self.transition.reset()
             pygame.mixer.music.fadeout(2)
             pygame.mixer.music.load(os.path.join('music', 'Game Over.mp3'))
             self.player_that_won = 1
