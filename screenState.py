@@ -85,11 +85,11 @@ class screenState():
                             return 2
         self.players.draw(self.game_screen)
         for event in events:
-            if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
+            if event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_p: 
                     pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 15, 200, 50), 5)
                     self.update_powerup(1)
-
+                if event.key == pygame.K_l: 
                     pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 15, 200, 50), 5)
                     self.update_powerup(2)
 
