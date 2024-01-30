@@ -129,6 +129,8 @@ class playerState(pygame.sprite.Sprite):
                     if self.isPlayer2 != True:
                         self.image = pygame.transform.flip(self.image, True, False)
                         self.same_initial_direction = False
+                    elif self.isPlayer2 == True:
+                        self.same_initial_direction = True
             elif self.cur_pressed_keys["right"]:
                     self.rect.x += 5
                     self.cur_frame += 1
@@ -138,6 +140,8 @@ class playerState(pygame.sprite.Sprite):
                     if self.isPlayer2:
                         self.image = pygame.transform.flip(self.image, True, False)
                         self.same_initial_direction = False
+                    elif self.isPlayer2 != True:
+                        self.same_initial_direction = True
             else:
                 if self.cur_frame/5 >= len(self.champAnimations["idle"]):
                         self.cur_frame = 0
