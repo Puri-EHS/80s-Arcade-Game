@@ -20,6 +20,8 @@ class screenState():
         self.current_screen = 0
         self.map_selected = None
         self.map_image = None
+        pygame.mixer.music.load(os.path.join('music', "Opening Demo.mp3"))
+        pygame.mixer.music.play(-1)
         self.rect = pygame.Rect(100, 150, 120, 100)
         self.screens = []
         self.num_char_selected = 0
@@ -38,6 +40,9 @@ class screenState():
         if self.current_screen == 0:
             if self.startScreen.update(events):
                 self.current_screen += 1
+                pygame.mixer.music.fadeout(2)
+                pygame.mixer.music.load(os.path.join('music', 'Player Select.mp3'))
+                pygame.mixer.music.play(-1)
         elif self.current_screen == 1:
             self.chars_selected = self.champSelectScreen.update(events)
             if self.chars_selected != None:
@@ -47,13 +52,15 @@ class screenState():
         elif self.current_screen == 2:
             self.map_selected = self.mapSelectScreen.update(events)
             if self.map_selected != None:
-                self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_selected)), (1200, SCREEN_HEIGHT))
+                self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', f"{self.map_selected}.png")), (1200, SCREEN_HEIGHT))
+                pygame.mixer.music.fadeout(2)
+                pygame.mixer.music.load(os.path.join('music', 'stage music', f"{self.map_selected}.mp3"))
+                pygame.mixer.music.play(-1)
                 self.current_screen += 1
         elif self.current_screen == 3:
             self.fight_screen(events)
         elif self.current_screen == 4:
-            if self.gameOverScreen.update(events, self.winner):
-                self.current_screen = 0
+            self.game_over_screen(events)
         
 
     def fight_screen(self, events):
@@ -103,9 +110,13 @@ class screenState():
 
         if player1_hp <= 0:
             self.current_screen += 1
+            pygame.mixer.music.fadeout(2)
+            pygame.mixer.music.load(os.path.join('music', 'Game Over.mp3'))
             self.player_that_won = 2
         if player2_hp <= 0:
             self.current_screen += 1
+            pygame.mixer.music.fadeout(2)
+            pygame.mixer.music.load(os.path.join('music', 'Game Over.mp3'))
             self.player_that_won = 1
 
 

@@ -40,7 +40,7 @@ class ChampionSelectScreen():
                     pygame.draw.rect(self.screen, (0, 0, 255), self.rect)
                 pygame.draw.rect(self.screen, (15, 155, 186), self.rect, 3)
                 text_surface = self.font.render(self.char_buttons[(i*2) + j], True, (15, 155, 186))
-                img = pygame.image.load(os.path.join('char_select_img', f'{self.char_buttons[i*2 + j]}' + '.gif')).convert_alpha()
+                img = pygame.image.load(os.path.join('char_select_img', f'{self.char_buttons[i*2 + j]}' + '.png')).convert_alpha()
                 img.set_colorkey((255,255,255))
                 # if img.get_rect().x > 220:
                 img = pygame.transform.scale(img, (210,190))
@@ -49,6 +49,7 @@ class ChampionSelectScreen():
                 img_rect.y += 5
                 self.screen.blit(img, img_rect)
                 text_rect = text_surface.get_rect(center=self.rect.center)
+                text_rect.y += 110
                 self.screen.blit(text_surface, text_rect)
                 x += 300
             x = 145
