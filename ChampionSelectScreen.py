@@ -7,7 +7,7 @@ class ChampionSelectScreen():
     def __init__(self, game_screen, screen_width, screen_height) -> None:
         self.screen = game_screen
         self.font = pygame.font.Font(None, 36)
-        self.char_buttons = ["Balrog", "Dhalsim", "Ken", "Ryu"]
+        self.char_buttons = ["balrog", "dhalsim", "ken", "ryu"]
         self.background = pygame.image.load(os.path.join('Backgrounds', "Character Select Background.jpg"))
         self.background = pygame.transform.scale(self.background, (screen_width, screen_height))
         self.rect = pygame.Rect(100, 150, 220, 200)
@@ -39,8 +39,8 @@ class ChampionSelectScreen():
                 if i == self.button_pos[1] and j == self.button_pos[0]:
                     pygame.draw.rect(self.screen, (0, 0, 255), self.rect)
                 pygame.draw.rect(self.screen, (15, 155, 186), self.rect, 3)
-                text_surface = self.font.render(self.char_buttons[(i*2) + j], True, (15, 155, 186))
-                img = pygame.image.load(os.path.join('char_select_img', f'{self.char_buttons[i*2 + j]}' + '.png')).convert_alpha()
+                text_surface = self.font.render(self.char_buttons[(i*2) + j], True, (148, 247, 131))
+                img = pygame.image.load(os.path.join('char_select_img', f'{self.char_buttons[i*2 + j]}' + '_icon.gif')).convert_alpha()
                 img.set_colorkey((255,255,255))
                 # if img.get_rect().x > 220:
                 img = pygame.transform.scale(img, (210,190))
