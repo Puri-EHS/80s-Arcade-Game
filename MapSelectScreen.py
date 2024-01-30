@@ -43,12 +43,12 @@ class MapSelectScreen():
         ARROW_RECT_SIZE = (30, 30)
 
         image_left_arrow = pygame.transform.scale(pygame.image.load(os.path.join('Character_Images', 'left_arrow.png')), ARROW_RECT_SIZE)
-        pygame.draw.rect(self.screen, (0, 0, 0), rect_left_arrow)
-        self.screen.blit(image_left_arrow, rect_left_arrow)
+        # pygame.draw.rect(self.screen, (0, 0, 0), rect_left_arrow)
+        # self.screen.blit(image_left_arrow, rect_left_arrow)
 
         image_right_arrow = pygame.transform.scale(pygame.image.load(os.path.join('Character_Images', 'right_arrow.png')), ARROW_RECT_SIZE)
-        pygame.draw.rect(self.screen, (0, 0, 0), rect_right_arrow)
-        self.screen.blit(image_right_arrow, rect_right_arrow)
+        # pygame.draw.rect(self.screen, (0, 0, 0), rect_right_arrow)
+        # self.screen.blit(image_right_arrow, rect_right_arrow)
 
         SMALL_RECT_SIZE = (120, 80)
         LARGE_RECT_SIZE = (300, 200)
