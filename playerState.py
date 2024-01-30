@@ -43,9 +43,8 @@ class playerState(pygame.sprite.Sprite):
         self.isBlocking = False
         self.isAttacking = False
         self.landed_hit = False
-        self.attackValue = 0
+        self.attackValue = character_damage_values[self.champion]
         self.MIN_HP_NUM = 0
-        self.powerup_usable = False
         self.champions_background_color = {"Balrog": [0, 0, 0], "Blanka": [], "ChunLi": [], "Dhalsim": [32, 144, 160], "E Honda": [], "Guile": [], "Ken": [128, 184, 168], "M Bison": [], "Ryu": [], "Sagat": [], "Vega":[], "Zangief": []}
         self.champAnimations = {"walk": [], "idle": [], "basic kick": [], "basic punch": [], "crouch": [], "jump": []}
         self.cur_pressed_keys = {"left": False, "right": False, "down": False, "kick": False, "punch": False, "powerup": False}
@@ -89,7 +88,7 @@ class playerState(pygame.sprite.Sprite):
                 image = pygame.transform.flip(image,True,False)
             self.champAnimations[f"basic punch"].append(image)
         
-        """for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
+        """for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jumping'))) - 1):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
@@ -160,11 +159,11 @@ class playerState(pygame.sprite.Sprite):
                 #then update their hp using 
                 if self.same_initial_direction != True: #making sure you know what direction playertwo is facing in 
                     self.image = pygame.transform.flip(self.image, True, False)
-                self.attackValue = self.character_damage_values[self.champion][0]
+                self.attackValue = self.updateHp(character_damage_values[self.champion][0])
             if self.cur_pressed_keys["kick"]:
                 self.image = self.champAnimations["basic kick"][self.cur_frame]
-                self.attackValue = self.character_damage_values[self.champion][1]
-
+                self.attackValue = self.updateAttackVal(self.champion)
+            #when doing anything with attackValue, use the updateAttackVal, 
     def getPosition(self):
         return self.rect
 
@@ -172,25 +171,24 @@ class playerState(pygame.sprite.Sprite):
         if self.isBlocking == False:
              self.hp -= attackVal
 
-        """Will update the amount of helath remaining based on
+        """Will update the amount of health remaining based on
             the attack the user was hit with  
 
         Args:
             attack (_type_): _description_
         """
-    def getPowerupInfo(champion, index): 
+    def getPowerupInfo(self, champion: str, index): 
         return character_powerups[champion][index]
     
-    def setAttackVal(champion, isKick, player_powerup): 
-        original_kick =  character_damage_values[champion][1]
-        original_punch = character_damage_values[champion][0] 
-
+    def setAttackVal(self, champion, isKick, player_powerup): #possibly have to change the method to support using tuples
         if isKick:
-            character_damage_values[champion][1] += player_powerup
+            character_damage_values[champion][1] += player_powerup #have to update attackVal after updating them 
         else:
             character_damage_values[champion][0] += player_powerup
+        
+        self.updateAttackVal(champion)
 
-        if isKick: 
-            character_damage_values[champion][1] = original_kick
-        else: 
-            character_damage_values[champion][0] = original_punch
+    def updateAttackVal(self, champion):
+        self.attackValue = character_damage_values[champion]    
+        
+        

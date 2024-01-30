@@ -24,6 +24,7 @@ class ChampionSelectScreen():
                         player = player2(self.char_buttons[self.button_pos[0] + self.button_pos[1]*2])
                     self.char_selected.append(player)
         self.draw_select_boxes(True)
+        self.draw_selected_characters()
         if len(self.char_selected) == 2:
             return self.char_selected
         return None
@@ -31,7 +32,7 @@ class ChampionSelectScreen():
     def draw_select_boxes(self, char: bool):
         self.screen.blit(self.background, self.background.get_rect())
         x = 145
-        y = 150
+        y = 135
         for i in range(2):
             for j in range(2):
                 self.rect.x = x
@@ -54,6 +55,47 @@ class ChampionSelectScreen():
                 x += 300
             x = 145
             y += 230
+
+
+
+    def draw_selected_characters(self):
+
+        font = pygame.font.SysFont("ptserif", 20)
+
+        p1_character = font.render("Player 1: ", 1, (129, 235, 110))
+
+        p1_character_pos = p1_character.get_rect()
+        p1_character_pos.x = 15
+        p1_character_pos.y = 25
+        
+        self.screen.blit(p1_character, p1_character_pos)
+
+        p2_character = font.render("Player 2: ", 1, (129, 235, 110))
+
+        p2_character_pos = p2_character.get_rect()
+        p2_character_pos.x = 15
+        p2_character_pos.y = 70
+
+        self.screen.blit(p2_character, p2_character_pos)
+
+        y_coord = 10
+
+        for i in self.char_selected:
+            character = i.champion
+
+            icon_img = pygame.image.load(os.path.join('char_select_img', f'{character}.png')).convert_alpha()
+            icon_img = pygame.transform.scale(icon_img, (55,50))
+
+            icon_rect = icon_img.get_rect()
+
+            icon_rect.x = 100
+            icon_rect.y = y_coord
+
+            y_coord += 50
+
+            self.screen.blit(icon_img, icon_rect)
+
+
 
     
     def select_controls(self, key):

@@ -13,13 +13,15 @@ Recreation of Street Fighter 1 with a twist by Kelyan, Nikil, Ben, Aarna, and Va
 - Background: Street Fighter was first released by Capcom in 1987 and its popularity has increased as years have gone by leading 
 to multiple updated versions to be released.
 
-- Movation: Across the saturated video game market, fighter games are consistenlty prevelant. Street Fighter was one of the first such fighter games, setting precedents for things like _____. Power Ups are a common feature in many games due to their capabilities to enhance games. We chose to implement Power Ups because they were not added to the original 1987 version but they can make our game more engaging. They create an additional component for the character to control and are also unique to the player selected by the user, leading to more opportunities for the user to strategize customize their experience.
+- Movation: Across the saturated video game market, fighter games are consistenlty prevelant. Street Fighter was one of the first such fighter games. As none of us have coded a fighting game before, we thought that choosing this game would be challenging for us yet also doable withing our given time frame. Power Ups are a common feature in many games due to their capabilities to enhance games. We chose to implement Power Ups because they were not added to the original 1987 version but they can make our game more engaging. They create an additional component for the character to control and are also unique to the player selected by the user, leading to more opportunities for the user to strategize customize their experience.
   
-- Design Choices Made: One major choice we made was to make our game multiplayer. After looking into creating a computer-controlled player for the user to fight against, we deemed that ____
+- Design Choices Made: One major choice we made was to make our game multiplayer. After looking into creating a computer-controlled player for the user to fight against, we deemed that it would be difficult for us to implement as none of us have previous experience with it. We also felt that this may be hard to complete withing our given time frame for the project. Thus, we decided to make our game multiplayer. There were other factors that influenced us to make this choice as well. Making the game multiplayer meant that it would be more engaging for our users. Since much of the fighting element of our game stays consistent each round, allowing the user to play with others in real life allows for more customization and enjoyment! Another design choice we made was how we wished to display the Power Ups. As power ups are extremely common in video games, there were several ways that we were familiar with that we considered. One way was having a moving icon that the player had to 'hit' to activate the power up, yet this would also be more time-consuming to implement. Another way was having an icon be displayed to indicate that the power up is running when the user clicks the power up key. We began by implementing this format, and through this process we realized that just displaying an icon meant that the user wouldn't know how much time they had left since we had limited this. So, we switched over to a bar similiar to our health bar that decreased as time passed to indicate how much time the user had left.  
   
 - Anything Interesting:
   
-- Instructions to Run the Game: first do the stuff with selecting players and characters. The key controls are detailed below.
+- Instructions to Run the Game:
+  
+  First, run the 'Game.py' file and a window should be displayed. Here, to move to the next screen, you must press **space**. Then, you will reach the character select screen. As our game is 2-player, a character must be selected for each player (the first character selected will automatically be assigned to player 1). To move around between characters, use the **arrow keys**. To select a specific character, press **enter**. Now, you must select which map you want to play on. Use the **right and left arrow keys** to scroll between the options, then press **space** once you've selected a map (you should press space when your selected map is displayed in the middle). From here, both players can fight. The key controls for fighting are detailed below.
 
 Player 1: 
 - W: jump 
@@ -36,7 +38,9 @@ Player 2
 - Period: punch
 - Forward Slash: kick
 - Shift: activate power-up
-  
+
+Once a player dies, the window will automatically progress to the game over screen. Here, press the **space bar** to restart the game and press **enter** to end the game.
+
 
 **Architecture:**
 

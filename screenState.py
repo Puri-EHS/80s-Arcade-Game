@@ -53,6 +53,7 @@ class screenState():
                 self.transition.reset()
         elif self.current_screen == 2:
             self.map_selected = self.mapSelectScreen.update(events)
+            self.champSelectScreen.draw_selected_characters()
             if self.map_selected != None:
                 self.map_image = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', f"{self.map_selected}.png")), (1200, SCREEN_HEIGHT))
                 self.transition.reset()
@@ -91,11 +92,11 @@ class screenState():
                             return 2
         self.players.draw(self.game_screen)
         for event in events:
-            if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
+            if event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_p: 
                     pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 15, 200, 50), 5)
                     self.update_powerup(1)
-
+                if event.key == pygame.K_l: 
                     pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 15, 200, 50), 5)
                     self.update_powerup(2)
 
