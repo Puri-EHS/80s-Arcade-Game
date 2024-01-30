@@ -60,7 +60,7 @@ class player1(playerState):
         powerup_length = 25 
         counter = 0 
         while powerup_length >= counter:
-            character_powerup_damage = super().getPowerupInfo(self.champion, 1)
+            character_powerup_damage = self.getPowerupInfo(self.champion, 1)
             if "kick" in super().getPowerupInfo(self.champion, 0): 
                 super().setAttackVal(self.champion, True, character_powerup_damage)
             else: 

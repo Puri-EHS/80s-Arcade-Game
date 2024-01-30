@@ -89,7 +89,7 @@ class playerState(pygame.sprite.Sprite):
                 image = pygame.transform.flip(image,True,False)
             self.champAnimations[f"basic punch"].append(image)
         
-        """for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jump'))) - 1):
+        """for z in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'jumping'))) - 1):
             image = pygame.image.load(os.path.join('Character_images', f'{self.champion}', 'jump', f'{z}.png'))
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
@@ -178,7 +178,7 @@ class playerState(pygame.sprite.Sprite):
         Args:
             attack (_type_): _description_
         """
-    def getPowerupInfo(champion, index): 
+    def getPowerupInfo(champion: str, index): 
         return character_powerups[champion][index]
     
     def setAttackVal(champion, isKick, player_powerup): #possibly have to change the method to support using tuples
