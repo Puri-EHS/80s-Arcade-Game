@@ -37,7 +37,6 @@ class Game():
 
     # Main loop
     running = True
-    char_selected = 0
     while running:
         clock.tick(60)
         events = pygame.event.get()

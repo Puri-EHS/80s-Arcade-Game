@@ -23,12 +23,15 @@ class player1(playerState):
         if event.key == pygame.K_f:
             self.cur_type_animation = "punch"
             self.isAttacking = True
+            self.isBlocking = False
         if event.key == pygame.K_g:
             self.cur_type_animation = "kick"
             self.isAttacking = True
+            self.isBlocking = False
         if event.key == pygame.K_h:
             self.cur_pressed_keys["powerup"] = True
-            self.isAttacking = True      
+            self.isAttacking = True
+            self.isBlocking = False      
 
     def update_continuous(self, event):
         if(event.type == pygame.KEYDOWN):
@@ -41,24 +44,20 @@ class player1(playerState):
                     self.isBlocking = False
                 self.cur_type_animation = "walk"
                 self.cur_animation = 0
-            if event.key == pygame.K_s:
-                self.cur_pressed_keys["down"] = True
-            self.cur_type_animation = "crouch"
-            self.cur_animation = 0
         
         if(event.type == pygame.KEYUP):
             self.frame = 0
             if event.key == pygame.K_a:
                 self.cur_pressed_keys["left"] = False
                 self.isBlocking = True
+                self.cur_frame = 0
             if event.key == pygame.K_d:
                 self.cur_pressed_keys["right"] = False
                 self.isBlocking = True
-            if event.key == pygame.K_s:
-                self.cur_pressed_keys["down"] = False
+                self.cur_frame = 0
     
     def usePowerup(self, event):
-        if event.type == pygame.KEYDOWN: 
+        if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
                 if event.key == pygame.K_p: 
                     powerup_length = 25 
                     counter = 0 

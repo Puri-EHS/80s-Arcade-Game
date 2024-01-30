@@ -8,7 +8,7 @@ Recreation of Street Fighter 1 with a twist by Kelyan, Nikil, Ben, Aarna, and Va
 - Vaibhav - Testing
 
 **Overview**: 
-- Idea: We are going to build Street Fighter but with a twist. While there are mutliple versions that have been released in recent decades, we chose to recreate the original 1987 Street Fighter. The twist would be that there will be power ups that you can activate for 25 seconds by clicking the P key on the keyboard. The player will know that a powerup is activated, as an icon will pop up on the corner of the screen. 
+- Idea: We are going to build Street Fighter but with a twist. While there are mutliple versions that have been released in recent decades, we chose to recreate the original 1987 Street Fighter. The twist would be that there will be power ups that you can activate for 25 seconds by clicking the P key on the keyboard. The player will know that a powerup is activated, as a powerup bar will pop up on the corner of the screen. 
   
 - Background: Street Fighter was first released by Capcom in 1987 and its popularity has increased as years have gone by leading 
 to multiple updated versions to be released.
@@ -27,7 +27,7 @@ Player 1:
 - A: backward
 - F: punch
 - G: kick
-- H: activate power-up
+- P: activate power-up
 
 Player 2
 - Up Arrow: jump
@@ -56,7 +56,12 @@ Player 2
 - Major Surprises: dealing w/ sprite sheets
   
 - Anything to Improve for Next Time: time management
+- 
 
-Sources: 
+**Sources:**
+
 https://capcom.fandom.com/wiki/Street_Fighter 
+
 https://ehmatthes.github.io/pcc_2e/beyond_pcc/pygame_sprite_sheets/#a-simple-sprite-sheet
+
+https://www.pygame.org/docs/

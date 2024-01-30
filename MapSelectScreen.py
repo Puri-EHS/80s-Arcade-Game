@@ -5,7 +5,7 @@ class MapSelectScreen():
 
     def __init__(self, game_screen, screen_width, screen_height) -> None:
         self.screen = game_screen
-        self.map_backgrounds = ["Blanka Stage.png", "E Honda Stage (1).png", "Guile Stage.png", "Ken Stage.png", "Ryu Stage (1).png", "Zangief Stage (1).png"]
+        self.map_backgrounds = ["Blanka Stage", "E Honda Stage", "Guile Stage", "Ken Stage", "Ryu Stage", "Zangief Stage"]
         self.background = pygame.image.load(os.path.join('Backgrounds', "Character Select Background.jpg"))
         self.background = pygame.transform.scale(self.background, (screen_width, screen_height))
         self.map_testing = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
@@ -65,15 +65,15 @@ class MapSelectScreen():
             map_right = cur_map + 1
         
 
-        image_left = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[map_left])), SMALL_RECT_SIZE)
+        image_left = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', f"{self.map_backgrounds[map_left]}.png")), SMALL_RECT_SIZE)
         pygame.draw.rect(self.screen, self.map_testing[map_left], rect_left)
         self.screen.blit(image_left, rect_left)
 
-        image_middle = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map])), LARGE_RECT_SIZE)
+        image_middle = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', f"{self.map_backgrounds[cur_map]}.png")), LARGE_RECT_SIZE)
         # image_middle = pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[cur_map]))
         pygame.draw.rect(self.screen, self.map_testing[cur_map], rect_middle)
         self.screen.blit(image_middle, rect_middle)
 
-        image_right = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', self.map_backgrounds[map_right])), SMALL_RECT_SIZE)
+        image_right = pygame.transform.scale(pygame.image.load(os.path.join('Backgrounds', f"{self.map_backgrounds[map_right]}.png")), SMALL_RECT_SIZE)
         pygame.draw.rect(self.screen, self.map_testing[map_right], rect_right)
         self.screen.blit(image_right, rect_right)
