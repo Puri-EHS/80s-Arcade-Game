@@ -7,7 +7,7 @@ class ChampionSelectScreen():
     def __init__(self, game_screen, screen_width, screen_height) -> None:
         self.screen = game_screen
         self.font = pygame.font.Font(None, 36)
-        self.char_buttons = ["balrog", "dhalsim", "ken", "ryu"]
+        self.char_buttons = ["Balrog", "Dhalsim", "Ken", "Ryu"]
         self.background = pygame.image.load(os.path.join('Backgrounds', "Character Select Background.jpg"))
         self.background = pygame.transform.scale(self.background, (screen_width, screen_height))
         self.rect = pygame.Rect(100, 150, 220, 200)
