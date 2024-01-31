@@ -29,9 +29,7 @@ class player2(playerState):
             self.isAttacking = True
             self.isBlocking = False
         if event.key == pygame.K_RSHIFT:
-            self.cur_pressed_keys["powerup"] = True
-            self.isAttacking = True
-            self.isBlocking = False      
+            self.cur_pressed_keys["powerup"] = True   
 
     def update_continuous(self, event):
         if(event.type == pygame.KEYDOWN):

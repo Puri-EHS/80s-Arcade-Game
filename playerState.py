@@ -160,9 +160,19 @@ class playerState(pygame.sprite.Sprite):
                 if self.same_initial_direction != True: #making sure you know what direction playertwo is facing in 
                     self.image = pygame.transform.flip(self.image, True, False)
                 #self.attackValue = self.updateHp(character_damage_values[self.champion][0])
-            if self.cur_pressed_keys["kick"]:
-                self.image = self.champAnimations["basic kick"][self.cur_frame]
+            if self.cur_type_animation == "kick":
                 self.attackValue = self.updateAttackVal(self.champion)
+                self.cur_frame += 1
+                if self.cur_frame/5 >= len(self.champAnimations["basic kick"]):
+                    self.cur_frame = 0
+                    self.isAttacking = False
+                    self.landed_hit = False
+                self.image = self.champAnimations["basic kick"][self.cur_frame//5]  
+                #check for collison between two sprites and check if the charcter that got attacked is blocking or not 
+                #then update their hp using 
+                if self.same_initial_direction != True: #making sure you know what direction playertwo is facing in 
+                    self.image = pygame.transform.flip(self.image, True, False)
+                #self.attackValue = self.updateHp(character_damage_values[self.champion][0])
             #when doing anything with attackValue, use the updateAttackVal, 
     def getPosition(self):
         return self.rect
