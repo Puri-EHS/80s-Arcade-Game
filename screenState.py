@@ -12,6 +12,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
+RED = (255,0,0); 
 SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 
 class screenState():
@@ -36,8 +37,8 @@ class screenState():
         self.champSelectScreen = ChampionSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.mapSelectScreen = MapSelectScreen(self.game_screen, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.player_that_won = 5
-
-
+        self.p1_powerup_box_color = BLUE
+        self.p2_powerup_box_color = BLUE 
     def update_screen(self, events):
         if self.current_screen == 0:
             if self.startScreen.update(events):
@@ -104,15 +105,34 @@ class screenState():
                             if sprites[0].hp <= 0:
                                 return 2
         self.players.draw(self.game_screen)
-        for event in events:
-            if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
-                if event.key == pygame.K_p: 
-                    pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 15, 200, 50), 5)
-                    self.update_powerup(1) 
-                if event.key == pygame.K_l: 
-                    pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 15, 200, 50), 5)
-                    self.update_powerup(2)
 
+        p1 = self.draw_powerup_box(self.p1_powerup_box_color, (30,90,50,50)) 
+        p2 = self.draw_powerup_box(self.p2_powerup_box_color, (560, 90, 50,50))
+
+        for event in events: 
+            if event.type == pygame.KEYDOWN and (event.key == pygame.K_c):
+                if self.p1_powerup_box_color == (0,255,255): 
+                    i = 0
+                    while i < 5: 
+                        None
+                        i += 1
+                    self.p1_powerup_box_color = (255,0,0)
+                else: 
+                    self.p1_powerup_box_color = (255,0,0); 
+            elif event.type == pygame.KEYDOWN and (event.key == pygame.K_l): 
+                if self.p2_powerup_box_color == (0,255,255): 
+                    i = 0
+                    while i < 5: 
+                        None
+                        i += 1
+                    self.p2_powerup_box_color = (255,0,0)
+                else: 
+                    self.p2_powerup_box_color = (255,0,0); 
+        
+
+
+
+                          
         player1 = self.players.sprites()[0]
         player2 = self.players.sprites()[1]
 
@@ -188,8 +208,6 @@ class screenState():
                 self.game_screen.blit(icon, pygame.Rect(705, 250, 20, 20))
             right_icon_triggered = True
             
-
-
     def update_player_health(self, health, player_number):
         health_color = None
         if health > 70:
@@ -204,12 +222,10 @@ class screenState():
         else: 
             pygame.draw.rect(self.game_screen, health_color , (SCREEN_WIDTH - health * 2 - 35, 25, health * 2, 40))
 
-    def update_powerup(self, player_number):
-        powerup_color = (0,0,255) 
-        if player_number == 1: 
-            pygame.draw.rect(self.game_screen, powerup_color, (45, 35, 20 ,50))
-        else: 
-            pygame.draw.rect(self.game_screen, powerup_color, (SCREEN_WIDTH-45, 20, 35, 50))
+    
+    def draw_powerup_box(self, color, rect):
+        pygame.draw.rect(self.game_screen, color, rect)
+
 
     def game_over_screen(self, events):
         game_over_background = pygame.image.load(os.path.join('Backgrounds', "game_over_screen.jpeg"))
@@ -260,6 +276,9 @@ class screenState():
         self.players = pygame.sprite.Group()
         self.players_position = {'player1': pygame.Rect, 'player2': pygame.Rect}
         self.player_that_won = None
+        self.p1_powerup_box_color = BLUE 
+        self.p2_powerup_box_color = BLUE
+    
 
         
 

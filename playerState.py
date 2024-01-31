@@ -20,7 +20,7 @@ character_powerups = {
   # formatted as [punch, kick]
 character_damage_values = {
             "Ryu": [7, 10],
-            "Balrog": [10, 7],
+            "Balrog": [8, 7],
             "Blanka": [7, 8],
             "Dhalsim": [5, 11],
             "Sagat":  [10, 6],
