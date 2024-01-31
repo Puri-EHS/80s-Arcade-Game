@@ -105,10 +105,10 @@ class screenState():
                                 return 2
         self.players.draw(self.game_screen)
         for event in events:
-            if event.type == pygame.KEYDOWN: 
+            if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP: 
                 if event.key == pygame.K_p: 
                     pygame.draw.rect(self.game_screen, (0, 0, 0), (30, 15, 200, 50), 5)
-                    self.update_powerup(1)
+                    self.update_powerup(1) 
                 if event.key == pygame.K_l: 
                     pygame.draw.rect(self.game_screen, (0, 0, 0), (570, 15, 200, 50), 5)
                     self.update_powerup(2)
@@ -206,12 +206,10 @@ class screenState():
 
     def update_powerup(self, player_number):
         powerup_color = (0,0,255) 
-        time = 25 
-        while time > 0:
-            if player_number == 1: 
-                pygame.draw.rect(self.game_screen, powerup_color, (45, 35, 20 ,50))
-            else: 
-                pygame.draw.rect(self.game_screen, powerup_color, (SCREEN_WIDTH-45, 20, 35, 50))
+        if player_number == 1: 
+            pygame.draw.rect(self.game_screen, powerup_color, (45, 35, 20 ,50))
+        else: 
+            pygame.draw.rect(self.game_screen, powerup_color, (SCREEN_WIDTH-45, 20, 35, 50))
 
     def game_over_screen(self, events):
         game_over_background = pygame.image.load(os.path.join('Backgrounds', "game_over_screen.jpeg"))

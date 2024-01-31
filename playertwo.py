@@ -50,12 +50,18 @@ class player2(playerState):
                 self.cur_frame = 0
     
     def usePowerup(self):
-        powerup_length = 25 
+        powerup_length = 7
         counter = 0 
-        while powerup_length >= counter:
-            character_powerup_damage = super().getPowerupInfo(self.champion, 1)
-            if "kick" in super().getPowerupInfo(self.champion, 0): 
-                super().setAttackVal(self.champion, True, character_powerup_damage)
+        while powerup_length > counter:
+            character_powerup_damage = self.getPowerupInfo(self.champion, 1)
+            if "kick" in self.getPowerupInfo(self.champion, 0): 
+                self.setAttackVal(self.champion, True, character_powerup_damage)
             else: 
-                super().setAttackVal(self.champion, False, character_powerup_damage)
+                self.setAttackVal(self.champion, False, character_powerup_damage)
             counter+=1
+
+        if "kick" in self.getPowerupInfo(self.champion, 0):
+            self.resetAttackVal(self.champion,True, character_powerup_damage); 
+        else:
+            self.resetAttackVal(self.champion, False, character_powerup_damage);  
+

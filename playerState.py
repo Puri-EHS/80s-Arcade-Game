@@ -2,18 +2,18 @@ import os
 import pygame
 #the first parameter is the powerup. the second parameter is the damage it does  
 character_powerups = {
-            "Ryu": ["Fireball", 70], 
-            "Balrog": ["Strong punch", 80], 
-            "Blanka": ["Energized Attack", 65], 
-            "Dhalsim": ["Fury Fire", 50],  
-            "Sagat":  ["Rapid Hit", 45],  
-            "Guile": ["Flash Punch", 40], 
-            "Vega": ["Super Claw Attack", 130], 
-            "Chun Li": ["Power Puunch", 25],  
-            "Zangief": ["Lariat", 15], 
-            "E Honda": ["Super Might", 100], 
-            "M Bison": ["Super Strength", 110], 
-            "Ken": ["Lgitightning Punch", 50]
+            "Ryu": ["Fireball", 10], 
+            "Balrog": ["Strong Kick", 10], 
+            "Blanka": ["Energized Attack", 10], 
+            "Dhalsim": ["Fury Fire", 8],  
+            "Sagat":  ["Rapid Hit", 15],  
+            "Guile": ["Flash Punch", 10], 
+            "Vega": ["Super Claw Attack", 12], 
+            "Chun Li": ["Power Punch", 10],  
+            "Zangief": ["Lariat", 10], 
+            "E Honda": ["Super Kick", 10], 
+            "M Bison": ["Super Strength", 12], 
+            "Ken": ["Lightning Kick", 15]
         }
 
 
@@ -187,18 +187,26 @@ class playerState(pygame.sprite.Sprite):
         Args:
             attack (_type_): _description_
         """
-    def getPowerupInfo(self, champion: str, index): 
+    def getPowerupInfo(self, champion, index): 
         return character_powerups[champion][index]
     
-    def setAttackVal(self, champion, isKick, player_powerup): #possibly have to change the method to support using tuples
+    def setAttackVal(self, champion, isKick, player_powerup = None): #possibly have to change the method to support using tuples
+
         if isKick:
             character_damage_values[champion][1] += player_powerup #have to update attackVal after updating them 
         else:
             character_damage_values[champion][0] += player_powerup
         
-        self.updateAttackVal(champion)
+        self.resetAttackVal(champion, isKick, player_powerup); 
 
-    def updateAttackVal(self, champion):
-        self.attackValue = character_damage_values[champion]    
+        return "Player powered up"
+
+    def resetAttackVal(self, champion, isKick, player_powerup):
+        if isKick: 
+            character_damage_values[champion][0] -= player_powerup
+        else: 
+            character_damage_values[champion][1] -= player_powerup 
+        
+        return "Player attack reset"
         
         

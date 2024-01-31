@@ -28,7 +28,7 @@ class player1(playerState):
             self.cur_type_animation = "kick"
             self.isAttacking = True
             self.isBlocking = False
-        if event.key == pygame.K_h:
+        if event.key == pygame.K_p:
             self.cur_pressed_keys["powerup"] = True     
 
     def update_continuous(self, event):
@@ -55,12 +55,18 @@ class player1(playerState):
                 self.cur_frame = 0
     
     def usePowerup(self):
-        powerup_length = 25 
+        powerup_length = 7
         counter = 0 
-        while powerup_length >= counter:
+        character_powerup_damage = 0; 
+        while powerup_length > counter:
             character_powerup_damage = self.getPowerupInfo(self.champion, 1)
-            if "kick" in super().getPowerupInfo(self.champion, 0): 
-                super().setAttackVal(self.champion, True, character_powerup_damage)
+            if "kick" in self.getPowerupInfo(self.champion, 0): 
+                self.setAttackVal(self.champion, True, character_powerup_damage)
             else: 
-                super().setAttackVal(self.champion, False, character_powerup_damage)
-            counter+=1 
+                self.setAttackVal(self.champion, False, character_powerup_damage)
+            counter+=1
+
+        if "kick" in self.getPowerupInfo(self.champion, 0):
+            self.resetAttackVal(self.champion,True, character_powerup_damage); 
+        else:
+            self.resetAttackVal(self.champion, False, character_powerup_damage);  
