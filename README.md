@@ -43,6 +43,11 @@ Once a player dies, the window will automatically progress to the game over scre
 
 
 **Architecture:**
+- Major modules and their interactions
+- What architectural choices did you make and why?
+- Diagram
+- APIs
+
 
 **UX Flow:**
 - Experience of a First-Time User (and How They'll Know What to Do): Like most fighting games, the experience of a new user involves many controls to learn. While we have detailed the controls above, there are multiple to memorize and someone who doesn't play games frequently may take more time to adapt. However, because our game is multiplayer, the user can learn the controls without pressure, either by experiementing by themselves or playing against someone for a test-round. 
@@ -59,8 +64,7 @@ Once a player dies, the window will automatically progress to the game over scre
   
 - Major Surprises: dealing w/ sprite sheets
   
-- Anything to Improve for Next Time: time management
-- 
+- Anything to Improve for Next Time: In the future, if we were to approach this project again, something that we would change would be our planning and time management. If we were to set better internal deadlines and be more efficent, we may have been able to accomplish more in our game. Another thing we would change is when we are working on individual tasks, we'd spend more effort on making our code more concise and including comments. This way, it would be easier for us to understand each other's code, and can more easily make changes as needed. 
 
 **Sources:**
 
