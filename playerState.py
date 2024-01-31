@@ -211,4 +211,5 @@ class playerState(pygame.sprite.Sprite):
         
         return "Player attack reset"
         
-        
+    def updateAttackVal(self, champion):
+        self.attackValue = character_damage_values[champion]     
