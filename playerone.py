@@ -55,7 +55,7 @@ class player1(playerState):
                 self.cur_frame = 0
     
     def usePowerup(self):
-        powerup_length = 7
+        powerup_length = 4
         counter = 0 
         character_powerup_damage = 0; 
         while powerup_length > counter:
