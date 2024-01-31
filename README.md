@@ -28,7 +28,7 @@ Player 1:
 - A: backward
 - F: punch
 - G: kick
-- P: activate power-up
+- C: activate power-up
 
 Player 2
 - Up Arrow: jump
@@ -36,7 +36,7 @@ Player 2
 - Right Arrow: backward
 - Period: punch
 - Forward Slash: kick
-- Shift: activate power-up
+- L: activate power-up
 
 Once a player dies, the window will automatically progress to the game over screen. Here, press the **space bar** to restart the game and press **enter** to end the game.
 
