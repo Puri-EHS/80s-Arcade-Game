@@ -93,7 +93,6 @@ class playerState(pygame.sprite.Sprite):
             if self.isPlayer2:
                  image = pygame.transform.flip(image, True, False)
             image.convert_alpha()
-            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"jump"].append(image)
 
         for w in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'crouch'))) - 1):
@@ -101,7 +100,6 @@ class playerState(pygame.sprite.Sprite):
             if self.isPlayer2:
                 image = pygame.transform.flip(image,True,False)
             image.convert_alpha()
-            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"crouch"].append(image)
             
         for v in range(len(os.listdir(os.path.join('Character_images', f'{self.champion}', 'basic kick'))) - 1):
@@ -109,7 +107,6 @@ class playerState(pygame.sprite.Sprite):
             if self.isPlayer2:
                 image = pygame.transform.flip(image,True,False)
             image.convert_alpha()
-            image.set_colorkey(self.champions_background_color[f"{self.champion}"])
             self.champAnimations[f"basic kick"].append(image)
             
             
@@ -161,7 +158,7 @@ class playerState(pygame.sprite.Sprite):
                     self.image = pygame.transform.flip(self.image, True, False)
                 #self.attackValue = self.updateHp(character_damage_values[self.champion][0])
             if self.cur_type_animation == "kick":
-                self.attackValue = self.updateAttackVal(self.champion)
+                #self.attackValue = self.updateAttackVal(self.champion)
                 self.cur_frame += 1
                 if self.cur_frame/5 >= len(self.champAnimations["basic kick"]):
                     self.cur_frame = 0
