@@ -39,6 +39,7 @@ class screenState():
         self.player_that_won = 5
         self.p1_powerup_box_color = BLUE
         self.p2_powerup_box_color = BLUE 
+    
     def update_screen(self, events):
         if self.current_screen == 0:
             if self.startScreen.update(events):
